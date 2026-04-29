@@ -33,6 +33,7 @@
         <section>
             <img src="assets/Component 12.png" alt="">
         </section>
+        
         @include('Component.footer')
     </body>
 </html>
