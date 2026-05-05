@@ -24,9 +24,7 @@ svg path:hover{
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-.hidden {
-    display: none;
-}
+
 
 .tooltip {
     position: absolute;
@@ -40,7 +38,4 @@ svg path:hover{
     z-index: 1000;
 }
 
-.hidden {
-    display: none;
-}
 
