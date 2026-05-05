@@ -15,6 +15,8 @@
         'resources/js/date.js',
         'resources/js/travel.js',
         'resources/js/maps.js',
+        'resources/js/carousel.js',
+        'resources/css/carousel.css',
         ])
     </head>
     <body>
@@ -39,7 +41,7 @@
         <div id="tooltip" class="tooltip hidden"></div>
 
         <section>
-            <img src="assets/Component 12.png" alt="">
+            @include('Section.carousel')
         </section>
 
         @include('Component.footer')
