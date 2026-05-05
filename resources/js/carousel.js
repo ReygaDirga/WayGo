@@ -38,7 +38,7 @@ let prevBtn = document.querySelector('.prev');
 let progress = document.querySelector('.progress');
 
 function updateStepper() {
-    let stepHeight = 40 + 30; // ukuran dot + gap
+    let stepHeight = 40 + 30;
 
     progress.innerText = index + 1;
 
