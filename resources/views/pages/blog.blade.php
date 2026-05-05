@@ -18,5 +18,5 @@
         @include('Section.blog_hero')
     </section>
 
-    @include('Component.footer')
+@include('Component.footer')
 </body>
