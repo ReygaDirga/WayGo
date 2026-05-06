@@ -10,7 +10,7 @@
 
     <div class="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white text-center">
         <h1 class="text-4xl font-bold">THE JOURNEY</h1>
-        <p class="mt-2 text-lg">You’ll always remember</p>
+        <p class="mt-2 text-lg">You'll always remember</p>
     </div>
 </section>
 
@@ -27,7 +27,7 @@
 
         <div class="bg-white rounded-xl shadow hover:shadow-lg transition p-3">
             <img src="{{ asset('images/' . $service['img']) }}" 
-                 class="rounded-lg mb-3 h-40 w-full object-cover">
+                class="rounded-lg mb-3 h-40 w-full object-cover">
             <p class="font-medium">{{ $service['title'] }}</p>
         </div>
 
