@@ -6,6 +6,11 @@ use App\Http\Controllers\SavedController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Auth\GoogleController;
+
+// Routes Google Login
+Route::get('/auth/google',          [GoogleController::class, 'redirect'])->name('auth.google');
+Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('auth.google.callback');
 
 // Navbar Routes
 Route::get('/itinerary', [ItineraryController::class, 'index'])->name('itinerary');
