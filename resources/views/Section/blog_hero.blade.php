@@ -29,9 +29,9 @@
                         </span>
                     </div>
 
-                    <button class="bg-[#1A365D] hover:bg-blue-800 transition px-5 py-2 md:px-6 md:py-2.5 rounded-full text-xs md:text-sm font-semibold">
+                    <a href="/blog_detail" class="inline-block bg-[#1A365D] hover:bg-blue-800 transition px-5 py-2 md:px-6 md:py-2.5 rounded-full text-xs md:text-sm font-semibold">
                         Read Full Story
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -63,9 +63,9 @@
                         </span>
                     </div>
 
-                    <button class="bg-[#1A365D] hover:bg-blue-800 transition px-5 py-2 md:px-6 md:py-2.5 rounded-full text-xs md:text-sm font-semibold">
-                        Read Full Story
-                    </button>
+                    <a href="/create_blog" class="inline-block bg-[#1A365D] hover:bg-blue-800 transition px-5 py-2 md:px-6 md:py-2.5 rounded-full text-xs md:text-sm font-semibold">
+                        INI COBAIN CREATE PROJEK
+                    </a>
                 </div>
             </div>
         </div>
