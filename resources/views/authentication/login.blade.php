@@ -3,60 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login — WayGo</title>
+    <title>Login - WayGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{asset('assets/logo1.png')}}" >
     @vite(['resources/css/app.css', 'resources/css/login.css'])
 </head>
 <body>
-
+    @include('Component.navbar')
 <div class="login-page">
-
-    {{-- ── LEFT PANEL ── --}}
-    <div class="left-panel">
-        <div class="left-bg" style="background-image: url('{{ asset('assets/Login/background.png') }}')"></div>
-        <div class="left-blobs">
-            <div class="blob blob-1"></div>
-            <div class="blob blob-2"></div>
-            <div class="blob blob-3"></div>
-        </div>
-
-        {{-- floating stickers --}}
-        <div class="sticker sticker-1">✈️</div>
-        <div class="sticker sticker-2">🗺️</div>
-        <div class="sticker sticker-3">🌴</div>
-        <div class="sticker sticker-4">⛰️</div>
-        <div class="sticker sticker-5">🧳</div>
-
-        <div class="left-content">
-
-            <div class="left-text">
-                <h1 class="left-heading">
-                    Every journey<br>
-                    <em>starts here.</em>
-                </h1>
-                <p class="left-sub">Plan, save, and share your adventures with WayGo.</p>
-            </div>
-
-            <div class="left-stats">
-                <div class="stat">
-                    <span class="stat-num">10K+</span>
-                    <span class="stat-label">Travelers</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <span class="stat-num">500+</span>
-                    <span class="stat-label">Destinations</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <span class="stat-num">4.9★</span>
-                    <span class="stat-label">Rating</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- ── RIGHT PANEL ── --}}
     <div class="right-panel">
         <div class="form-card">
 
@@ -156,6 +110,52 @@
 
         </div>
     </div>
+    {{-- ── LEFT PANEL ── --}}
+    <div class="left-panel">
+        <div class="left-bg" style="background-image: url('{{ asset('assets/Login/background.png') }}')"></div>
+        <div class="left-blobs">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+
+        {{-- floating stickers --}}
+        <div class="sticker sticker-1">✈️</div>
+        <div class="sticker sticker-2">🗺️</div>
+        <div class="sticker sticker-3">🌴</div>
+        <div class="sticker sticker-4">⛰️</div>
+        <div class="sticker sticker-5">🧳</div>
+
+        <div class="left-content">
+
+            <div class="left-text">
+                <h1 class="left-heading">
+                    Every journey<br>
+                    <em>starts here.</em>
+                </h1>
+                <p class="left-sub">Plan, save, and share your adventures with WayGo.</p>
+            </div>
+            <img src="{{ asset('assets/Login/luggage.png') }}" class="left-img" id="leftImg" alt="Luggage">
+            <div class="left-stats">
+                <div class="stat">
+                    <span class="stat-num">10K+</span>
+                    <span class="stat-label">Travelers</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num">500+</span>
+                    <span class="stat-label">Destinations</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num">4.9★</span>
+                    <span class="stat-label">Rating</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
 
 </div>
 

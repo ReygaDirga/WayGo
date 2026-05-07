@@ -1,15 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const toggleBtn = document.getElementById('togglePass');
-    const passInput = document.getElementById('password');
-    const eyeIcon   = document.getElementById('eyeIcon');
+    const loginForm = document.querySelector('.login-form');
+    const submitBtn = document.querySelector('.submit-btn');
 
-    if (toggleBtn && passInput) {
-        toggleBtn.addEventListener('click', () => {
-            const isPassword = passInput.type === 'password';
-            passInput.type = isPassword ? 'text' : 'password';
-            eyeIcon.innerHTML = isPassword
-                ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>`
-                : `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>`;
+    if (loginForm && submitBtn) {
+        loginForm.addEventListener('submit', function (e) {
+            // 1. TAHAN form agar tidak langsung terkirim
+            e.preventDefault(); 
+            
+            // 2. Ubah tampilan tombol jadi loading
+            submitBtn.classList.add('is-loading');
+            submitBtn.innerHTML = `
+                <svg class="spinner" viewBox="0 0 50 50">
+                    <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                </svg>
+                <span>Logging in...</span>
+            `;
+
+            // 3. Buat jeda waktu (misal: 2000 ms = 2 detik)
+            setTimeout(() => {
+                // Setelah 2 detik, paksa form untuk submit ke Laravel
+                loginForm.submit(); 
+            }, 2000);
+        });
+    }
+
+    // Fitur toggle show/hide password (mata)
+    const togglePass = document.getElementById('togglePass');
+    const passwordInput = document.getElementById('password');
+
+    if (togglePass && passwordInput) {
+        togglePass.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
         });
     }
 });

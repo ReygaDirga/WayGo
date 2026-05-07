@@ -9,6 +9,7 @@ export default defineConfig({
                     'resources/js/app.js', 
                     'resources/css/about.css',
                     'resources/js/about.js',
+                    'resources/css/createprofile.css',
                 ],
             refresh: true,
         }),

@@ -15,7 +15,7 @@
     --shadow-card: 0 24px 80px rgba(249,115,22,0.12), 0 4px 20px rgba(0,0,0,0.08);
 }
 
-html, body { height: 100%; margin: 0; padding: 0; }
+html, body { height: 100%; margin: 0; padding: 0; overflow: hidden;}
 
 body {
     font-family: var(--font-body);
@@ -50,6 +50,11 @@ body {
     background-position: center 20%;
     background-repeat: no-repeat;
     z-index: 0;
+}
+
+.left-img{
+    width: 250px;
+    height: auto;
 }
 
 .left-blobs { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
@@ -90,9 +95,9 @@ body {
 }
 .sticker-1 { top: 12%; right: 18%; animation-delay: 0s; }
 .sticker-2 { top: 30%; left: 8%;  animation-delay: 1s; font-size: 1.6rem; }
-.sticker-3 { bottom: 28%; right: 10%; animation-delay: 2s; }
-.sticker-4 { bottom: 15%; left: 20%; animation-delay: 3.5s; font-size: 1.8rem; }
-.sticker-5 { top: 55%; right: 22%; animation-delay: 1.5s; font-size: 2.4rem; }
+.sticker-3 { bottom: 28%; right: 8%; animation-delay: 2s; }
+.sticker-4 { bottom: 20%; left: 16%; animation-delay: 3.5s; font-size: 1.8rem; }
+.sticker-5 { top: 50%; right: 20%; animation-delay: 1.5s; font-size: 2.4rem; }
 
 .left-content {
     position: relative;
@@ -103,6 +108,7 @@ body {
     gap: 2.5rem;
     opacity: 0;
     animation: panelReveal 0.9s ease forwards 0.2s;
+    margin-bottom: 40px;
 }
 
 .brand-logo { height: 40px; width: auto; }
@@ -183,6 +189,7 @@ body {
     opacity: 0;
     transform: translateY(24px);
     animation: cardReveal 0.8s cubic-bezier(0.34, 1.2, 0.64, 1) forwards 0.35s;
+    margin-bottom: 75px;
 }
 
 .form-title {
@@ -384,4 +391,47 @@ body {
 @keyframes stickerFloat {
     0%, 100% { transform: translateY(0) rotate(-5deg); }
     50%       { transform: translateY(-12px) rotate(5deg); }
+}
+
+.submit-btn.is-loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none; /* Mencegah klik ganda */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.spinner {
+    animation: rotate 2s linear infinite;
+    width: 20px;
+    height: 20px;
+}
+
+.spinner .path {
+    stroke: currentColor;
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 150;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+    }
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
+    }
 }

@@ -16,8 +16,10 @@ class GoogleController extends Controller
 
     public function callback()
     {
-        $googleUser = Socialite::driver('google')->stateless()->user();
-
+        $googleUser = Socialite::driver('google')
+        ->stateless()
+        ->setHttpClient(new \GuzzleHttp\Client(['verify' => false]))
+        ->user();
         $user = User::updateOrCreate(
             ['email' => $googleUser->getEmail()],
             [
@@ -31,6 +33,6 @@ class GoogleController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended('/');
+        return redirect()->route('profile.create');
     }
 }
