@@ -1,6 +1,6 @@
 @extends('layouts.about')
 
-@section('title', 'About')
+@section('title', 'About Us - WayGo')
 
 @section('content')
 

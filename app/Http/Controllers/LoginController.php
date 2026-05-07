@@ -10,4 +10,10 @@ class LoginController extends Controller
     {
         return view('authentication.login');
     }
+
+    public function authenticate(Request $request)
+    {
+    // Check username password logic        
+        return redirect('/welcome'); 
+    }
 }

@@ -8,7 +8,25 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\ProfileController;
 
+// Buat Profile
+Route::get('/profile/create',  fn() => view('authentication.createprofile'))
+    ->name('profile.create')
+    ->middleware('auth');
+
+Route::post('/profile/store', [ProfileController::class, 'store'])
+    ->name('profile.store')
+    ->middleware('auth');
+
+//For submit button in login page
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
+
+    
 // Routes Google Login
 Route::get('/auth/google',          [GoogleController::class, 'redirect'])->name('auth.google');
 Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('auth.google.callback');
