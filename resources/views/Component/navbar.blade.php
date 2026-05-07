@@ -7,8 +7,10 @@
     <div class="max-w-7xl mx-auto px-6">
       <div class="h-20 flex items-center justify-between">
         <div class="flex items-center">
-          <img src="assets/logo.png" class="w-30 h-auto" alt="logo">
-    </div>
+          <a href="{{ route('home') }}">
+            <img src="assets/logo.png" class="w-30 h-auto" alt="logo">
+          </a>
+        </div>
 
   <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 space-x-8">
     <a href="{{ route('itinerary') }}" :class="scrolled ? 'text-gray-800' : 'text-[#F5F0EC]'" class="font-bold">

@@ -19,7 +19,7 @@ Route::get('/itinerary-start', [ItineraryController::class, 'index'])->name('sta
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 
 Route::get('/profile', function () {
