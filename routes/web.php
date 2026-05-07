@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ItineraryController;
@@ -30,3 +31,6 @@ Route::get('/', function () {
 Route::get('/profile', function () {
     return view('pages.profile');
 });
+
+Route::get('/blog_detail', [BlogController::class,'BlogDetail'])->name('blog-detail');
+Route::get('/create_blog', [ProfileController::class,'CreateBlog'])->name('create-blog');

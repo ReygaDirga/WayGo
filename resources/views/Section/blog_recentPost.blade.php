@@ -5,7 +5,7 @@
         <div class="h-[3px] bg-white flex-grow rounded-full"></div>
     </div>
 
-    <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+    <div id="drag-slider" class="cursor-grab flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 
         <div class="relative flex-none w-[300px] h-[380px] rounded-2xl overflow-hidden snap-start cursor-pointer group shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
             <img src="{{ asset('assets/hero1.jpg') }}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Lawang Sewu">
@@ -76,3 +76,58 @@
 
     </div>
 </div>
+
+<script>
+        const slider = document.getElementById('drag-slider');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let isDragging = false; // Flag baru buat nandain lagi nge-drag
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            isDragging = false; // Reset tiap klik baru
+            slider.classList.add('cursor-grabbing');
+            slider.classList.remove('snap-x', 'snap-mandatory');
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('cursor-grabbing');
+            slider.classList.add('snap-x', 'snap-mandatory');
+        });
+
+        slider.addEventListener('mouseup', (e) => {
+            isDown = false;
+            slider.classList.remove('cursor-grabbing');
+            slider.classList.add('snap-x', 'snap-mandatory');
+            
+            // Kalau kursor geser lebih dari 5 pixel, berarti user niatnya nge-drag
+            // Kita kasih delay dikit biar isDragging gak langsung false
+            setTimeout(() => { isDragging = false; }, 0);
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            
+            // Kalau geser lebih dari 5px, aktifkan status isDragging
+            if (Math.abs(walk) > 5) {
+                isDragging = true;
+            }
+            
+            slider.scrollLeft = scrollLeft - walk;
+        });
+
+        // JURUS PAMUNGKAS: Mencegah link kebuka kalau lagi nge-drag
+        slider.addEventListener('click', (e) => {
+            if (isDragging) {
+                e.preventDefault(); // Stop link biar gak jalan
+                e.stopImmediatePropagation();
+            }
+        }, true); // Pakai true (capture phase) biar dicegat duluan
+</script>
