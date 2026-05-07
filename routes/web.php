@@ -11,7 +11,7 @@ use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\ProfileController;
 
 // Buat Profile
-Route::get('/profile/create',  fn() => view('authentication.createprofile'))
+Route::get('/profile/create',  fn() => view('authentication.CreateProfile'))
     ->name('profile.create')
     ->middleware('auth');
 
