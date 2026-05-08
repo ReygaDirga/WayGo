@@ -5,23 +5,19 @@
 @section('content')
 
 <div class="min-h-screen bg-[#FFF8F0] font-sans text-[#1A1A1A]">
-    <!-- Hero Section -->
     <section class="bg-[#162D4D] text-white pt-16 pb-24 px-8 md:px-20 relative overflow-hidden">
-        
-        <!-- Dekorasi Lingkaran -->
+
         <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full -mr-32 -mt-32"></div>
         <div class="absolute bottom-[-50px] left-1/3 w-64 h-64 bg-teal-500/10 rounded-full blur-2xl"></div>
 
         <div class="max-w-7xl mx-auto relative z-10">
-            <h1 class="text-4xl md:text-5xl font-bold mt-4">
+            <h1 class="text-4xl md:text-5xl font-bold mt-20">
                 Memories you will <span class="text-[#F3A344]">always remember</span>
             </h1>
             <p class="text-gray-400 mt-4 text-lg">Every trip end with story, let's flashback your last trip</p>
 
-            <!-- PERUBAHAN: Mengubah border-gray-700/50 menjadi border-white/20 untuk visibilitas lebih baik -->
             <hr class="border-white/20 my-10">
 
-            <!-- Stats -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-3xl font-bold text-[#F3A344]">12</h3>
@@ -43,12 +39,10 @@
         </div>
     </section>
 
-    <!-- Main Content Section -->
     <main class="max-w-7xl mx-auto px-8 md:px-20 pt-12 pb-20 relative z-20">
         
         <h2 class="text-4xl font-bold mb-10">Saved <span class="text-[#F3A344]">Trips</span></h2>
 
-        <!-- Featured Large Card (Yogyakarta) -->
         <div class="bg-white rounded-[2rem] shadow-sm overflow-hidden mb-8 border border-gray-100">
             <div class="relative h-80">
                 <img src="https://i.pinimg.com/736x/fe/91/03/fe9103c8fc6256df6bc74e60f739bfbc.jpg" alt="Yogyakarta" class="w-full h-full object-cover">
@@ -94,7 +88,6 @@
             </div>
         </div>
 
-        <!-- Secondary Cards Grid -->
         <div class="grid md:grid-cols-2 gap-8">
             <!-- Card Bali -->
             <div class="bg-white rounded-[2rem] shadow-sm overflow-hidden border border-gray-100">
@@ -127,7 +120,6 @@
                 </div>
             </div>
 
-            <!-- Card Raja Ampat -->
             <div class="bg-white rounded-[2rem] shadow-sm overflow-hidden border border-gray-100">
                 <div class="relative h-56">
                     <img src="https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&q=80&w=800" alt="Raja Ampat" class="w-full h-full object-cover">
