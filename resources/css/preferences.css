@@ -1,0 +1,126 @@
+.cp-logo-center {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.cp-logo-center img {
+    height: 32px;
+}
+
+.cp-step--passed {
+    border-color: var(--border) !important;
+    color: var(--muted) !important;
+}
+
+.cp-header-center {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.cp-header-center h2 {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+}
+.cp-header-center p {
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.pref-group {
+    margin-bottom: 1.5rem;
+}
+
+.pref-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+}
+
+.pref-hint {
+    font-weight: 400;
+    font-size: 0.72rem;
+    color: var(--muted);
+}
+
+.interest-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+.interest-tile-inner {
+    border: 1.5px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.2rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    background: white;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.interest-tile-inner i {
+    font-size: 1.4rem;
+    color: var(--muted);
+}
+
+.interest-tile-inner span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.interest-tile.is-active .interest-tile-inner {
+    border-color: var(--orange);
+    background: var(--orange-pale);
+    box-shadow: 0 0 0 3px var(--orange-glow);
+}
+
+.interest-tile.is-active i, 
+.interest-tile.is-active span {
+    color: var(--orange);
+}
+
+.budget-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.budget-tile-inner {
+    border: 1.5px solid var(--border);
+    border-radius: 1rem;
+    padding: 0.85rem;
+    text-align: center;
+    background: white;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.budget-title {
+    display: block;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--text);
+}
+
+.budget-price {
+    font-size: 0.68rem;
+    color: var(--muted);
+}
+
+.budget-tile.is-active .budget-tile-inner {
+    border-color: var(--orange);
+    background: var(--orange-pale);
+    box-shadow: 0 0 0 3px var(--orange-glow);
+}
+
+/* Hover Effects */
+.interest-tile-inner:hover, .budget-tile-inner:hover {
+    border-color: var(--orange-2);
+    transform: translateY(-2px);
+}
