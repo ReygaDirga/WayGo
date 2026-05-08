@@ -24,4 +24,8 @@ class ProfileController extends Controller
 
         return redirect('/');
     }
+    public function CreateBlog()
+    {
+        return view('pages.profile_createBlog');
+    }
 }
