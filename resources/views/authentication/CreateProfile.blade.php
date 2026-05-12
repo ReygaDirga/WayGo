@@ -8,9 +8,7 @@
     @vite(['resources/css/app.css', 'resources/css/createprofile.css'])
 </head>
 <body>
-
 <div class="cp-page">
-
     {{-- ── BACKGROUND ── --}}
     <div class="cp-bg">
         <div class="cp-bg-img" style="background-image: url('{{ asset('assets/Login/background.png') }}')"></div>

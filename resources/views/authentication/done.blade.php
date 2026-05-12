@@ -9,7 +9,7 @@
     @vite(['resources/css/app.css', 'resources/css/createprofile.css', 'resources/css/done.css'])
 </head>
 <body>
-    @include('Component.navbar')
+
 <div class="cp-page">
 
     <div class="cp-bg">
@@ -66,7 +66,7 @@
         </div>
 
         <div class="cp-actions cp-done-actions">
-            <a href="{{ url('/dashboard') }}" class="cp-next cp-btn-full">
+            <a href="{{ url('/') }}" class="cp-next cp-btn-full">
                 <span>Start Exploring</span>
                 <div class="cp-next-arrow">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -79,6 +79,5 @@
     </div>
 
 </div>
-    @include('Component.footer')
 </body>
 </html>

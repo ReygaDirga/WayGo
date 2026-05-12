@@ -10,6 +10,21 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\ProfileController;
 
+//Next Button in preferences page
+Route::get('/done', fn() => view('authentication.done'))
+    ->name('done')
+    ->middleware('auth');
+
+//Next button in page create profile
+Route::get('/preferences', fn() => view('authentication.preferences'))
+    ->name('preferences')
+    ->middleware('auth');
+
+Route::post('/preferences/store', [ProfileController::class, 'preferencesStore'])
+    ->name('preferences.store')
+    ->middleware('auth');
+    
+
 // Buat Profile
 Route::get('/profile/create',  fn() => view('authentication.CreateProfile'))
     ->name('profile.create')
