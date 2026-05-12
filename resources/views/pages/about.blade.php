@@ -92,7 +92,7 @@
         </div>
         <div class="testimonials-grid">
             @foreach([
-                ["text" => "Keren njir websitenya",              "name" => "Kimi",            "location" => "Semarang, Indonesia",     "avatar" => "https://api.dicebear.com/9.x/notionists/svg?seed=Kimi&backgroundColor=b6e3f4",           "stars" => 5],
+                ["text" => "Keren banget websitenya",              "name" => "Kimi",            "location" => "Semarang, Indonesia",     "avatar" => "https://api.dicebear.com/9.x/notionists/svg?seed=Kimi&backgroundColor=b6e3f4",           "stars" => 5],
                 ["text" => "Website nya sangat ngebantu",        "name" => "Gabriel Martun",  "location" => "Palangkaraya, Indonesia", "avatar" => "https://api.dicebear.com/9.x/notionists/svg?seed=Gabriel&backgroundColor=ffd5dc",         "stars" => 5],
                 ["text" => "Ini oke sih",                        "name" => "Sam Growtop",     "location" => "Pontianak, Indonesia",    "avatar" => "https://api.dicebear.com/9.x/notionists/svg?seed=Sam&backgroundColor=d1f4cc",             "stars" => 4],
             ] as $i => $item)
