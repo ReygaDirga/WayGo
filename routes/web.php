@@ -1,5 +1,5 @@
 <?php
-
+// This file is where you may define all of the routes that are handled
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ItineraryController;
