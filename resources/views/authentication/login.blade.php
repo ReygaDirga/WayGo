@@ -9,7 +9,6 @@
     @vite(['resources/css/app.css', 'resources/css/login.css'])
 </head>
 <body>
-    @include('Component.navbar')
 <div class="login-page">
     <div class="right-panel">
         <div class="form-card">

@@ -22,10 +22,25 @@ class ProfileController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect('/');
+        return redirect()->route('preferences');
     }
+
     public function CreateBlog()
     {
         return view('pages.profile_createBlog');
     }
+
+    public function preferencesStore(Request $request)
+{
+    $user = auth()->user();
+
+    $user->update([
+        'interests' => json_encode($request->interests),
+        'budget'    => $request->budget,
+        'location'  => $request->location,
+    ]);
+
+    return redirect()->route('done');
 }
+}
+

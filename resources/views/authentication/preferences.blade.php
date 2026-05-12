@@ -8,10 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/css/createprofile.css', 'resources/css/preferences.css'])
 </head>
-<body>
-
-{{-- @include('partials.navbar') --}}
-
+<body> 
 <div class="cp-page">
 
     {{-- ── BACKGROUND ── --}}
@@ -131,9 +128,9 @@
                 </div>
             </div>
 
-            {{-- Actions --}}
+            {{-- Actions --}}   
             <div class="cp-actions">
-                <a href="{{ url()->previous() }}" class="cp-skip">Prev</a>
+                <a href="{{ route('profile.create') }}" class="cp-skip">Prev</a>
                 <button type="submit" class="cp-next">
                     <span>Next</span>
                     <div class="cp-next-arrow">
