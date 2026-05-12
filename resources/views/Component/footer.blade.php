@@ -1,5 +1,5 @@
-<footer class="bg-[#06233F] text-white rounded px-6 py-10 md:px-12">
-  <div class="flex flex-col items-center gap-8">
+<footer class="bg-[#06233F] text-white rounded px-6 py-12 md:px-12">
+  <div class="flex flex-col items-center gap-8 ">
     <nav>
       <div class="flex gap-6 md:gap-10">
         <a href="#">
@@ -16,7 +16,7 @@
       </div>
     </nav>
     <nav class="w-full">
-      <div class=" flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 sm:gap-8 md:gap-12 text-center">
+      <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 sm:gap-8 md:gap-12 text-center">
         <a class="link link-hover">Itinerary Planner</a>
         <a class="link link-hover">Saved Trips</a>
         <a class="link link-hover">Blog</a>
