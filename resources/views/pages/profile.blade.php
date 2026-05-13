@@ -31,33 +31,30 @@
                 <h2 class="text-2xl font-bold text-gray-900 mb-1">My Profile</h2>
                 <p class="text-sm text-gray-500">Manage your personal information and travel preferences</p>
             </div>
+            <a href="{{ route('create-blog') }}" class="group flex items-center shrink-0">
+                {{-- Circle Pencil --}}
+                <div class="w-12 h-12 rounded-full bg-amber-500 flex items-center justify-center shadow-md z-10 shrink-0 relative">
+                    <i class="bi bi-pencil-fill text-white text-lg"></i>
+                </div>
 
-            <div class="relative">
-                <button class="group flex items-center shrink-0">
-                    {{-- Circle Pencil --}}
-                    <div class="w-12 h-12 rounded-full bg-amber-500 flex items-center justify-center shadow-md z-10 shrink-0 relative">
-                        <i class="bi bi-pencil-fill text-white text-lg"></i>
+                {{-- Expanding Box --}}
+                <div class="left-0 top-0
+                        overflow-hidden w-0 opacity-0
+                        group-hover:w-[140px]
+                        group-hover:opacity-100
+                        transition-all duration-300 ease-in-out
+                        -ml-5 h-12 z-0">
+                    <div class="w-[140px] h-12 pl-8 pr-4
+                            bg-white border border-gray-200
+                            rounded-r-full
+                            flex items-center
+                            shadow-sm">
+                        <span class="text-amber-500 text-sm font-semibold whitespace-nowrap">
+                            Create Blog
+                        </span>
                     </div>
-
-                    {{-- Expanding Box --}}
-                    <div class="left-0 top-0
-                            overflow-hidden w-0 opacity-0
-                            group-hover:w-[140px]
-                            group-hover:opacity-100
-                            transition-all duration-300 ease-in-out
-                            -ml-5 h-12 z-0">
-                        <div class="w-[140px] h-12 pl-8 pr-4
-                                bg-white border border-gray-200
-                                rounded-r-full
-                                flex items-center
-                                shadow-sm">
-                            <span class="text-amber-500 text-sm font-semibold whitespace-nowrap">
-                                Create Blog
-                            </span>
-                        </div>
-                    </div>
-                </button>
-            </div>
+                </div>
+            </a>
         </div>
 
         {{-- Profile card --}}
@@ -214,6 +211,6 @@
 
         </div>
     </div>
-
+    @include('Component.footer')
 </body>
 </html>

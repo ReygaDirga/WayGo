@@ -23,7 +23,7 @@
         <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 w-full">
             
             <div class="flex items-start gap-4 mb-10 border-b border-gray-200 pb-6">
-                <a href="/blog" class="border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-black rounded-xl p-2.5 transition mt-1">
+                <a href="{{ route('profile') }}" class="border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-black rounded-xl p-2.5 transition mt-1">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 </a>
                 <div>
