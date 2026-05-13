@@ -35,13 +35,13 @@
             </div>
         </div>
 
-        <form method="POST" action="{{ route('profile.edit') }}" enctype="multipart/form-data">
+        <form class="ml-10" method="POST" action="{{ route('profile.edit') }}" enctype="multipart/form-data">
             @csrf
             @method('POST')
 
             {{-- Profile Picture --}}
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-5">
-                <h6 class="text-sm font-bold text-gray-900 mb-4">Profile Picture</h6>
+                <h6 class="text-lg font-bold text-gray-900 mb-4">Profile Picture</h6>
                 <div class="flex items-center gap-6">
                     <div class="relative">
                         <div class="w-24 h-24 rounded-full bg-gradient-to-br from-amber-300 to-amber-500 overflow-hidden flex items-center justify-center" id="avatarPreviewWrapper">
@@ -70,8 +70,8 @@
             </div>
 
             {{-- Personal Information --}}
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-5">
-                <h6 class="text-sm font-bold text-gray-900 mb-4">Personal Information</h6>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
+                <h6 class="text-lg font-bold text-gray-900 mb-4">Personal Information</h6>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                     <div>
@@ -124,7 +124,7 @@
             </div>
 
            {{-- Travel Categories --}}
-            <p class="text-xs font-semibold text-gray-700 mb-2">Travel Categories</p>
+            <p class="text-lg font-semibold text-gray-700 mb-4">Travel Categories</p>
             @php
                 $userInterests = is_array($user->interests)
                     ? $user->interests
@@ -151,7 +151,7 @@
             </div>
 
             {{-- Budget Range --}}
-            <p class="text-xs font-semibold text-gray-700">Budget Range</p>
+            <p class="text-lg font-semibold text-gray-700 mb-4">Budget Range</p>
             @php
                 $budgets = [
                     'Low'    => ['range' => 'IDR 500.000 - 2.000.000 / Trip',    'bg' => 'bg-green-100',  'text' => 'text-green-800',  'border' => 'border-green-300'],
