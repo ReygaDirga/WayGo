@@ -68,14 +68,19 @@
                 <div class="md:border-r md:border-gray-100 flex flex-col items-center text-center pr-0 md:pr-6">
                     <div class="relative mb-4">
                         <div class="w-40 h-40 rounded-full bg-gradient-to-br from-amber-300 to-amber-500 flex items-center justify-center text-2xl font-bold text-amber-900">
-                            <img src="">
+                            @if ($user->avatar)
+                                <img src="{{ $user->avatar }}" alt="Avatar" class="w-full h-full object-cover">
+                            @else
+                                <span class="text-2xl font-bold text-amber-900">
+                                    {{ strtoupper(substr($user->name, 0, 1)) }}
+                                </span>
+                            @endif       
                         </div>
-        
                     </div>
-                    <h5 class="text-lg font-bold text-gray-900 mb-0.5">Ong Jason</h5>
-                    <p class="text-xs text-gray-500 leading-relaxed">Explorer · Traveler · Dreamer</p>
+                    <h5 class="text-lg font-bold text-gray-900 mb-0.5">{{ $user->name }}</h5>
+                    <p class="text-xs text-gray-500 leading-relaxed">{{ $user->description }}</p>
                     <p class="text-xs text-gray-500 flex items-center gap-1 mt-1.5">
-                        <i class="bi bi-geo-alt"></i> Semarang, Indonesia
+                        <i class="bi bi-geo-alt"></i> {{ $user->location ?? "" }}
                     </p>
                 </div>
 
@@ -87,19 +92,19 @@
                             <span class="flex items-center gap-2 text-sm text-gray-500">
                                 <i class="bi bi-envelope text-base"></i> Email address
                             </span>
-                            <span class="text-sm font-medium text-gray-800">jason@example.com</span>
+                            <span class="text-sm font-medium text-gray-800">{{ $user->email }}</span>
                         </div>
                         <div class="flex items-center justify-between py-3">
                             <span class="flex items-center gap-2 text-sm text-gray-500">
                                 <i class="bi bi-telephone"></i> Phone number
                             </span>
-                            <span class="text-sm font-medium text-gray-800">+62 812-3456-7890</span>
+                            <span class="text-sm font-medium text-gray-800">{{ $user->phone }}</span>
                         </div>
                         <div class="flex items-center justify-between py-3">
                             <span class="flex items-center gap-2 text-sm text-gray-500">
                                 <i class="bi bi-calendar"></i>Date of birth
                             </span>
-                            <span class="text-sm font-medium text-gray-800">1 January 1998</span>
+                            <span class="text-sm font-medium text-gray-800">{{ $user->dob }}</span>
                         </div>
                     </div>
                 </div>
@@ -116,24 +121,50 @@
 
                 <p class="text-xs font-semibold text-gray-900 mb-2">Travel Categories</p>
                 <div class="flex flex-wrap gap-2 mb-4">
-                    <span class="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-green-50 text-green-800">
-                        <i class="bi bi-tree"></i> Nature
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-amber-50 text-amber-800">
-                        <i class="bi bi-egg-fried"></i> Culinary
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-blue-50 text-blue-800">
-                        <i class="bi bi-water"></i> Adventure
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-violet-50 text-violet-800">
-                        <i class="bi bi-bank"></i> Culture
-                    </span>
+                    @php
+                        $interests = is_array($user->interests) 
+                            ? $user->interests 
+                            : json_decode($user->interests ?? '[]', true);
+                        $iconMap = [
+                            'Nature'    => ['icon' => 'bi-tree',      'bg' => 'bg-green-50',  'text' => 'text-green-800'],
+                            'Culinary'  => ['icon' => 'bi-egg-fried', 'bg' => 'bg-amber-50',  'text' => 'text-amber-800'],
+                            'Adventure' => ['icon' => 'bi-water',     'bg' => 'bg-blue-50',   'text' => 'text-blue-800'],
+                            'Culture'   => ['icon' => 'bi-bank',      'bg' => 'bg-violet-50', 'text' => 'text-violet-800'],
+                        ];
+                    @endphp
+
+                     @forelse($interests as $interest)
+                        @php $style = $iconMap[$interest] ?? ['icon' => 'bi-star', 'bg' => 'bg-gray-50', 'text' => 'text-gray-800']; @endphp
+                        <span class="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full {{ $style['bg'] }} {{ $style['text'] }}">
+                            <i class="bi {{ $style['icon'] }}"></i> {{ $interest }}
+                        </span>
+                    @empty
+                        <p class="text-xs text-gray-400">Belum ada preferensi</p>
+                    @endforelse
+
                 </div>
 
                 <p class="text-xs font-semibold text-gray-900 mb-2">Budget range</p>
                 <div class="bg-amber-50 rounded-xl p-3 text-center">
-                    <p class="text-base font-semibold text-amber-900">Medium</p>
-                    <p class="text-[10px] text-amber-700 mt-0.5">IDR 2.000.000 – 5.000.000/ Trip</p>
+                    <p class="text-base font-semibold text-amber-900">{{ $user->budget }}</p>
+                    <p class="text-[10px] text-amber-700 mt-0.5">
+                         @switch($user->budget)
+                        @case('Low')
+                            IDR 500.000 – 2.000.000 / Trip
+                            @break
+                        @case('Medium')
+                            IDR 2.000.000 – 5.000.000 / Trip
+                            @break
+                        @case('High')
+                            IDR 5.000.000 – 15.000.000 / Trip
+                            @break
+                        @case('Luxury')
+                            IDR 15.000.000+ / Trip
+                            @break
+                        @default
+                            -
+                        @endswitch
+                    </p>
                 </div>
             </div>
 
@@ -143,7 +174,7 @@
                 <p class="text-xs text-gray-400 mb-5">Manage your account security</p>
 
                 <div class="space-y-2">
-                    <a href="#" class="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 transition group">
+                    <a href="{{ route('changepassword') }}" class="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 transition group">
                         <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 group-hover:bg-gray-200 transition">
                             <i class="bi bi-lock leading-none text-gray-700"></i>
                         </div>
@@ -154,7 +185,7 @@
                         <i class="bi bi-chevron-right text-xs text-gray-400"></i>
                     </a>
 
-                    <a href="#" class="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 transition group">
+                    <a href="{{ route('editprofile') }}" class="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 transition group">
                         <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 group-hover:bg-gray-200 transition">
                             <i class="bi bi-person-gear"></i>
                         </div>
@@ -165,16 +196,19 @@
                         <i class="bi bi-chevron-right text-xs text-gray-400"></i>
                     </a>
 
-                    <a href="#" class="flex items-center gap-3 p-3 rounded-xl border border-red-100 hover:bg-red-50 transition group">
-                        <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-600 group-hover:bg-red-100 transition">
-                            <i class="bi bi-box-arrow-right"></i>
-                        </div>
-                        <div class="flex-1">
-                            <p class="text-sm font-medium text-red-600">Log out</p>
-                            <p class="text-[11px] text-gray-400">Log out of your account securely.</p>
-                        </div>
-                        <i class="bi bi-chevron-right text-xs text-gray-400"></i>
-                    </a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="w-full flex items-center gap-3 p-3 rounded-xl border border-red-100 hover:bg-red-50 transition group">
+                            <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-600 group-hover:bg-red-100 transition">
+                                <i class="bi bi-box-arrow-right"></i>
+                            </div>
+                            <div class="flex-1 text-left">
+                                <p class="text-sm font-medium text-red-600">Log out</p>
+                                <p class="text-[11px] text-gray-400">Log out of your account securely.</p>
+                            </div>
+                            <i class="bi bi-chevron-right text-xs text-gray-400"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
 

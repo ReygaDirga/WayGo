@@ -61,9 +61,16 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::get('/profile', function () {
-    return view('pages.profile');
+// Profile
+Route::prefix('/profile')->group(function () {
+
+    Route::get('', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/edit', [ProfileController::class, 'editProfilePage'])->name('editprofile');
+    Route::post('/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
+    Route::get('/change-password', [ProfileController::class, 'changePasswordPage'])->name('changepassword');
+    Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changepassword');
+    Route::get('/create-blog', [ProfileController::class, 'createBlog'])->name('create-blog');
+
 });
 
-Route::get('/blog_detail', [BlogController::class,'BlogDetail'])->name('blog-detail');
-Route::get('/create_blog', [ProfileController::class,'CreateBlog'])->name('create-blog');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
