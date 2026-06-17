@@ -7,18 +7,17 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     public function up()
-{
-    Schema::table('users', function (Blueprint $table) {
-        $table->string('phone')->nullable()->after('email');
-        $table->date('dob')->nullable()->after('phone');
-        $table->text('description')->nullable()->after('dob');
-    });
-}
+    {
+        //tes
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('phone')->nullable()->after('email');
+        });
+    }
 
-public function down()
-{
-    Schema::table('users', function (Blueprint $table) {
-        $table->dropColumn(['phone', 'dob', 'description']);
-    });
-}
+    public function down()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('phone');
+        });
+    }
 };
