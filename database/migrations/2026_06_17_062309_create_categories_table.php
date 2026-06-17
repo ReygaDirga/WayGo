@@ -11,19 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id(); // Primary Key
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
 
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-
-            $table->date('dob')->nullable();
-            $table->string('photo')->nullable();
             $table->text('description')->nullable();
-
-            $table->decimal('budget', 10, 2)->nullable();
-            $table->string('kategori')->nullable();
 
             $table->timestamps();
         });
@@ -34,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('categories');
     }
 };
