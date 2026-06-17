@@ -113,7 +113,7 @@
                         <input type="radio" name="budget" value="high" hidden>
                         <div class="budget-tile-inner">
                             <span class="budget-title">High</span>
-                            <span class="budget-price">> 5.000.000</span>
+                            <span class="budget-price">> 5jt</span>
                         </div>
                     </label>
                 </div>
