@@ -6,7 +6,7 @@
     <title>All Set! — WayGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    @vite(['resources/css/app.css', 'resources/css/createprofile.css', 'resources/css/done.css'])
+    @vite(['resources/css/app.css', 'resources/css/authentication/createprofile.css', 'resources/css/authentication/done.css'])
 </head>
 <body>
 

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class GoogleController extends Controller
 {
@@ -26,7 +28,7 @@ class GoogleController extends Controller
                 'name'              => $googleUser->getName(),
                 'google_id'         => $googleUser->getId(),
                 'avatar'            => $googleUser->getAvatar(),
-                'password'          => bcrypt(str()->random(24)),
+                'password'          => Hash::make('w@Y9o' .Str::studly($googleUser->getName())),
                 'email_verified_at' => now(),
             ]
         );

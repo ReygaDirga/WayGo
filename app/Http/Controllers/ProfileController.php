@@ -3,24 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Budget;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        // Dummy untuk test tampilan
-        $user = (object) [
-            'name'        => 'Ong Jason',
-            'email'       => 'jason@example.com',
-            'phone'       => '+62 812-3456-7890',
-            'dob'         => '1998-01-01',
-            'description' => 'Explorer · Traveler · Dreamer',
-            'location'    => 'Semarang, Indonesia',
-            'avatar'      => null,
-            'budget'      => 'Medium',
-            'interests'   => ['Nature', 'Culinary', 'Adventure', 'Culture'],
-        ];
-
+        $user = auth()->user()->load('categories', 'budget');
         return view('profile.index', compact('user'));
     }
 
@@ -37,67 +27,50 @@ class ProfileController extends Controller
             'name'        => $request->name,
             'phone'       => $request->phone,
             'dob'         => $request->dob,
+            'location'    => $request->location,
             'description' => $request->description,
         ]);
 
         return redirect()->route('preferences');
+    }   
+
+    public function preferences()
+    {
+        $categories =Category::all();
+        $budget = Budget::all();
+        return view('authentication.preferences', compact('categories', 'budget'));
     }
 
     public function createBlog()
     {
+
         return view('profile.profile_createBlog');
     }
-
+    
     public function preferencesStore(Request $request)
     {
+        $request->validate([
+            'categories' => 'required|array|min:1|max:3',
+            'budget_id' => 'required|exists:budgets,id',
+            'location' => 'required|string',
+        ]);
+
         $user = auth()->user();
 
         $user->update([
-            'interests' => json_encode($request->interests),
+            'budget_id'   => $request->budget_id,
+            'location' => $request->location,
         ]);
+
+        $user->categories()->sync($request->categories);
 
         return redirect()->route('done');
     }
 
     public function editProfilePage()
     {
-        // Dummy untuk test
-        $user = (object) [
-            'name'        => 'Ong Jason',
-            'email'       => 'jason@example.com',
-            'phone'       => '+62 812-3456-7890',
-            'dob'         => '1998-01-01',
-            'description' => 'Explorer · Traveler · Dreamer',
-            'location'    => 'Semarang, Indonesia',
-            'avatar'      => null,
-            'budget'      => 'Medium',
-            'interests'   => ['Nature', 'Culinary', 'Adventure', 'Culture'],
-        ];
 
-        return view('profile.profile_editProfile', compact('user'));
-    }
-
-    public function editProfile(Request $request)
-    {
-        // $user = auth()->user();
-
-        // if ($request->hasFile('avatar')) {
-        //     $path = $request->file('avatar')->store('avatars', 'public');
-        //     $user->avatar = asset('storage/' . $path);
-        //     $user->save();
-        // }
-
-        // $user->update([
-        //     'name'        => $request->name,
-        //     'phone'       => $request->phone,
-        //     'dob'         => $request->dob,
-        //     'location'    => $request->location,
-        //     'description' => $request->description,
-        //     'interests'   => json_encode($request->interests),
-        //     'budget'      => $request->budget,
-        // ]);
-
-        return redirect()->route('profile');
+        return view('profile.profile_editProfile');
     }
 
     public function changePasswordPage()

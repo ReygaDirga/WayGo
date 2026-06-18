@@ -16,7 +16,7 @@ Route::get('/done', fn() => view('authentication.done'))
     ->middleware('auth');
 
 //Next button in page create profile
-Route::get('/preferences', fn() => view('authentication.preferences'))
+Route::get('/preferences', [ProfileController::class, 'preferences'])
     ->name('preferences')
     ->middleware('auth');
 

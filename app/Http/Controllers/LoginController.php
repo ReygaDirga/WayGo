@@ -14,8 +14,20 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-    // Check username password logic        
-        return redirect('/welcome'); 
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect('/');
+        }
+
+        return back()->withErrors([
+            'email' => 'Wrong Email',
+            'password' => 'Wrong Password',
+        ]);
     }
     public function logout(Request $request)
     {
@@ -24,6 +36,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         
-        return redirect()->route('login');
+        return redirect()->route('home');
     }
 }
