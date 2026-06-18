@@ -16,15 +16,15 @@
     @include('Component.navbar')
     
     <section class="w-full overflow-hidden pt-12 pb-15">
-        @include('Section.blog_hero')
+        @include('blogs.blog_hero')
     </section>
 
     <section class="w-full overflow-hidden">
-        @include('Section.blog_recentPost')
+        @include('blogs.blog_recentPost')
     </section>
 
     <section class="w-full overflow-hidden">
-        @include('Section.blog_allPosts')
+        @include('blogs.blog_allPosts')
     </section>
 
 @include('Component.footer')

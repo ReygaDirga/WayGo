@@ -8,6 +8,6 @@ class SavedController extends Controller
 {
     public function index()
     {
-        return view('pages.saved');
+        return view('itineraries.saved');
     }
 }

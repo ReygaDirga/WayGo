@@ -21,7 +21,7 @@ class ProfileController extends Controller
             'interests'   => ['Nature', 'Culinary', 'Adventure', 'Culture'],
         ];
 
-        return view('pages.profile', compact('user'));
+        return view('profile.index', compact('user'));
     }
 
     public function store(Request $request)
@@ -45,7 +45,7 @@ class ProfileController extends Controller
 
     public function createBlog()
     {
-        return view('pages.profile_createBlog');
+        return view('profile.profile_createBlog');
     }
 
     public function preferencesStore(Request $request)
@@ -54,8 +54,6 @@ class ProfileController extends Controller
 
         $user->update([
             'interests' => json_encode($request->interests),
-            'budget'    => $request->budget,
-            'location'  => $request->location,
         ]);
 
         return redirect()->route('done');
@@ -76,7 +74,7 @@ class ProfileController extends Controller
             'interests'   => ['Nature', 'Culinary', 'Adventure', 'Culture'],
         ];
 
-        return view('pages.profile_editProfile', compact('user'));
+        return view('profile.profile_editProfile', compact('user'));
     }
 
     public function editProfile(Request $request)
@@ -104,7 +102,7 @@ class ProfileController extends Controller
 
     public function changePasswordPage()
     {
-        return view('pages.profile_changePassword');
+        return view('profile.profile_changePassword');
     }
 
     public function changePassword(Request $request)
