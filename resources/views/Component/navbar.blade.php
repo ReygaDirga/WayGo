@@ -31,11 +31,27 @@
   </div>
 
   <div class="flex items-center gap-4">
-    <a href="{{ route('login') }}">
-      <button class="hidden md:block px-5 py-2 rounded-xl bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] text-[#F5F0EC] font-extrabold">
-        Log In
-    </button>
-    </a>
+
+    @auth
+        <a href="{{ route('profile') }}"
+           class="flex items-center gap-3">
+            <img
+                src="{{ auth()->user()->avatar }}"
+                alt="profile"
+                class="w-10 h-10 rounded-full object-cover"
+                referrerpolicy="no-referrer">
+            <span class="text-[#FA9009] font-medium">
+                {{ auth()->user()->name }}
+            </span>
+
+        </a>
+    @else
+        <a href="{{ route('login') }}">
+          <button class="hidden md:block px-5 py-2 rounded-xl bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] text-[#F5F0EC] font-extrabold">
+            Log In
+          </button>
+        </a>
+    @endauth
 
     <button @click="open=!open" class="md:hidden">
       <svg x-show="!open" class="w-8 h-8 text-white opacity-90  " fill="none" stroke="currentColor" :class="scrolled ? 'text-black':'text-white'"viewBox="0 0 24 24">

@@ -6,7 +6,7 @@
     <title>Login - WayGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{asset('assets/logo1.png')}}" >
-    @vite(['resources/css/app.css', 'resources/css/login.css'])
+    @vite(['resources/css/app.css', 'resources/css/authentication/login.css'])
 </head>
 <body>
 <div class="login-page">
@@ -61,7 +61,6 @@
                 <div class="field-group">
                     <div class="field-label-row">
                         <label class="field-label" for="password">Password</label>
-                        <a href="#" class="forgot-link">Forgot password?</a>
                     </div>
                     <div class="field-wrapper">
                         <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -101,11 +100,6 @@
                     </svg>
                 </button>
             </form>
-
-            <p class="signup-prompt">
-                Don't have an account?
-                <a href="#" class="signup-link">Sign up free</a>
-            </p>
 
         </div>
     </div>

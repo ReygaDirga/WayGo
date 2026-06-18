@@ -23,7 +23,8 @@
 
     @include('Component.navbar')
 
-    <div class="max-w-5xl mx-auto px-6 py-10 mt-16">
+    @auth
+        <div class="max-w-5xl mx-auto px-6 py-10 mt-16">
 
         {{-- Page header --}}
         <div class="flex items-center justify-between mb-6">
@@ -65,17 +66,17 @@
                 <div class="md:border-r md:border-gray-100 flex flex-col items-center text-center pr-0 md:pr-6">
                     <div class="relative mb-4">
                         <div class="w-40 h-40 rounded-full bg-gradient-to-br from-amber-300 to-amber-500 flex items-center justify-center text-2xl font-bold text-amber-900">
-                            @if ($user->avatar)
-                                <img src="{{ $user->avatar }}" alt="Avatar" class="w-full h-full object-cover">
+                            @if (auth()->user()->avatar)
+                                <img src="{{ auth()->user()->avatar }}" alt="Avatar" class="w-full h-full object-cover rounded-full">
                             @else
                                 <span class="text-2xl font-bold text-amber-900">
-                                    {{ strtoupper(substr($user->name, 0, 1)) }}
+                                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                                 </span>
                             @endif       
                         </div>
                     </div>
-                    <h5 class="text-lg font-bold text-gray-900 mb-0.5">{{ $user->name }}</h5>
-                    <p class="text-xs text-gray-500 leading-relaxed">{{ $user->description }}</p>
+                    <h5 class="text-lg font-bold text-gray-900 mb-0.5">{{ auth()->user()->name }}</h5>
+                    <p class="text-xs text-gray-500 leading-relaxed">{{ auth()->user()->description }}</p>
                     <p class="text-xs text-gray-500 flex items-center gap-1 mt-1.5">
                         <i class="bi bi-geo-alt"></i> {{ $user->location ?? "" }}
                     </p>
@@ -89,19 +90,19 @@
                             <span class="flex items-center gap-2 text-sm text-gray-500">
                                 <i class="bi bi-envelope text-base"></i> Email address
                             </span>
-                            <span class="text-sm font-medium text-gray-800">{{ $user->email }}</span>
+                            <span class="text-sm font-medium text-gray-800">{{ auth()->user()->email }}</span>
                         </div>
                         <div class="flex items-center justify-between py-3">
                             <span class="flex items-center gap-2 text-sm text-gray-500">
                                 <i class="bi bi-telephone"></i> Phone number
                             </span>
-                            <span class="text-sm font-medium text-gray-800">{{ $user->phone }}</span>
+                            <span class="text-sm font-medium text-gray-800">{{ auth()->user()->phone }}</span>
                         </div>
                         <div class="flex items-center justify-between py-3">
                             <span class="flex items-center gap-2 text-sm text-gray-500">
                                 <i class="bi bi-calendar"></i>Date of birth
                             </span>
-                            <span class="text-sm font-medium text-gray-800">{{ $user->dob }}</span>
+                            <span class="text-sm font-medium text-gray-800">{{ auth()->user()->dob }}</span>
                         </div>
                     </div>
                 </div>
@@ -119,48 +120,41 @@
                 <p class="text-xs font-semibold text-gray-900 mb-2">Travel Categories</p>
                 <div class="flex flex-wrap gap-2 mb-4">
                     @php
-                        $interests = is_array($user->interests) 
-                            ? $user->interests 
-                            : json_decode($user->interests ?? '[]', true);
-                        $iconMap = [
-                            'Nature'    => ['icon' => 'bi-tree',      'bg' => 'bg-green-50',  'text' => 'text-green-800'],
-                            'Culinary'  => ['icon' => 'bi-egg-fried', 'bg' => 'bg-amber-50',  'text' => 'text-amber-800'],
-                            'Adventure' => ['icon' => 'bi-water',     'bg' => 'bg-blue-50',   'text' => 'text-blue-800'],
-                            'Culture'   => ['icon' => 'bi-bank',      'bg' => 'bg-violet-50', 'text' => 'text-violet-800'],
+                        $styles = [
+                            'Nature' => 'bg-[#27AE60] text-white',
+                            'Culinary' => 'bg-[#FA9009] text-white',
+                            'Culture' => 'bg-[#8A38F5] text-white',
+                            'Adventure' => 'bg-[#21C4FD] text-white',
                         ];
                     @endphp
 
-                     @forelse($interests as $interest)
-                        @php $style = $iconMap[$interest] ?? ['icon' => 'bi-star', 'bg' => 'bg-gray-50', 'text' => 'text-gray-800']; @endphp
-                        <span class="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full {{ $style['bg'] }} {{ $style['text'] }}">
-                            <i class="bi {{ $style['icon'] }}"></i> {{ $interest }}
+                    @forelse($user->categories as $ct)
+                        <span class="px-4 py-1 rounded-xl font-medium {{ $styles[$ct->name] ?? 'bg-gray-100 text-gray-600' }}">
+                            {{ $ct->name }}
                         </span>
                     @empty
-                        <p class="text-xs text-gray-400">Belum ada preferensi</p>
+                        <p>Belum ada preferensi</p>
                     @endforelse
-
                 </div>
 
                 <p class="text-xs font-semibold text-gray-900 mb-2">Budget range</p>
-                <div class="bg-amber-50 rounded-xl p-3 text-center">
-                    <p class="text-base font-semibold text-amber-900">{{ $user->budget }}</p>
-                    <p class="text-[10px] text-amber-700 mt-0.5">
-                         @switch($user->budget)
-                        @case('Low')
-                            IDR 500.000 – 2.000.000 / Trip
-                            @break
-                        @case('Medium')
-                            IDR 2.000.000 – 5.000.000 / Trip
-                            @break
-                        @case('High')
-                            IDR 5.000.000 – 15.000.000 / Trip
-                            @break
-                        @case('Luxury')
-                            IDR 15.000.000+ / Trip
-                            @break
-                        @default
-                            -
-                        @endswitch
+                <div class="rounded-xl p-3 text-center">
+                    <p class="text-base font-semibold text-amber-900">
+                        @php
+                            $style = [
+                                'Low'=>'bg-[#BBE9D3] text-[#267867]',
+                                'Medium'=>'bg-[#FBE3B0] text-[#F39C33]',
+                                'High'=>'bg-[#F45959] text-[#B30000]',
+                            ];
+                        @endphp
+
+                        <div class="rounded-2xl p-3 text-center {{ $style[$user->budget->name] }}">
+                            <p class="text-2xl font-bold">{{ $user->budget->name }}</p>
+                            <p class="text-sm">
+                                Rp{{ number_format($user->budget->min_price) }} - 
+                                {{ $user->budget->max_price? number_format($user->budget->max_price) : '∞'}} / Trip
+                            </p>
+                        </div>
                     </p>
                 </div>
             </div>
@@ -211,6 +205,8 @@
 
         </div>
     </div>
+    @endauth
+    
     @include('Component.footer')
 </body>
 </html>

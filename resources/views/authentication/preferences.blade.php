@@ -6,7 +6,7 @@
     <title>Travel Preferences — WayGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    @vite(['resources/css/app.css', 'resources/css/createprofile.css', 'resources/css/preferences.css'])
+    @vite(['resources/css/app.css', 'resources/css/authentication/createprofile.css', 'resources/css/authentication/preferences.css'])
 </head>
 <body> 
 <div class="cp-page">
@@ -55,36 +55,26 @@
 
             {{-- 1. Interests --}}
             <div class="pref-group">
-                <label class="pref-label">What are you most interested in? <span class="pref-hint">(Choose up to 3)</span></label>
+                <label class="pref-label">What are you most interested in?
+                    <span class="pref-hint">(Choose up to 3)</span>
+                </label>
                 <div class="interest-grid">
-                    <label class="interest-tile">
-                        <input type="checkbox" name="interests[]" value="nature" hidden>
-                        <div class="interest-tile-inner">
-                            <i class="fa-solid fa-tree"></i>
-                            <span>Nature</span>
-                        </div>
-                    </label>
-                    <label class="interest-tile">
-                        <input type="checkbox" name="interests[]" value="culinary" hidden>
-                        <div class="interest-tile-inner">
-                            <i class="fa-solid fa-utensils"></i>
-                            <span>Culinary</span>
-                        </div>
-                    </label>
-                    <label class="interest-tile">
-                        <input type="checkbox" name="interests[]" value="adventure" hidden>
-                        <div class="interest-tile-inner">
-                            <i class="fa-solid fa-mountain-sun"></i>
-                            <span>Adventure</span>
-                        </div>
-                    </label>
-                    <label class="interest-tile">
-                        <input type="checkbox" name="interests[]" value="culture" hidden>
-                        <div class="interest-tile-inner">
-                            <i class="fa-solid fa-landmark"></i>
-                            <span>Culture</span>
-                        </div>
-                    </label>
+
+                    @foreach($categories as $ct)
+                        <label class="interest-tile">
+                            <input
+                                type="checkbox"
+                                name="categories[]"
+                                value="{{ $ct->id }}"
+                                hidden>
+                            <div class="interest-tile-inner">
+                                <i class="{{ $ct->icon }}"></i>
+                                <span>
+                                    {{ $ct->name }}
+                                </span>
+                            </div>
+                        </label>
+                    @endforeach
                 </div>
             </div>
 
@@ -92,28 +82,25 @@
             <div class="pref-group">
                 <label class="pref-label">What's your budget range?</label>
                 <div class="budget-grid">
-                    <label class="budget-tile">
-                        <input type="radio" name="budget" value="low" hidden>
-                        <div class="budget-tile-inner">
-                            <span class="budget-title">Low</span>
-                            <span class="budget-price">< 2.000.000</span>
-                        </div>
-                    </label>
-                    <label class="budget-tile">
-                        <input type="radio" name="budget" value="medium" hidden>
-                        <div class="budget-tile-inner">
-                            <span class="budget-title">Medium</span>
-                            <span class="budget-price">2jt - 5jt</span>
-                        </div>
-                    </label>
-                    <label class="budget-tile">
-                        <input type="radio" name="budget" value="high" hidden>
-                        <div class="budget-tile-inner">
-                            <span class="budget-title">High</span>
-                            <span class="budget-price">> 5.000.000</span>
-                        </div>
-                    </label>
+                    @foreach($budget as $bg)
+                        <label class="budget-tile">
+                            <input type="radio" name="budget_id" value="{{ $bg->id }}" hidden>
+
+                            <div class="budget-tile-inner">
+                                <span class="budget-title">{{ $bg->name }}</span>
+                                <span class="budget-price">IDR {{ number_format($bg->min_price,0,',','.') }}
+
+                                    @if($bg->max_price)
+                                        -{{ number_format($bg->max_price,0,',','.') }}
+                                    @else
+                                        +
+                                    @endif
+                                </span>
+                            </div>
+                        </label>
+                    @endforeach
                 </div>
+
             </div>
 
             {{-- 3. Location --}}
