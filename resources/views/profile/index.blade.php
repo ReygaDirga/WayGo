@@ -6,9 +6,8 @@
     <link rel="icon" type="image/x-icon" href="assets/Logo1.png" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>WayGo</title>
     @vite([
         'resources/css/app.css',
@@ -119,41 +118,49 @@
 
                 <p class="text-xs font-semibold text-gray-900 mb-2">Travel Categories</p>
                 <div class="flex flex-wrap gap-2 mb-4">
-                    @php
-                        $styles = [
-                            'Nature' => 'bg-[#27AE60] text-white',
-                            'Culinary' => 'bg-[#FA9009] text-white',
-                            'Culture' => 'bg-[#8A38F5] text-white',
-                            'Adventure' => 'bg-[#21C4FD] text-white',
-                        ];
-                    @endphp
-
-                    @forelse($user->categories as $ct)
-                        <span class="px-4 py-1 rounded-xl font-medium {{ $styles[$ct->name] ?? 'bg-gray-100 text-gray-600' }}">
-                            {{ $ct->name }}
-                        </span>
+                    @forelse($user->categories as $c)
+                        @php
+                            $categoryStyles = match($c->name) {
+                                'Nature'    => ['bg' => 'bg-green-50',  'text' => 'text-green-800'],
+                                'Culinary'  => ['bg' => 'bg-amber-50',  'text' => 'text-amber-800'],
+                                'Adventure' => ['bg' => 'bg-blue-50',   'text' => 'text-blue-800'],
+                                'Culture'   => ['bg' => 'bg-violet-50', 'text' => 'text-violet-800'],
+                            };
+                        @endphp
+                         <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium border transition-all duration-200 {{$categoryStyles['bg'].' '.$categoryStyles['text'].' border-current'}}"> <i class="fas {{ $c->icon }}"></i> {{ $c->name }} </span> 
                     @empty
                         <p>Belum ada preferensi</p>
                     @endforelse
+
                 </div>
 
                 <p class="text-xs font-semibold text-gray-900 mb-2">Budget range</p>
-                <div class="rounded-xl p-3 text-center">
-                    <p class="text-base font-semibold text-amber-900">
-                        @php
+                <div class="rounded-xl text-center">
+                        {{-- @php
                             $style = [
                                 'Low'=>'bg-[#BBE9D3] text-[#267867]',
                                 'Medium'=>'bg-[#FBE3B0] text-[#F39C33]',
                                 'High'=>'bg-[#F45959] text-[#B30000]',
+                                ];
+                            @endphp --}}
+
+                        @php
+                            $budgetStyles = [
+                                'Low'    => 'bg-green-50 text-green-800 border border-green-300',
+                                'Medium' => 'bg-amber-50 text-amber-800 border border-amber-300',
+                                'High'   => 'bg-red-50 text-red-800 border border-red-300',
                             ];
                         @endphp
-
-                        <div class="rounded-2xl p-3 text-center {{ $style[$user->budget->name] }}">
+                        <div class="rounded-2xl p-3 text-center {{ $budgetStyles[$user->budget->name] }}">
                             <p class="text-2xl font-bold">{{ $user->budget->name }}</p>
-                            <p class="text-sm">
-                                Rp{{ number_format($user->budget->min_price) }} - 
-                                {{ $user->budget->max_price? number_format($user->budget->max_price) : '∞'}} / Trip
-                            </p>
+                                @if ($user->budget->name == 'Low')
+                                    <p class="text-sm"> < IDR {{ number_format($user->budget->max_price, 0, ',', '.') }}/ Trip</p>
+                                @elseif ($user->budget->name == 'Medium')
+                                    <p class="text-sm"> IDR {{ number_format($user->budget->min_price, 0, ',', '.') }} - {{ number_format($user->budget->max_price, 0, ',', '.') }}/ Trip</p>
+                                @elseif ($user->budget->name == 'High')
+                                    <p class="text-sm"> > IDR {{ number_format($user->budget->min_price, 0, ',', '.') }}/ Trip</p>
+                                @endif
+                            
                         </div>
                     </p>
                 </div>

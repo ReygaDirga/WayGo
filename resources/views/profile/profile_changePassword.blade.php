@@ -56,7 +56,7 @@
                             <input type="password" name="current_password" id="current_password"
                                 class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400
                                     {{ $errors->has('current_password') ? 'border-red-400 bg-red-50' : 'border-gray-200' }}"
-                                placeholder="Masukkan password lama">
+                                placeholder="Masukkan password lama" required>
                             <button type="button" onclick="togglePassword('current_password')"
                                 class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                 <i class="bi bi-eye" id="icon_current_password"></i>
@@ -74,7 +74,7 @@
                             <input type="password" name="password" id="password"
                                 class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400
                                     {{ $errors->has('password') ? 'border-red-400 bg-red-50' : 'border-gray-200' }}"
-                                placeholder="Masukkan password baru">
+                                placeholder="Masukkan password baru" required>
                             <button type="button" onclick="togglePassword('password')"
                                 class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                 <i class="bi bi-eye" id="icon_password"></i>
@@ -92,7 +92,7 @@
                             <input type="password" name="password_confirmation" id="password_confirmation"
                                 class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400
                                     {{ $errors->has('password_confirmation') ? 'border-red-400 bg-red-50' : 'border-gray-200' }}"
-                                placeholder="Ulangi password baru">
+                                placeholder="Ulangi password baru" required>
                             <button type="button" onclick="togglePassword('password_confirmation')"
                                 class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                 <i class="bi bi-eye" id="icon_password_confirmation"></i>
