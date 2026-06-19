@@ -1,6 +1,6 @@
 .wrapper {
     width: 100%;
-    min-height: 60vh;
+    min-height: 30vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,9 +26,23 @@
     cursor: pointer;
     overflow: hidden;
     display: flex;
+    position: relative;
     align-items: flex-end;
     transition: all .6s cubic-bezier(.28,-0.03,0,.99);
     box-shadow: 0px 10px 30px -5px rgba(0,0,0,0.8);
+}
+
+.card::before{
+    content: "";
+    position: absolute;
+    inset :0;
+    background: rgba(0,0,0,0.35);
+    transition: .4s;
+    z-index: 1;
+}
+
+.inputW:checked + .card::before{
+    background: linear-gradient(to top, rgba(255,255,255,.7), rgba(255,255,255,.1), transparent);
 }
 
 .card > .row {
@@ -75,6 +89,51 @@
     transition: opacity .2s ease;
 }
 
+.vertical-title{
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+    z-index: 10;
+}
+
+.vertical-text{
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 28px;
+    font-weight: 800;
+    color: white;
+}
+
+.vertical-checkbox{
+    transform: rotate(0deg);
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.description{
+    opacity: 0;
+    transform:
+        translateY(20px);
+    transition: .4s;
+}
+
+/* pas kebuka */
+.inputW:checked + .card .vertical-title{
+    opacity: 0;
+}
+
+.inputW:checked + .card .description{
+    opacity: 1;
+    transform:
+        translateY(0);
+}
+
 .inputW:checked + label .description {
     opacity: 1;
     transition-delay: .35s;
@@ -104,6 +163,17 @@
     transform: translateY(0);
 }
 
+.open-checkbox{
+    width: 25px;
+    height: 25px;
+    flex-shrink: 0;
+}
+
+.row{
+    position: relative;
+    z-index: 10;
+}
+
 .card[for="c1"] {
     background-image: url('/public/assets/jakarta.jpg');
 }
@@ -119,6 +189,8 @@
 .card[for="c4"] {
     background-image: url('/public/assets/rinjani.jpg');
 }
+
+
 
 @media (max-width: 992px) {
 
