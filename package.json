@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "alpinejs": "^3.15.11",
-        "bootstrap-icons": "^1.13.1"
+        "bootstrap-icons": "^1.13.1",
+        "leaflet": "^1.9.4"
     }
 }

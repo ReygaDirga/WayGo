@@ -6,8 +6,8 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/Logo1.png') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>WayGo</title>
     @vite([
         'resources/css/app.css',
@@ -15,7 +15,8 @@
         'resources/css/maps.css',
         'resources/js/location.js',
         'resources/js/date.js',
-        'resources/js/travel.js'
+        'resources/js/travel.js',
+        'resources/js/edit_profile.js'
     ])
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -76,7 +77,8 @@
                     <div>
                         <label class="block text-xs font-medium text-gray-600 mb-1">Full Name</label>
                         <input type="text" name="name" value="{{ old('name', auth()->user()->name) }}"
-                            class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400">
+                            class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+                            required>
                             @error('name') 
                                 <p class="text-xs text-red-500 mt-1">{{ $message }}</p> 
                             @enderror
@@ -86,7 +88,7 @@
                         <label class="block text-xs font-medium text-gray-600 mb-1">Date of Birth</label>
                         <input type="text" name="dob" id="dob" value="{{ old('dob', auth()->user()->dob) }}"
                             class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-                            placeholder="Select date">
+                            placeholder="Select date" required>
                             @error('dob') 
                                 <p class="text-xs text-red-500 mt-1">{{ $message }}</p> 
                             @enderror
@@ -103,7 +105,7 @@
                         <label class="block text-xs font-medium text-gray-600 mb-1">Location</label>
                         <input type="text" name="location" value="{{ old('location', auth()->user()->location) }}"
                             class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-                            placeholder="e.g. Semarang, Indonesia">
+                            placeholder="e.g. Semarang, Indonesia" required>
                             @error('location') 
                                 <p class="text-xs text-red-500 mt-1">{{ $message }}</p> 
                             @enderror
@@ -113,7 +115,7 @@
                         <label class="block text-xs font-medium text-gray-600 mb-1">Phone Number</label>
                         <input type="text" name="phone" value="{{ old('phone', auth()->user()->phone) }}"
                             class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-                            placeholder="e.g. 0812-3456-7890">
+                            placeholder="e.g. 0812-3456-7890" required>
                             @error('phone') 
                                 <p class="text-xs text-red-500 mt-1">{{ $message }}</p> 
                             @enderror
@@ -123,7 +125,7 @@
                         <label class="block text-xs font-medium text-gray-600 mb-1">Bio</label>
                         <input type="text" name="description" value="{{ old('description', auth()->user()->description) }}"
                             class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
-                            placeholder="e.g. Explorer · Traveler · Dreamer">
+                            placeholder="e.g. Explorer · Traveler · Dreamer" required>
                             @error('description') 
                                 <p class="text-xs text-red-500 mt-1">{{ $message }}</p> 
                             @enderror
@@ -133,19 +135,70 @@
             </div>
 
            {{-- Travel Categories --}}
-            <p class="text-lg font-semibold text-gray-700 mb-4">Travel Categories</p>
-            
-            <div class="flex flex-wrap gap-2 mb-5">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                <h6 class="text-lg font-bold text-gray-900 mb-0.5">Travel preferences</h6>
+                <p class="text-xs text-gray-400 mb-5">Your travel style and interests</p>
+               
+                <p class="text-xs font-semibold text-gray-700 mb-4">Travel Categories</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    @php
+                        $interests = auth()->user()->categories;
+                    @endphp
+
+                    @foreach($categories as $c) 
+                        @php 
+                            $isActive = in_array($c->id, auth()->user()->categories()->pluck('id')->toArray()); 
+                            $categoryStyles = match($c->name) {
+                                'Nature'    => ['bg' => 'bg-green-50',  'text' => 'text-green-800'],
+                                'Culinary'  => ['bg' => 'bg-amber-50',  'text' => 'text-amber-800'],
+                                'Adventure' => ['bg' => 'bg-blue-50',   'text' => 'text-blue-800'],
+                                'Culture'   => ['bg' => 'bg-violet-50', 'text' => 'text-violet-800'],
+                            };
+                        @endphp 
+                        <label class="cursor-pointer category-label"> 
+                            <input type="checkbox" name="categories[]" value="{{ $c->id }}" class="hidden category-checkbox" {{ $isActive ? 'checked' : '' }} data-bg="{{ $categoryStyles['bg'] }}" data-text="{{ $categoryStyles['text'] }}"> 
+                            <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium border transition-all duration-200 {{ $isActive ? $categoryStyles['bg'].' '.$categoryStyles['text'].' border-current' : 'bg-gray-50 text-gray-400 border-gray-200' }}"> <i class="fas {{ $c->icon }}"></i> {{ $c->name }} </span> 
+                        </label>
+                    @endforeach
+                </div>
                 
-            </div>
 
             {{-- Budget Range --}}
-            <p class="text-lg font-semibold text-gray-700 mb-4">Budget Range</p>
+                <p class="text-xs font-semibold text-gray-700 mb-2">Budget Range</p>
+                <div class="grid grid-cols-3 gap-3 mb-5">
+                    @foreach($budgets as $b)
+                        @php
+                            $budgetStyles = match($b->name) {
+                                'Low'    => ['bg' => 'bg-green-50',  'text' => 'text-green-800',  'border' => 'border-green-300'],
+                                'Medium' => ['bg' => 'bg-amber-50',  'text' => 'text-amber-800',  'border' => 'border-amber-300'],
+                                'High'   => ['bg' => 'bg-red-50',    'text' => 'text-red-800',    'border' => 'border-red-300'],
+                                default  => ['bg' => 'bg-gray-50',   'text' => 'text-gray-800',   'border' => 'border-gray-300'],
+                            };
+                            $isSelected = auth()->user()->budget_id === $b->id;
+                        @endphp
+                        <label class="cursor-pointer">
+                            <input type="radio" name="budget" value="{{ $b->id }}"
+                                class="hidden budget-radio"
+                                {{ $isSelected ? 'checked' : '' }}
+                                data-bg="{{ $budgetStyles['bg'] }}"
+                                data-text="{{ $budgetStyles['text'] }}"
+                                data-border="{{ $budgetStyles['border'] }}">
+                            <span class="flex flex-col items-center justify-center py-3 px-2 rounded-xl border-2 text-center transition-all duration-200
+                                {{ $isSelected ? $budgetStyles['bg'].' '.$budgetStyles['text'].' '.$budgetStyles['border'] : 'bg-gray-50 text-gray-500 border-gray-200' }}">
+                                <span class="text-sm font-semibold">{{ $b->name }}</span>
+                                    @if ($b->name == 'Low')
+                                        <span class="text-[10px] mt-0.5"> < IDR {{ number_format($b->max_price, 0, ',', '.') }}/ Trip</span>
+                                    @elseif ($b->name == 'Medium')
+                                        <span class="text-[10px] mt-0.5"> IDR {{ number_format($b->min_price, 0, ',', '.') }} - {{ number_format($b->max_price, 0, ',', '.') }}/ Trip</span>
+                                    @elseif ($b->name == 'High')
+                                        <span class="text-[10px] mt-0.5"> > IDR {{ number_format($b->min_price, 0, ',', '.') }}/ Trip</span>
+                                    @endif
+                            </span>
+                        </label>
+                    @endforeach
+                </div>
             
-            <div class="grid grid-cols-3 gap-3 mb-8">
-                
-            </div>
-                        {{-- Submit Button --}}
+            {{-- Submit Button --}}
             <div class="flex justify-end gap-3">
                 <a href="{{ route('profile') }}"
                     class="px-5 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-600 hover:bg-gray-50 transition">
@@ -156,33 +209,7 @@
                     Update Changes
                 </button>
             </div>
-
         </form>
     </div>
-
-    <script>
-        // Avatar preview
-        document.getElementById('avatarInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = document.getElementById('avatarPreview');
-                    const initial = document.getElementById('avatarInitial');
-                    preview.src = e.target.result;
-                    preview.classList.remove('hidden');
-                    if (initial) initial.classList.add('hidden');
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Flatpickr date picker
-        flatpickr('#dob', {
-            dateFormat: 'd F, Y',
-            maxDate: 'today',
-        });
-    </script>
-
 </body>
 </html>

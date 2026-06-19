@@ -7,6 +7,9 @@ use App\Models\PulauBlog;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Budget;
+use App\Models\Category;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -67,8 +70,38 @@ class ProfileController extends Controller
 
     public function editProfilePage()
     {
+        $budgets = Budget::get();
+        $categories = Category::get();
 
-        return view('profile.profile_editProfile');
+        return view('profile.profile_editProfile', compact('budgets', 'categories'));
+    }
+
+    public function editProfile(Request $request)
+    {
+        $user = auth()->user(); 
+        $name = $request->input('name');
+        $avatar = $request->input('avatar');
+        $dob = $request->input('dob');
+        $location = $request->input('location');
+        $phone = $request->input('phone');
+        $description = $request->input('description');
+        $budget = $request->input('budget');
+        $categories = $request->input('categories', []);
+
+        $user->update([
+            'name' => $name,
+            'avatar' => $avatar,
+            'phone' => $phone,
+            'dob' => $dob,
+            'description' => $description,
+            'budget_id' => $budget,
+            'location' => $location,
+        ]);
+
+        $user->categories()->sync($categories);
+
+        return redirect()->route('profile')->with('success', 'Your profile has been updated successfully');
+
     }
 
     public function changePasswordPage()
@@ -86,14 +119,14 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         if (!\Hash::check($request->current_password, $user->password)) {
-            return back()->withErrors(['current_password' => 'Password lama salah']);
+            return back()->withErrors(['current_password' => 'Old password is incorrect']);
         }
 
         $user->update([
             'password' => \Hash::make($request->password),
         ]);
 
-        return redirect()->route('profile')->with('success', 'Password berhasil diubah');
+        return redirect()->route('profile')->with('success', 'Your password has been changed successfully');
     }
 
     public function createBlog()
