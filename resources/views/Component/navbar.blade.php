@@ -1,14 +1,20 @@
 <nav 
-    x-data="{ open:false, scrolled:false }" 
-    x-init="window.addEventListener('scroll', () => {scrolled = window.scrollY > 50})" 
-    :class="scrolled ? 'fixed top-0 bg-white shadow-md':'absolute top-0 bg-transparent'"
+    x-data="{ open:false, scrolled:false, transparent: @json($transparentNavbar ?? false) }" 
+    x-init="if(transparent){
+              window.addEventListener('scroll', () => {
+                  scrolled = window.scrollY > 50
+              })
+            } else {
+              scrolled = true
+            }" 
+    :class="transparent? (scrolled ? 'fixed top-0 bg-white shadow-md': 'absolute top-0 bg-transparent') : 'fixed top-0 bg-white shadow-md'"
     class="w-full z-50 transition-all duration-300"
     >
     <div class="max-w-7xl mx-auto px-6">
       <div class="h-20 flex items-center justify-between">
         <div class="flex items-center">
           <a href="{{ route('home') }}">
-            <img src="assets/logo.png" class="w-30 h-auto" alt="logo">
+            <img src="{{ asset('assets/logo.png') }}" class="w-30 h-auto" alt="logo">
           </a>
         </div>
 
