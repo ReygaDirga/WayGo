@@ -31,16 +31,26 @@
                     <p class="text-sm font-semibold text-gray-600">Share your travel story and inspire others</p>
                 </div>
             </div>
-
-            <form action="#" method="POST">
-                
+            @if ($errors->any())
+    <div class="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-xl mb-8">
+        <strong class="font-bold">Oops! Ada yang salah nih:</strong>
+        <ul class="list-disc pl-5 mt-2 font-semibold">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+            <form action="{{ route('store-blog') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="mb-10">
                     <h2 class="text-lg font-bold text-gray-900 mb-4">1. Basic Information</h2>
                     
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-bold text-gray-800 mb-1.5">Title</label>
-                            <input type="text" class="w-full border-2 border-gray-300 rounded-xl px-4 py-2.5 outline-none focus:border-[#0B5F8D] transition" placeholder="Enter an interesting title...">
+                            <input type="text" name="title" class="w-full border-2 border-gray-300 rounded-xl px-4 py-2.5 outline-none focus:border-[#0B5F8D] transition" placeholder="Enter an interesting title...">
+                            
                         </div>
                         <div class="relative w-full">
                             <label class="block text-sm font-bold text-gray-800 mb-1.5">Location</label>
@@ -49,6 +59,7 @@
                                 <input
                                     id="locationSearch"
                                     type="text"
+                                    name="location"
                                     placeholder="e.g., Bali, Indonesia"
                                     class="w-full border-2 border-gray-300 rounded-xl px-4 py-2.5 outline-none focus:border-[#0B5F8D] transition"
                                     autocomplete="off"
@@ -60,6 +71,21 @@
                             >
                             </div>
                         </div>
+                        <div class="relative w-full">
+                            <label class="block text-sm font-bold text-gray-800 mb-1.5">Island (Region)</label>
+                            
+                            <select name="id_pulau" required class="w-full border-2 border-gray-300 rounded-xl px-4 py-2.5 outline-none focus:border-[#0B5F8D] transition bg-white cursor-pointer appearance-none text-gray-800 invalid:text-gray-400">
+                                
+                                <option value="" disabled selected>Your destination island...</option>
+                                
+                                @foreach($pulaus as $pulau)
+                                    <option value="{{ $pulau->id }}" class="text-gray-800">{{ $pulau->name }}</option>
+                                @endforeach
+                                
+                            </select>
+                            
+                            <svg class="w-5 h-5 text-gray-500 absolute right-4 top-9 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
                     </div>
                 </div>
 
@@ -69,7 +95,7 @@
                     
                     <label for="cover-upload" class="relative overflow-hidden border-2 border-dashed border-gray-400 hover:border-[#0B5F8D] bg-gray-50 hover:bg-blue-50 rounded-2xl p-10 flex flex-col items-center justify-center cursor-pointer transition group min-h-[250px]">
                         
-                        <input type="file" id="cover-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
+                        <input type="file" id="cover-upload" name="image" class="hidden" accept="image/*" onchange="previewImage(event)">
                         
                         <div id="upload-placeholder" class="flex flex-col items-center z-10 pointer-events-none">
                             <svg class="w-12 h-12 text-[#0B5F8D] mb-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
@@ -83,7 +109,7 @@
 
                 <div class="mb-10">
                     <h2 class="text-lg font-bold text-gray-900 mb-4">3. Content</h2>
-                    <textarea class="w-full border-2 border-gray-300 rounded-2xl px-5 py-4 h-64 outline-none focus:border-[#0B5F8D] transition resize-y" placeholder="Write your amazing story here..."></textarea>
+                    <textarea name="content" class="w-full border-2 border-gray-300 rounded-2xl px-5 py-4 h-64 outline-none focus:border-[#0B5F8D] transition resize-y" placeholder="Write your amazing story here..."></textarea>
                 </div>
 
                 <div class="mb-10">
@@ -101,9 +127,9 @@
                             <div id="best-time-wrapper" class="flex justify-between items-center w-full border-2 border-gray-400 bg-transparent rounded-xl px-4 py-2.5 transition cursor-text">
                                 
                                 <div class="flex items-center gap-2">
-                                    <input type="text" class="timepicker w-16 bg-transparent border-none outline-none font-semibold text-gray-800 text-base text-center cursor-pointer" placeholder="Start">
+                                    <input type="text" name="time_start" class="timepicker w-16 bg-transparent border-none outline-none font-semibold text-gray-800 text-base text-center cursor-pointer" placeholder="Start">
                                     <span class="font-bold text-gray-500">-</span>
-                                    <input type="text" class="timepicker w-16 bg-transparent border-none outline-none font-semibold text-gray-800 text-base text-center cursor-pointer" placeholder="End">
+                                    <input type="text" name="time_end" class="timepicker w-16 bg-transparent border-none outline-none font-semibold text-gray-800 text-base text-center cursor-pointer" placeholder="End">
                                 </div>
                                 
                                 <svg class="w-6 h-6 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -116,7 +142,7 @@
                                 Estimated Cost
                             </div>
                             <div class="relative">
-                                <input type="text" class="w-full border-2 border-gray-400 bg-transparent rounded-xl px-4 py-2.5 outline-none focus:border-orange-500 transition font-semibold text-gray-800" placeholder="e.g., IDR 900.000">
+                                <input type="text" name="estimated_cost" class="w-full border-2 border-gray-400 bg-transparent rounded-xl px-4 py-2.5 outline-none focus:border-orange-500 transition font-semibold text-gray-800" placeholder="e.g., IDR 900.000">
                                 <svg class="w-5 h-5 text-gray-600 absolute right-4 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                             </div>
                         </div>
@@ -126,7 +152,7 @@
                                 <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
                                 Tips
                             </div>
-                            <input type="text" class="w-full border-2 border-gray-400 bg-transparent rounded-xl px-4 py-2.5 outline-none focus:border-orange-500 transition font-semibold text-gray-800" placeholder="Write a short tip...">
+                            <input type="text" name="tips" class="w-full border-2 border-gray-400 bg-transparent rounded-xl px-4 py-2.5 outline-none focus:border-orange-500 transition font-semibold text-gray-800" placeholder="Write a short tip...">
                         </div>
                     </div>
                 </div>

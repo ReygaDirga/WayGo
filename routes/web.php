@@ -63,6 +63,7 @@ Route::prefix('/profile')->group(function () {
     Route::get('/change-password', [ProfileController::class, 'changePasswordPage'])->name('changepassword');
     Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('profile.changepassword');
     Route::get('/create-blog', [ProfileController::class, 'createBlog'])->name('create-blog');
+    Route::post('/create-blog', [ProfileController::class, 'storeBlog'])->name('store-blog');
 
 });
 
