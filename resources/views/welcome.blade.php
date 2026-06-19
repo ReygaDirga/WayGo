@@ -20,7 +20,7 @@
         ])
     </head>
     <body>
-        @include('Component.navbar')
+        @include('Component.navbar', ['transparentNavbar' => true])
 
         <section class="relative min-h-screen">
             @include('Section.landing')
