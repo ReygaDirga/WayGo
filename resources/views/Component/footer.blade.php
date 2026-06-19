@@ -3,15 +3,15 @@
     <nav>
       <div class="flex gap-6 md:gap-10">
         <a href="#">
-          <img src="assets/email.png" class="w-6 md:w-7" alt="Email">
+          <img src="{{ asset('assets/email.png') }}" class="w-6 md:w-7" alt="Email">
         </a>
 
         <a href="#">
-          <img src="assets/X.png" class="w-6 md:w-7" alt="X">
+          <img src="{{ asset('assets/X.png') }}" class="w-6 md:w-7" alt="X">
         </a>
 
         <a href="#">
-          <img src="assets/instagram.png" class="w-6 md:w-7" alt="Instagram">
+          <img src="{{ asset('assets/instagram.png') }}" class="w-6 md:w-7" alt="Instagram">
         </a>
       </div>
     </nav>
@@ -26,7 +26,7 @@
 
     <section>
       <img 
-        src="assets/logo.png" 
+        src="{{ asset('assets/logo.png') }}" 
         class="w-28 sm:w-32 md:w-40"
         alt="WayGo Logo"
       >

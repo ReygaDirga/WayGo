@@ -75,7 +75,7 @@
                             @endif       
                         </div>
                     </div>
-                    <h5 class="text-lg font-bold text-gray-900 mb-0.5">{{ auth()->user()->name }}</h5>
+                    <h5 class="text-lg font-bold text-gray-900 mb-0.5">{{ auth()->user()->id }}</h5>
                     <p class="text-xs text-gray-500 leading-relaxed">{{ auth()->user()->description }}</p>
                     <p class="text-xs text-gray-500 flex items-center gap-1 mt-1.5">
                         <i class="bi bi-geo-alt"></i> {{ $user->location ?? "" }}
