@@ -42,7 +42,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(
             Category::class,
-            'user_categories'
+            'user_categories', 'user_id', 'category_id'
         );
     }
 
