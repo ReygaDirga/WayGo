@@ -12,7 +12,8 @@
         'resources/js/app.js',
         'resources/js/location.js',
         'resources/js/date.js',
-        'resources/css/category.css'
+        'resources/css/category.css',
+        'resources/js/category.js'
         ])
 </head>
 <body>
@@ -141,42 +142,93 @@
         </div>
     </section>
 
+    <span class="text-black font-semibold sm:text-lg md:text-xl lg:text-2xl text-center mt-10 block">
+        Select your category to personalize your itinerary
+    </span>
+
     <section>
         <div class="wrapper">
             <div class="container">
                 <input class="inputW" type="radio" name="slide" id="c1" checked>
                 <label for="c1" class="card">
+                    <div class="vertical-title">
+                        <span class="vertical-text">Culture</span>
+                        <input class="sync-checkbox checkbox checkbox-lg vertical-checkbox"
+                            data-group="culture"
+                            type="checkbox">
+                    </div>
                     <div class="row">
                         <div class="description">
-                            <h4 class="text-black font-extrabold">Culture</h4>
-                            <p>Experience the rich culture and traditions of every destination. Visit historical landmarks, traditional villages, and learn about local heritage and customs.</p>
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-black font-extrabold">Culture</h4>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <p class="mt-3">Experience the rich culture and traditions of every destination. Visit historical landmarks, traditional villages, and learn about local heritage and customs.</p>
+                                <input class="sync-checkbox checkbox checkbox-xl ms-10 open-checkbox" data-group="culture" type="checkbox">
+                            </div>
                         </div>
                     </div>
                 </label>
-                <input class="inputW" type="radio" name="slide" id="c2" >
+                
+                <input class="inputW" type="radio" name="slide" id="c2">
                 <label for="c2" class="card">
+                    <div class="vertical-title">
+                        <span class="vertical-text">Nature</span>
+                        <input class="sync-checkbox checkbox checkbox-lg vertical-checkbox"
+                            data-group="nature"
+                            type="checkbox">
+                    </div>
                     <div class="row">
                         <div class="description">
-                            <h4 class="text-black font-extrabold">Nature</h4>
-                            <p>Discover stunning beaches, lush forests, majestic mountains, and breathtaking natural landscapes.</p>
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-black font-extrabold">Nature</h4>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                 <p class="mt-3">Discover stunning beaches, lush forests, majestic mountains, and breathtaking natural landscapes.</p>
+                                <input class="sync-checkbox checkbox checkbox-xl ms-10 open-checkbox" data-group="nature" type="checkbox">
+                            </div>
                         </div>
                     </div>
                 </label>
+
                 <input class="inputW" type="radio" name="slide" id="c3" >
                 <label for="c3" class="card">
+                    <div class="vertical-title">
+                        <span class="vertical-text">Culinary</span>
+                        <input class="sync-checkbox checkbox checkbox-lg vertical-checkbox"
+                            data-group="culinary"
+                            type="checkbox">
+                    </div>
                     <div class="row">
                         <div class="description">
-                            <h4 class="font-extrabold">Culinary</h4>
-                            <p>Discover the unique flavors of Indonesian cuisine.Enjoy authentic local dishes, street food, and traditional culinary experiences from different regions.</p>
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-black font-extrabold">Culinary</h4>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                 <p class="mt-3">Discover the unique flavors of Indonesian cuisine.Enjoy authentic local dishes, street food, and traditional culinary experiences from different regions.</p>
+                                <input class="sync-checkbox checkbox checkbox-xl ms-10 open-checkbox" data-group="culinary" type="checkbox">
+                            </div>
                         </div>
                     </div>
                 </label>
-                <input class="inputW" type="radio" name="slide" id="c4" >
+
+                <input class="inputW" type="radio" name="slide" id="c4">
                 <label for="c4" class="card">
+                    <div class="vertical-title">
+                        <span class="vertical-text">Adventure</span>
+                        <input class="sync-checkbox checkbox checkbox-lg vertical-checkbox"
+                            data-group="adventure"
+                            type="checkbox">
+                    </div>
                     <div class="row">
                         <div class="description">
-                            <h4 class="text-black font-extrabold">Adventure</h4>
-                            <p>Feel the thrill of exciting outdoor adventures. From hiking mountains and diving in crystal waters to surfing and exploring hidden natural spots.</p>
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-black font-extrabold">Adventure</h4>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <p class="mt-3">Feel the thrill of exciting outdoor adventures. From hiking mountains and diving in crystal waters to surfing and exploring hidden natural spots.</p>
+                                <input class="sync-checkbox checkbox checkbox-xl ms-10 open-checkbox" data-group="adventure" type="checkbox">
+                            </div>
                         </div>
                     </div>
                 </label>
