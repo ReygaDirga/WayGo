@@ -10,4 +10,9 @@ class ItineraryController extends Controller
     {
         return view('itineraries.itinerary');
     }
+
+    public function itineraryDetail()
+    {
+        return view('itineraries.ilist');
+    }
 }
