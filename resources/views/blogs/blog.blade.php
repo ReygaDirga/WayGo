@@ -13,7 +13,7 @@
     ])
 </head>
 <body class="bg-gradient-to-b from-[#0B5F8D] to-[#55B0CC] min-h-screen">
-    @include('Component.navbar')
+    @include('Component.navbar', ['transparentNavbar' => true])
     
     <section class="w-full overflow-hidden pt-12 pb-15">
         @include('blogs.blog_hero')
