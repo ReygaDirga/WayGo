@@ -63,8 +63,8 @@
                         </span>
                     </div>
 
-                    <a href="{{ route('create-blog') }}" class="inline-block bg-[#1A365D] hover:bg-blue-800 transition px-5 py-2 md:px-6 md:py-2.5 rounded-full text-xs md:text-sm font-semibold">
-                        INI COBAIN CREATE PROJEK
+                    <a href="{{ route('blog-detail') }}" class="inline-block bg-[#1A365D] hover:bg-blue-800 transition px-5 py-2 md:px-6 md:py-2.5 rounded-full text-xs md:text-sm font-semibold">
+                        Read Full Story
                     </a>
                 </div>
             </div>
