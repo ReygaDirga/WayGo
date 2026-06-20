@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="assets/Logo1.png" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/Logo1.png') }}" />
     <title>WayGo</title>
     @vite([
     'resources/css/app.css',
@@ -15,30 +15,32 @@
     @include('Component.navbar')
     
     <main class="flex-grow max-w-[1080px] mx-auto px-4 w-full pt-22 pb-20">
-        
+    
         <div class="bg-white rounded-3xl overflow-hidden shadow-2xl">
             
             <div class="relative w-full h-[400px]">
-                <img src="{{ asset('assets/hero1.jpg') }}" class="w-full h-full object-cover" alt="Borobudur">
+                <img src="{{ $detail->image ? asset('storage/' . $detail->image) : asset('assets/hero1.jpg') }}" class="w-full h-full object-cover" alt="{{ $detail->title }}">
                 
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
                 
-                <a href="/blog" class="absolute top-6 left-6 md:top-8 md:left-8 flex items-center gap-2 text-white font-semibold hover:text-gray-300 transition z-20">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                <a href="/blog" class="absolute top-6 left-6 md:top-8 md:left-8 flex items-center gap-2 text-white font-semibold bg-[#1A365D] hover:bg-blue-800 transition px-4 py-2 md:px-5 md:py-2.5 rounded-full text-xs md:text-sm w-max z-20 shadow-md">
+                    <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
                     Back
                 </a>
 
                 <div class="absolute bottom-8 left-6 md:left-10 right-6 z-10">
-                    <h1 class="text-3xl md:text-5xl font-bold text-white leading-tight mb-3">Sunrise Over the <br class="hidden md:block"> Majestic Borobudur Temple</h1>
+                    <h1 class="text-3xl md:text-5xl font-bold text-white leading-tight mb-3">{{ $detail->title }}</h1>
                     <div class="flex flex-wrap items-center gap-3 text-sm text-gray-200">
                         <span class="flex items-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            Magelang, Central Java
+                            {{ explode(',', $detail->location)[0] }}, {{ $detail->pulau->name ?? '' }}
                         </span>
                         <span>|</span>
                         <span class="flex items-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            August 20, 2023 by Samudra Bryandhika
+                            {{ $detail->created_at->format('F d, Y') }} by {{ $detail->user->name ?? 'Traveler' }}
                         </span>
                     </div>
                 </div>
@@ -48,11 +50,11 @@
                 
                 <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 pb-6 mb-8 gap-4">
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-2">Sunrise Over the Majestic Borobudur Temple</h2>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">{{ $detail->title }}</h2>
                         <div class="flex flex-wrap items-center gap-3 text-sm text-gray-600 font-medium">
-                            <span class="flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg> Magelang, Central Java</span>
+                            <span class="flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg> {{ explode(',', $detail->location)[0] }}</span>
                             <span class="hidden md:inline">|</span>
-                            <span class="flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> August 20, 2023 by Samudra Bryandhika</span>
+                            <span class="flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> {{ $detail->created_at->format('F d, Y') }} by {{ $detail->user->name ?? 'Traveler' }}</span>
                         </div>
                     </div>
                     
@@ -66,11 +68,7 @@
                 </div>
 
                 <div class="text-gray-800 leading-relaxed space-y-6">
-                    <p>It was still dark this morning when I arrived at the Borobudur area. <br> The sky showed no signs of dawn yet. The cold air was immediately felt, and a thin mist enveloped the majestic temple. The atmosphere was so calm—only the soft footsteps of visitors arriving with the same goal.</p>
-                    
-                    <p>Watching the sunrise from the top of Borobudur. <br> I started climbing the stone steps that felt cold. Every step felt like a journey towards something special. The reliefs on the temple walls looked faint in the dark, but it actually made the atmosphere even more magical. When I finally reached the top, I stopped. <br> The sky slowly changed color. From dark, to purple, then orange. And at that exact second—the sun emerged from behind the hills.</p>
-
-                    <p>Its light illuminated the stupas one by one, creating beautiful shadows and a truly serene atmosphere. <br> "A moment that leaves you speechless." <br> Everyone fell silent. No one spoke. Everyone just enjoyed it. <br> Borobudur is not just a tourist destination. It is an experience. A place where you can pause from the busy world and truly feel the tranquility. <br> If you have the chance, come earlier. Climb to the top, and witness the magic of the sunrise here yourself.</p>
+                    {!! nl2br(e($detail->content)) !!}
                 </div>
 
                 <div class="mt-12 bg-[#FDF5E6] rounded-2xl p-6 md:p-8 border border-orange-200 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -81,7 +79,7 @@
                             Best Time to Visit
                         </div>
                         <div class="border border-gray-400 rounded-xl px-4 py-3 bg-transparent flex justify-between items-center text-sm font-semibold text-gray-800">
-                            05:00 - 06:00 (Sunrise)
+                            {{ $detail->best_time_visit ?? '-' }}
                             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         </div>
                     </div>
@@ -92,7 +90,7 @@
                             Estimated Cost
                         </div>
                         <div class="border border-gray-400 rounded-xl px-4 py-3 bg-transparent flex justify-between items-center text-sm font-semibold text-gray-800">
-                            IDR 900.000 - 1.200.000
+                            {{ $detail->estimated_cost ? 'Rp ' . number_format($detail->estimated_cost, 0, ',', '.') : '-' }}
                             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                         </div>
                     </div>
@@ -102,8 +100,8 @@
                             <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
                             Tips
                         </div>
-                        <div class="border border-gray-400 rounded-xl px-4 py-3 bg-transparent text-sm font-medium text-gray-800 leading-snug">
-                            Wear a jacket because the air is quite cold, and don't forget to enjoy the moment without focusing too much on taking photos.
+                        <div class="border border-gray-400 rounded-xl px-4 py-3 bg-transparent text-sm font-medium text-gray-800 leading-snug break-words">
+                            {{ $detail->tips ?? '-' }}
                         </div>
                     </div>
 

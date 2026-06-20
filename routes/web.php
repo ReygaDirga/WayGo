@@ -70,7 +70,7 @@ Route::prefix('/profile')->group(function () {
 // Blog
 Route::prefix('/blog')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('blog');
-    Route::get('/blog-detail', [BlogController::class, 'BlogDetail'])->name('blog-detail');
+    Route::get('/blog-detail/{id}', [BlogController::class, 'BlogDetail'])->name('blog-detail');
     Route::get('/create-blog', [ProfileController::class, 'createBlog'])->name('create-blog');
 });
 

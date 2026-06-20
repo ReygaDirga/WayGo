@@ -7,9 +7,7 @@ use App\Models\PulauBlog;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Budget;
-use App\Models\Category;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -21,6 +19,14 @@ class ProfileController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'title'    => 'required|max:255',
+            'location' => 'required',
+            'id_pulau' => 'required',
+            'image'    => 'required|image|mimes:jpeg,png,jpg|max:2048', // Nah ini dia!
+            'content'  => 'required'
+        ]);
+        
         $user = auth()->user();
 
         if ($request->hasFile('avatar')) {
