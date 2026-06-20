@@ -7,7 +7,7 @@
 
     <div id="drag-slider" class="cursor-grab flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] select-none">
         @foreach ($recentPosts as $rp)
-            <div class="relative flex-none w-[300px] h-[380px] rounded-2xl overflow-hidden snap-start cursor-pointer group shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+            <a href="{{ route('blog-detail', $rp->id) }}" class="relative flex-none w-[300px] h-[380px] rounded-2xl overflow-hidden snap-start cursor-pointer group shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
                 <img src="{{ $rp->image ? asset('storage/' . $rp->image) : asset('assets/Logo1.png') }}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none" alt="Lake Toba">
                 <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-white via-white/80 to-transparent z-0"></div>
                 <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
@@ -18,7 +18,7 @@
                     <h3 class="text-gray-900 text-2xl font-bold mb-1">{{ explode(',', $rp->location)[0] }}</h3>
                     <p class="text-gray-800 text-sm leading-snug min-h-[40px] line-clamp-2">{{ $rp->title }}</p>
                 </div>
-            </div>
+            </a>
         @endforeach
         
     </div>

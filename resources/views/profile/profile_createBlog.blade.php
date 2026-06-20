@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="assets/Logo1.png" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/Logo1.png') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <title>WayGo</title>
@@ -11,7 +11,8 @@
         'resources/css/app.css',
         'resources/js/app.js',
         'resources/js/date.js',
-        'resources/js/location.js'
+        'resources/js/location.js',
+        'resources/js/blog_create.js'
         ])
 </head>
 <body class="bg-gradient-to-b from-[#0B5F8D] to-[#55B0CC] min-h-screen flex flex-col">
@@ -31,16 +32,18 @@
                     <p class="text-sm font-semibold text-gray-600">Share your travel story and inspire others</p>
                 </div>
             </div>
+
             @if ($errors->any())
-    <div class="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-xl mb-8">
-        <strong class="font-bold">Oops! Ada yang salah nih:</strong>
-        <ul class="list-disc pl-5 mt-2 font-semibold">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                <div class="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-xl mb-8">
+                    <strong class="font-bold">Oops! Ada yang salah nih:</strong>
+                    <ul class="list-disc pl-5 mt-2 font-semibold">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('store-blog') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-10">
@@ -49,41 +52,35 @@
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-bold text-gray-800 mb-1.5">Title</label>
-                            <input type="text" name="title" class="w-full border-2 border-gray-300 rounded-xl px-4 py-2.5 outline-none focus:border-[#0B5F8D] transition" placeholder="Enter an interesting title...">
-                            
+                            <input required type="text" name="title" value="{{ old('title') }}" class="w-full border-2 border-gray-300 rounded-xl px-4 py-2.5 outline-none focus:border-[#0B5F8D] transition" placeholder="Enter an interesting title...">
                         </div>
+                        
                         <div class="relative w-full">
                             <label class="block text-sm font-bold text-gray-800 mb-1.5">Location</label>
-
                             <div class="flex items-center gap-2">
                                 <input
+                                    required
                                     id="locationSearch"
                                     type="text"
                                     name="location"
+                                    value="{{ old('location') }}"
                                     placeholder="e.g., Bali, Indonesia"
                                     class="w-full border-2 border-gray-300 rounded-xl px-4 py-2.5 outline-none focus:border-[#0B5F8D] transition"
                                     autocomplete="off"
                                 >
                             </div>
-                            <div
-                                id="locationResults"
-                                class="hidden absolute top-full left-0 mt-3 bg-white shadow-xl rounded-xl w-80 z-50 max-h-60 overflow-auto"
-                            >
+                            <div id="locationResults" class="hidden absolute top-full left-0 mt-3 bg-white shadow-xl rounded-xl w-80 z-50 max-h-60 overflow-auto">
                             </div>
                         </div>
+
                         <div class="relative w-full">
                             <label class="block text-sm font-bold text-gray-800 mb-1.5">Island (Region)</label>
-                            
                             <select name="id_pulau" required class="w-full border-2 border-gray-300 rounded-xl px-4 py-2.5 outline-none focus:border-[#0B5F8D] transition bg-white cursor-pointer appearance-none text-gray-800 invalid:text-gray-400">
-                                
-                                <option value="" disabled selected>Your destination island...</option>
-                                
+                                <option value="" disabled {{ old('id_pulau') ? '' : 'selected' }}>Your destination island...</option>
                                 @foreach($pulaus as $pulau)
-                                    <option value="{{ $pulau->id }}" class="text-gray-800">{{ $pulau->name }}</option>
+                                    <option value="{{ $pulau->id }}" {{ old('id_pulau') == $pulau->id ? 'selected' : '' }} class="text-gray-800">{{ $pulau->name }}</option>
                                 @endforeach
-                                
                             </select>
-                            
                             <svg class="w-5 h-5 text-gray-500 absolute right-4 top-9 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </div>
                     </div>
@@ -93,9 +90,9 @@
                     <h2 class="text-lg font-bold text-gray-900 mb-1.5">2. Cover Image</h2>
                     <p class="text-xs font-bold text-gray-600 mb-4">Upload a beautiful image that represents your story.</p>
                     
-                    <label for="cover-upload" class="relative overflow-hidden border-2 border-dashed border-gray-400 hover:border-[#0B5F8D] bg-gray-50 hover:bg-blue-50 rounded-2xl p-10 flex flex-col items-center justify-center cursor-pointer transition group min-h-[250px]">
+                    <label for="cover-upload" class="relative overflow-hidden border-2 border-dashed border-gray-400 hover:border-[#0B5F8D] bg-gray-50 hover:bg-blue-50 rounded-2xl p-10 flex flex-col items-center justify-center transition group min-h-[250px]">
                         
-                        <input type="file" id="cover-upload" name="image" class="hidden" accept="image/*" onchange="previewImage(event)">
+                        <input type="file" id="cover-upload" name="image" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-50" accept="image/*" onchange="previewImage(event)">
                         
                         <div id="upload-placeholder" class="flex flex-col items-center z-10 pointer-events-none">
                             <svg class="w-12 h-12 text-[#0B5F8D] mb-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
@@ -105,11 +102,18 @@
 
                         <img id="image-preview" class="absolute inset-0 w-full h-full object-cover hidden z-20" alt="Cover Preview">
                     </label>
+
+                    @if($errors->any())
+                        <p class="text-red-500 text-sm mt-2 font-bold flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            Please re-select your cover image
+                        </p>
+                    @endif
                 </div>
 
                 <div class="mb-10">
                     <h2 class="text-lg font-bold text-gray-900 mb-4">3. Content</h2>
-                    <textarea name="content" class="w-full border-2 border-gray-300 rounded-2xl px-5 py-4 h-64 outline-none focus:border-[#0B5F8D] transition resize-y" placeholder="Write your amazing story here..."></textarea>
+                    <textarea required name="content" class="w-full border-2 border-gray-300 rounded-2xl px-5 py-4 h-64 outline-none focus:border-[#0B5F8D] transition resize-y" placeholder="Write your amazing story here...">{{ old('content') }}</textarea>
                 </div>
 
                 <div class="mb-10">
@@ -125,13 +129,11 @@
                             </div>
                             
                             <div id="best-time-wrapper" class="flex justify-between items-center w-full border-2 border-gray-400 bg-transparent rounded-xl px-4 py-2.5 transition cursor-text">
-                                
                                 <div class="flex items-center gap-2">
-                                    <input type="text" name="time_start" class="timepicker w-16 bg-transparent border-none outline-none font-semibold text-gray-800 text-base text-center cursor-pointer" placeholder="Start">
+                                    <input type="text" name="time_start" value="{{ old('time_start') }}" class="timepicker w-16 bg-transparent border-none outline-none font-semibold text-gray-800 text-base text-center cursor-pointer" placeholder="Start">
                                     <span class="font-bold text-gray-500">-</span>
-                                    <input type="text" name="time_end" class="timepicker w-16 bg-transparent border-none outline-none font-semibold text-gray-800 text-base text-center cursor-pointer" placeholder="End">
+                                    <input type="text" name="time_end" value="{{ old('time_end') }}" class="timepicker w-16 bg-transparent border-none outline-none font-semibold text-gray-800 text-base text-center cursor-pointer" placeholder="End">
                                 </div>
-                                
                                 <svg class="w-6 h-6 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </div>
                         </div>
@@ -142,7 +144,7 @@
                                 Estimated Cost
                             </div>
                             <div class="relative">
-                                <input type="text" name="estimated_cost" class="w-full border-2 border-gray-400 bg-transparent rounded-xl px-4 py-2.5 outline-none focus:border-orange-500 transition font-semibold text-gray-800" placeholder="e.g., IDR 900.000">
+                                <input type="text" name="estimated_cost" value="{{ old('estimated_cost') }}" class="w-full border-2 border-gray-400 bg-transparent rounded-xl px-4 py-2.5 outline-none focus:border-orange-500 transition font-semibold text-gray-800" placeholder="e.g., IDR 900.000">
                                 <svg class="w-5 h-5 text-gray-600 absolute right-4 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                             </div>
                         </div>
@@ -152,15 +154,17 @@
                                 <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
                                 Tips
                             </div>
-                            <input type="text" name="tips" class="w-full border-2 border-gray-400 bg-transparent rounded-xl px-4 py-2.5 outline-none focus:border-orange-500 transition font-semibold text-gray-800" placeholder="Write a short tip...">
+                            <input type="text" name="tips" value="{{ old('tips') }}" class="w-full border-2 border-gray-400 bg-transparent rounded-xl px-4 py-2.5 outline-none focus:border-orange-500 transition font-semibold text-gray-800" placeholder="Write a short tip...">
                         </div>
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row justify-between items-center border-t border-gray-200 pt-6 mt-8 gap-4">
-                    <div class="flex items-center gap-2 text-green-600 font-bold text-sm">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        Auto-saved a few seconds ago
+                <div class="flex flex-col sm:flex-row justify-end items-center border-t border-gray-200 pt-6 mt-8 gap-4">
+                    <div id="autosave-indicator" class="hidden flex items-center gap-2 text-green-600 font-bold text-sm transition-all duration-300 sm:mr-auto">
+                        <svg id="autosave-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span id="autosave-text">Auto-saved a few seconds ago</span>
                     </div>
 
                     <button type="submit" class="bg-[#F59E0B] hover:bg-orange-600 transition text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform duration-200">
@@ -174,52 +178,5 @@
     </main>
 
     @include('Component.footer')
-
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    
-    <script>
-        const timeWrapper = document.getElementById('best-time-wrapper');
-
-        flatpickr(".timepicker", {
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "H:i",
-            time_24hr: true,
-            onOpen: function() {
-                // Pas popup waktu kebuka, ubah border jadi oren
-                timeWrapper.classList.remove('border-gray-400');
-                timeWrapper.classList.add('border-orange-500');
-            },
-            onClose: function() {
-                // Pas popup ditutup, balikin ke warna abu-abu
-                timeWrapper.classList.remove('border-orange-500');
-                timeWrapper.classList.add('border-gray-400');
-            }
-        });
-
-        // Fungsi buat nampilin preview foto yang diupload
-        function previewImage(event) {
-            const input = event.target;
-            const preview = document.getElementById('image-preview');
-            const placeholder = document.getElementById('upload-placeholder');
-
-            // Kalau user milih file
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    // Masukin data gambar ke tag <img>
-                    preview.src = e.target.result;
-                    // Munculin gambarnya
-                    preview.classList.remove('hidden');
-                    // Sembunyiin teks & ikon awannya
-                    placeholder.classList.add('hidden');
-                }
-
-                // Baca file gambarnya
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 </body>
 </html>
