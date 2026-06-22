@@ -83,29 +83,40 @@ class ProfileController extends Controller
 
     public function editProfile(Request $request)
     {
-        $user = auth()->user(); 
-        $name = $request->input('name');
-        $avatar = $request->input('avatar');
-        $dob = $request->input('dob');
-        $location = $request->input('location');
-        $phone = $request->input('phone');
-        $description = $request->input('description');
-        $budget = $request->input('budget');
-        $categories = $request->input('categories', []);
-
-        $user->update([
-            'name' => $name,
-            'avatar' => $avatar,
-            'phone' => $phone,
-            'dob' => $dob,
-            'description' => $description,
-            'budget_id' => $budget,
-            'location' => $location,
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'dob' => 'required|date',
+            'location' => 'nullable|string|max:255',
+            'phone' => 'required|numeric',
+            'description' => 'nullable|string|max:1000',
+            'budget' => 'required|exists:budgets,id',
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
         ]);
 
-        $user->categories()->sync($categories);
+        $user = auth()->user();
 
-        return redirect()->route('profile')->with('success', 'Your profile has been updated successfully');
+        // Upload avatar jika ada
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
+        }
+
+        $user->name = $validated['name'];
+        $user->phone = $validated['phone'] ?? null;
+        $user->dob = $validated['dob'] ?? null;
+        $user->location = $validated['location'] ?? null;
+        $user->description = $validated['description'] ?? null;
+        $user->budget_id = $validated['budget'] ?? null;
+
+        $user->save();
+
+        $user->categories()->sync($validated['categories'] ?? []);
+
+        return redirect()
+            ->route('profile')
+            ->with('success', 'Your profile has been updated successfully');
 
     }
 
