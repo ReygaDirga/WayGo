@@ -50,7 +50,6 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 // itinerary
 Route::prefix('/itinerary')->group(function () {
     Route::get('/', [ItineraryController::class, 'index'])->name('itinerary');
-    Route::get('/itinerary-start', [ItineraryController::class, 'index'])->name('start-itinerary');
     Route::get('/itinerary-detail', [ItineraryController::class, 'itineraryDetail'])->name('itinerary-detail');
 });
 

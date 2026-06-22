@@ -19,13 +19,13 @@ class ProfileController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title'    => 'required|max:255',
-            'location' => 'required',
-            'id_pulau' => 'required',
-            'image'    => 'required|image|mimes:jpeg,png,jpg|max:2048', // Nah ini dia!
-            'content'  => 'required'
-        ]);
+        // $request->validate([
+        //     'title'    => 'required|max:255',
+        //     'location' => 'required',
+        //     'id_pulau' => 'required',
+        //     'image'    => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        //     'content'  => 'required'
+        // ]);
         
         $user = auth()->user();
 
