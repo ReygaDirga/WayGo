@@ -66,7 +66,7 @@
                     <div class="relative mb-4">
                         <div class="w-40 h-40 rounded-full bg-gradient-to-br from-amber-300 to-amber-500 flex items-center justify-center text-2xl font-bold text-amber-900">
                             @if (auth()->user()->avatar)
-                                <img src="{{ auth()->user()->avatar }}" alt="Avatar" class="w-full h-full object-cover rounded-full">
+                                <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" class="w-full h-full object-cover rounded-full">
                             @else
                                 <span class="text-2xl font-bold text-amber-900">
                                     {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}

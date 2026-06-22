@@ -72,3 +72,21 @@ document.querySelectorAll('.budget-radio').forEach(radio => {
         });
     });
 });
+
+document.getElementById('avatarInput').addEventListener('change', function (e) {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+        document.getElementById('avatarPreviewWrapper').innerHTML = `
+            <img src="${event.target.result}"
+                 class="w-full h-full object-cover rounded-full"
+                 alt="Avatar Preview">
+        `;
+    };
+
+    reader.readAsDataURL(file);
+});
