@@ -18,7 +18,7 @@
     </a>
 
     <a href="{{ route('trips') }}" :class="scrolled ? 'text-gray-800' : 'text-[#F5F0EC]'" class="font-bold">
-        Save Trips
+        Saved Trips
     </a>
 
     <a href="{{ route('blog') }}" :class="scrolled ? 'text-gray-800' : 'text-[#F5F0EC]'" class="font-bold">
