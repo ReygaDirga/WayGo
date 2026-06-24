@@ -125,7 +125,7 @@
                     </div>
                     </div>
                 </div>
-                <a href="{{ route('start-itinerary') }}">
+                <a href="{{ route('itinerary') }}">
                     <button class="mt-6 md:mt-8 w-full md:w-auto bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] px-8 py-3
                                 rounded-full text-white font-semibold hover:scale-105 transition">
                         Start Planning Now

@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Profile — WayGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/css/createprofile.css'])
+    @vite(['resources/css/app.css', 'resources/css/authentication/createprofile.css'])
 </head>
 <body>
-
 <div class="cp-page">
-
     {{-- ── BACKGROUND ── --}}
     <div class="cp-bg">
         <div class="cp-bg-img" style="background-image: url('{{ asset('assets/Login/background.png') }}')"></div>
