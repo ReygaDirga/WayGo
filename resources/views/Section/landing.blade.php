@@ -18,7 +18,8 @@
             <div class="absolute -inset-2 md:-inset-4
                 bg-white/20 backdrop-blur-md rounded-3xl">
             </div>
-            <div class="relative bg-white/90 rounded-2xl shadow-xl 
+            <form action="{{ route('itinerary') }}" method="get" id="startPlanningForm">
+                <div class="relative bg-white/90 rounded-2xl shadow-xl 
                 p-6 md:p-8">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-left">
                     <div class="relative w-full">
@@ -95,13 +96,13 @@
                                 Adults
                             </span>
                             <div class="flex items-center gap-3">
-                                <button id="adultMinus" class="w-8 h-8 border rounded-full">
+                                <button id="adultMinus" type="button" class="w-8 h-8 border rounded-full">
                                     -
                                 </button>
                                 <span id="adultNumber">
                                     0
                                 </span>
-                                <button id="adultPlus" class="w-8 h-8 border rounded-full">
+                                <button id="adultPlus" type="button" class="w-8 h-8 border rounded-full">
                                     +
                                 </button>
                             </div>
@@ -111,13 +112,13 @@
                                 Kids
                             </span>
                             <div class="flex items-center gap-3">
-                                <button id="kidMinus" class="w-8 h-8 border rounded-full">
+                                <button id="kidMinus" type="button" class="w-8 h-8 border rounded-full">
                                     -
                                 </button>
                                 <span id="kidNumber">
                                     0
                                 </span>
-                                <button id="kidPlus" class="w-8 h-8 border rounded-full">
+                                <button id="kidPlus" type="button" class="w-8 h-8 border rounded-full">
                                     +
                                 </button>
                             </div>
@@ -125,13 +126,34 @@
                     </div>
                     </div>
                 </div>
-                <a href="{{ route('itinerary') }}">
-                    <button class="mt-6 md:mt-8 w-full md:w-auto bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] px-8 py-3
-                                rounded-full text-white font-semibold hover:scale-105 transition">
-                        Start Planning Now
-                    </button>
-                </a>
+                <input type="hidden" name="location" id="hiddenLocation">
+                <input type="hidden" name="date" id="hiddenDate">
+                <input type="hidden" name="adults" id="hiddenAdults">
+                <input type="hidden" name="kids" id="hiddenKids">
+                <button type="submit" id="startPlanningBtn" class="mt-6 md:mt-8 w-full md:w-auto bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] px-8 py-3
+                            rounded-full text-white font-semibold hover:scale-105 transition">
+                    Start Planning Now
+                </button>
             </div>
+            </form>
+            
         </div>
     </div>
 </div>
+<script>
+        document.getElementById("startPlanningForm").addEventListener("submit", function () {
+
+            document.getElementById("hiddenLocation").value =
+                document.getElementById("locationSearch").value;
+
+            document.getElementById("hiddenDate").value =
+                document.getElementById("dateRange").value;
+
+            document.getElementById("hiddenAdults").value =
+                document.getElementById("adultNumber").innerText;
+
+            document.getElementById("hiddenKids").value =
+                document.getElementById("kidNumber").innerText;
+
+        });
+    </script>

@@ -37,18 +37,19 @@
                                     Location
                                 </h3>
 
-                                <div class="flex items-center gap-2">
+                                <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1">
                                     <span>
-                                        <img src="assets/location.svg">
+                                        <img src="{{ asset('assets/location.svg') }}" class="w-5 h-5 shrink-0">
                                     </span>
 
                                     <input
                                         id="locationSearch"
+                                        name="location"
+                                        value="{{ request('location') }}"
                                         type="text"
                                         placeholder="City, Province"
-                                        class="outline-none bg-transparent w-full"
-                                        autocomplete="off"
-                                    >
+                                        class="outline-none bg-transparent w-full">
+                                        
                                 </div>
                                 <div
                                     id="locationResults"
@@ -62,41 +63,43 @@
                                     Date
                                 </h3>
 
-                                <div class="flex items-center gap-2">
+                                <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1">
                                     <span>
-                                        <img src="assets/calendar.svg">
+                                        <img src="{{ asset('assets/calendar.svg') }}" class="w-5 h-5 shrink-0">
                                     </span>
 
                                     <input
                                         id="dateRange"
+                                        name="date"
+                                        value="{{ request('date') }}"
                                         type="text"
                                         placeholder="Start Date - End Date"
                                         readonly
-                                        class="outline-none bg-transparent cursor-pointer w-full"
-                                    >
+                                        class="outline-none bg-transparent w-full">
                                 </div>
                             </div>
-                                <div class="relative">
+                                <div class="relative ">
                                     <h3 class="font-extrabold text-lg md:text-xl mb-2">
                                         Traveler
                                     </h3>
                                     <button
                                         id="travelerBtn"
-                                        class="flex items-center gap-2"
+                                        class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1"
                                         type="button"
+                                        
                                         >
                                         <span>
-                                            <img src="assets/trip.svg">
+                                            <img src="{{ asset('assets/trip.svg') }}">
                                         </span>
 
                                         <span class="text-gray-500">
                                             Adults :
                                             <span id="adultCount">
-                                                0
+                                                {{ request('adults',0) }}
                                             </span>
                                             Kids :
                                             <span id="kidCount">
-                                                0
+                                                {{ request('kids',0) }}
                                             </span>
                                         </span>
                                     </button>
