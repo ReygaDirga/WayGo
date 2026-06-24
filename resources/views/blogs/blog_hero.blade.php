@@ -1,7 +1,20 @@
-<div class="relative w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-[1100px] mx-auto h-[500px] md:h-[550px] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl mt-10">
-    
+@auth
+    <a href="{{ route('create-blog') }}" class="absolute top-24 left-[calc(50%-550px)] md:top-24 z-20">
+        <div class="max-w-[1100px] mx-auto relative mt-12">
+            <a href="{{ route('create-blog') }}">
+                <div class="w-[140px] h-12 pl-8 pr-4
+                    bg-[#1A365D]
+                    rounded-full flex items-center shadow-sm">
+                    <span class="text-white text-sm font-semibold">
+                        Create Blog
+                    </span>
+                </div>
+            </a>
+        </div>
+    </a>
+@endauth
+<div class="relative w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-[1100px] mx-auto h-[500px] md:h-[550px] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl mt-12">
     <div id="carousel-slides" class="w-full h-full relative">
-        
         @foreach($heroPosts as $index => $hp)
         <div class="carousel-item cursor-pointer absolute inset-0 transition-opacity duration-700 ease-in-out {{ $loop->first ? 'opacity-100 z-10' : 'opacity-0 z-0' }}">
             
@@ -10,11 +23,6 @@
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent"></div>
             
             <div class="absolute inset-0 text-white">
-                <div class="absolute top-6 left-6 md:top-10 md:left-10">
-                    <span class="bg-[#1A365D] px-4 py-2 md:px-5 md:py-2.5 rounded-full text-[10px] md:text-xs font-semibold flex items-center w-max gap-2 md:gap-2.5">
-                        ⭐ Featured Story
-                    </span>
-                </div>
 
                 <div class="absolute bottom-10 left-6 right-6 md:bottom-12 md:left-10 md:right-10">
                     <h2 class="text-3xl md:text-5xl font-bold leading-tight mb-3 md:mb-4">{{ $hp->title }}</h2>
