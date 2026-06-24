@@ -24,7 +24,7 @@
     </a>
 
     <a href="{{ route('trips') }}" :class="darkNavbar ? 'text-gray-800' : 'text-white'" class="font-bold">
-        Save Trips
+        Saved Trips
     </a>
 
     <a href="{{ route('blog') }}" :class="darkNavbar ? 'text-gray-800' : 'text-white'" class="font-bold">
