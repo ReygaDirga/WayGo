@@ -1,3 +1,32 @@
+<style>
+    /* Styling khusus untuk scrollbar modern */
+    .custom-scrollbar::-webkit-scrollbar {
+        height: 10px; /* Ketebalan batang scroll */
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f5f9; /* Warna jalur background */
+        border-radius: 9999px; /* Bikin ujung jalurnya membulat */
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #94a3b8; /* Warna pegangan/thumb */
+        border-radius: 9999px; /* Bikin ujung pegangannya membulat */
+        border: 2px solid #f1f5f9; /* Kasih efek jarak sedikit sama track-nya */
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #1A365D; /* Warna berubah jadi Biru WayGo pas disorot mouse */
+        cursor: pointer;
+    }
+
+    /* Dukungan untuk browser Firefox */
+    .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: #94a3b8 #f1f5f9;
+    }
+</style>
+
 <div class="max-w-6xl mx-auto px-4 mt-0 pb-0">
     
     <div class="flex items-center gap-6 mb-8">
@@ -5,10 +34,10 @@
         <div class="h-[3px] bg-[#1A365D] flex-grow rounded-full"></div>
     </div>
 
-    <div id="drag-slider" class="cursor-grab flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] select-none">
+    <div id="drag-slider" class="cursor-grab flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory select-none custom-scrollbar">
         @foreach ($recentPosts as $rp)
-            <a href="{{ route('blog-detail', $rp->id) }}" class="relative flex-none w-[300px] h-[380px] rounded-2xl overflow-hidden snap-start cursor-pointer group shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-                <img src="{{ $rp->image ? asset('storage/' . $rp->image) : asset('assets/Logo1.png') }}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none" alt="Lake Toba">
+            <a href="{{ route('blog-detail', $rp->id) }}" draggable="false" class="relative flex-none w-[300px] h-[380px] rounded-2xl overflow-hidden snap-start cursor-pointer group shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                <img src="{{ $rp->image ? asset('storage/' . $rp->image) : asset('assets/Logo1.png') }}" draggable="false" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none" alt="{{ $rp->title }}">
                 <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-white via-white/80 to-transparent z-0"></div>
                 <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
                     <div class="flex justify-between items-center mb-3">
@@ -20,12 +49,11 @@
                 </div>
             </a>
         @endforeach
-        
     </div>
 </div>
 
 <script>
-    // SCRIPT DRAG-TO-SCROLL (TIDAK PERLU DIUBAH)
+    // SCRIPT DRAG-TO-SCROLL
     const slider = document.getElementById('drag-slider');
     let isDown = false;
     let startX;
@@ -57,7 +85,7 @@
     slider.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 2;
+        const walk = (x - startX) * 2; // Angka 2 buat ngatur kecepatan geser
         if (Math.abs(walk) > 5) {
             isDragging = true;
         }
