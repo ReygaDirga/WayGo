@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // === 2. AUTOSAVE INDICATOR ===
+    // === 2. AUTOSAVE INDICATOR (UDAH SUPPORT TRANSLATION) ===
     const indicator = document.getElementById('autosave-indicator');
     const textElement = document.getElementById('autosave-text');
     const checkIcon = document.getElementById('autosave-icon');
@@ -28,22 +28,30 @@ document.addEventListener('DOMContentLoaded', function() {
     let typingTimer;
     const doneTypingInterval = 1000; // Tunggu 1 detik setelah berhenti ngetik
 
-    if (indicator) {
+    if (indicator && textElement) {
+        // Ambil teks terjemahan dari atribut HTML
+        const textSaving = textElement.getAttribute('data-text-saving') || 'Saving...';
+        const textSaved = textElement.getAttribute('data-text-saved') || 'Auto-saved a few seconds ago';
+
         formInputs.forEach(input => {
             input.addEventListener('input', function() {
-                // Pas lagi ngetik: Munculin teks, set jadi abu-abu "Saving..."
+                // Pas lagi ngetik
                 indicator.classList.remove('hidden');
                 indicator.classList.replace('text-green-600', 'text-gray-500');
                 checkIcon.classList.add('hidden');
-                textElement.innerText = 'Saving...';
+                
+                // Pake teks terjemahan "Saving..."
+                textElement.innerText = textSaving;
 
                 clearTimeout(typingTimer);
 
-                // Kalo udah berhenti ngetik selama 1 detik: Ubah jadi hijau "Auto-saved"
+                // Pas berhenti ngetik 1 detik
                 typingTimer = setTimeout(() => {
                     indicator.classList.replace('text-gray-500', 'text-green-600');
                     checkIcon.classList.remove('hidden');
-                    textElement.innerText = 'Auto-saved a few seconds ago';
+                    
+                    // Pake teks terjemahan "Auto-saved"
+                    textElement.innerText = textSaved;
                 }, doneTypingInterval);
             });
         });
@@ -51,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // === 3. PREVIEW IMAGE (MODIFIKASI VITE) ===
-// Harus pakai 'window.' supaya tag HTML onchange="previewImage(event)" bisa nemuin fungsinya
 window.previewImage = function(event) {
     const input = event.target;
     const preview = document.getElementById('image-preview');
