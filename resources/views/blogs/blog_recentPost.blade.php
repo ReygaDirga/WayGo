@@ -1,8 +1,8 @@
 <div class="max-w-6xl mx-auto px-4 mt-0 pb-0">
     
     <div class="flex items-center gap-6 mb-8">
-        <h2 class="text-3xl font-bold text-white whitespace-nowrap">Recent Posts</h2>
-        <div class="h-[3px] bg-white flex-grow rounded-full"></div>
+        <h2 class="text-3xl font-bold text-[#1A365D] whitespace-nowrap">Recent Posts</h2>
+        <div class="h-[3px] bg-[#1A365D] flex-grow rounded-full"></div>
     </div>
 
     <div id="drag-slider" class="cursor-grab flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] select-none">
@@ -12,7 +12,7 @@
                 <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-white via-white/80 to-transparent z-0"></div>
                 <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
                     <div class="flex justify-between items-center mb-3">
-                        <span class="bg-[#0B1A30] text-white text-xs px-4 py-1.5 rounded-full font-semibold">{{ $rp->pulau->name }}</span>
+                        <span class="bg-[#1A365D] text-white text-xs px-4 py-1.5 rounded-full font-semibold">{{ $rp->pulau->name }}</span>
                         <span class="text-gray-900 text-xs font-bold">{{ $rp->created_at->format('M d, Y') }}</span>
                     </div>
                     <h3 class="text-gray-900 text-2xl font-bold mb-1">{{ explode(',', $rp->location)[0] }}</h3>

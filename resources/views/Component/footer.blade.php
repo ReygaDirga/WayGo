@@ -1,5 +1,5 @@
-<footer class="bg-[#06233F] text-white rounded px-6 py-12 md:px-12">
-  <div class="flex flex-col items-center gap-8 ">
+<footer class="bg-[#06233F] text-white px-6 py-8 md:px-12">
+  <div class="flex flex-col items-center gap-6 ">
     <nav>
       <div class="flex gap-6 md:gap-10">
         <a href="#">
