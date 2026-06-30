@@ -20,19 +20,19 @@
 
   <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 space-x-8">
     <a href="{{ route('itinerary') }}" :class="darkNavbar ? 'text-gray-800' : 'text-white'" class="font-bold">
-        Itinerary Planner
+        {{ __('messages.Itinerary') }}
     </a>
 
     <a href="{{ route('trips') }}" :class="darkNavbar ? 'text-gray-800' : 'text-white'" class="font-bold">
-        Saved Trips
+        {{ __('messages.Saved') }}
     </a>
 
     <a href="{{ route('blog') }}" :class="darkNavbar ? 'text-gray-800' : 'text-white'" class="font-bold">
-      Blog
+      {{ __('messages.blog') }}
     </a>
 
     <a href="{{ route('about') }}" :class="darkNavbar ? 'text-gray-800' : 'text-white'" class="font-bold">
-      About Us
+      {{ __('messages.about_us') }}
     </a>
   </div>
 

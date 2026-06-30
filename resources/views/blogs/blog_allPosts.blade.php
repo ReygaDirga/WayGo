@@ -1,12 +1,12 @@
 <div class="max-w-6xl mx-auto px-4 mt-5 mb-24" id="all-posts-section">
     
     <div class="flex items-center gap-6 mb-8">
-        <h2 class="text-3xl font-bold text-white whitespace-nowrap">All Blog Posts</h2>
+        <h2 class="text-3xl font-bold text-white whitespace-nowrap">{{ __('messages.alblog') }}</h2>
         <div class="h-[3px] bg-white flex-grow rounded-full"></div>
     </div>
 
     <div class="flex flex-wrap gap-3 mb-10" id="filter-buttons">
-        <button class="filter-btn bg-white text-[#0B5F8D] px-5 py-2 rounded-xl font-bold transition" data-target="semua">All</button>
+        <button class="filter-btn bg-white text-[#0B5F8D] px-5 py-2 rounded-xl font-bold transition" data-target="semua">{{ __('messages.al') }}</button>
         <button class="filter-btn bg-white/20 text-white hover:bg-white/40 px-5 py-2 rounded-xl font-bold transition" data-target="Sumatra">Sumatra</button>
         <button class="filter-btn bg-white/20 text-white hover:bg-white/40 px-5 py-2 rounded-xl font-bold transition" data-target="Java">Java</button>
         <button class="filter-btn bg-white/20 text-white hover:bg-white/40 px-5 py-2 rounded-xl font-bold transition" data-target="Bali & Nustra">Bali & Nusra</button>

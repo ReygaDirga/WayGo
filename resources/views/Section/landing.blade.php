@@ -8,10 +8,10 @@
             <span class="text-[#034A7D]">Way</span><span class="text-[#F79204]">Go</span>
             <br>
             <span class="text-[#F5F0EC] sm:text-3xl md:text-4xl lg:text-5xl">
-                Pack your bags,
+                {{ __('messages.packyourbag') }}
             </span>
             <span class="text-[#F79204] sm:text-3xl md:text-4xl lg:text-5xl">
-                let's go!
+                {{ __('messages.letsgo') }}
             </span>
         </h1>
         <div class="relative mt-8 md:mt-12 w-full max-w-3xl mx-auto">
@@ -24,7 +24,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-left">
                     <div class="relative w-full">
                         <h3 class="font-extrabold text-lg md:text-xl mb-2">
-                            Location
+                            {{ __('messages.location') }}
                         </h3>
 
                         <div class="flex items-center gap-2">
@@ -35,7 +35,7 @@
                             <input
                                 id="locationSearch"
                                 type="text"
-                                placeholder="City, Province"
+                                placeholder="{{ __('messages.plocation') }}"
                                 class="outline-none bg-transparent w-full"
                                 autocomplete="off"
                             >
@@ -49,7 +49,7 @@
                     </div>
                     <div>
                         <h3 class="font-extrabold text-lg md:text-xl mb-2">
-                            Date
+                            {{ __('messages.date') }}
                         </h3>
 
                         <div class="flex items-center gap-2">
@@ -60,7 +60,7 @@
                             <input
                                 id="dateRange"
                                 type="text"
-                                placeholder="Start Date - End Date"
+                                placeholder="{{ __('messages.pdate') }}"
                                 readonly
                                 class="outline-none bg-transparent cursor-pointer w-full"
                             >
@@ -68,7 +68,7 @@
                     </div>
                         <div class="relative">
                             <h3 class="font-extrabold text-lg md:text-xl mb-2">
-                                Traveler
+                                {{ __('messages.traveler') }}
                             </h3>
                             <button
                                 id="travelerBtn"
@@ -80,11 +80,11 @@
                                 </span>
 
                                 <span class="text-gray-500">
-                                    Adults :
+                                    {{ __('messages.adults') }} :
                                     <span id="adultCount">
                                         0
                                     </span>
-                                    Kids :
+                                    {{ __('messages.kids') }} :
                                     <span id="kidCount">
                                         0
                                     </span>
@@ -93,7 +93,7 @@
                     <div id="travelerPopup" class="hidden absolute top-full left-0 mt-4 bg-white rounded-xl shadow-xl p-5 w-64 z-50">
                         <div class="flex items-center justify-between mb-5">
                             <span class="font-medium">
-                                Adults
+                                {{ __('messages.adults') }}
                             </span>
                             <div class="flex items-center gap-3">
                                 <button id="adultMinus" type="button" class="w-8 h-8 border rounded-full">
@@ -109,7 +109,7 @@
                         </div>
                         <div class="flex items-center justify-between">
                             <span class="font-medium">
-                                Kids
+                                {{ __('messages.kids') }}
                             </span>
                             <div class="flex items-center gap-3">
                                 <button id="kidMinus" type="button" class="w-8 h-8 border rounded-full">
@@ -132,7 +132,7 @@
                 <input type="hidden" name="kids" id="hiddenKids">
                 <button type="submit" id="startPlanningBtn" class="mt-6 md:mt-8 w-full md:w-auto bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] px-8 py-3
                             rounded-full text-white font-semibold hover:scale-105 transition">
-                    Start Planning Now
+                    {{ __('messages.start') }}
                 </button>
             </div>
             </form>

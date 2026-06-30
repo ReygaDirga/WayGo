@@ -22,10 +22,10 @@
         <div class="flex justify-center px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-5xl mt-10 md:-mt-20">
                 <h1 class="font-bold leading-tight text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-                    <span class="text-[#034A7D]">Start Planning</span><span class="text-[#F79204]"> Your Journey!</span>
+                    <span class="text-[#034A7D]">{{ __('messages.startplan') }}</span><span class="text-[#F79204]"> {{ __('messages.journey') }}</span>
                     <br>
                     <span class="text-black sm:text-lg md:text-xl lg:text-3xl">
-                        Discover amazing places, unforgettable experiences, and create memories that last a lifetime.
+                        {{ __('messages.descplan') }}
                     </span>
                 </h1>
                 <div class="relative mt-8 md:mt-12 w-full max-w-3xl mx-auto">
@@ -34,7 +34,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-left">
                             <div class="relative w-full">
                                 <h3 class="font-extrabold text-lg md:text-xl mb-2">
-                                    Location
+                                    {{ __('messages.location') }}
                                 </h3>
 
                                 <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1">
@@ -47,7 +47,7 @@
                                         name="location"
                                         value="{{ request('location') }}"
                                         type="text"
-                                        placeholder="City, Province"
+                                        placeholder="{{ __('messages.plocation') }}"
                                         class="outline-none bg-transparent w-full">
                                         
                                 </div>
@@ -60,7 +60,7 @@
                             </div>
                             <div>
                                 <h3 class="font-extrabold text-lg md:text-xl mb-2">
-                                    Date
+                                    {{ __('messages.date') }}
                                 </h3>
 
                                 <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1">
@@ -73,14 +73,14 @@
                                         name="date"
                                         value="{{ request('date') }}"
                                         type="text"
-                                        placeholder="Start Date - End Date"
+                                        placeholder="{{ __('messages.pdate') }}"
                                         readonly
                                         class="outline-none bg-transparent w-full">
                                 </div>
                             </div>
                                 <div class="relative ">
                                     <h3 class="font-extrabold text-lg md:text-xl mb-2">
-                                        Traveler
+                                        {{ __('messages.traveler') }}
                                     </h3>
                                     <button
                                         id="travelerBtn"
@@ -93,11 +93,11 @@
                                         </span>
 
                                         <span class="text-gray-500">
-                                            Adults :
+                                            {{ __('messages.adults') }} :
                                             <span id="adultCount">
                                                 {{ request('adults',0) }}
                                             </span>
-                                            Kids :
+                                            {{ __('messages.kids') }} :
                                             <span id="kidCount">
                                                 {{ request('kids',0) }}
                                             </span>
@@ -106,7 +106,7 @@
                             <div id="travelerPopup" class="hidden absolute top-full left-0 mt-4 bg-white rounded-xl shadow-xl p-5 w-64 z-50">
                                 <div class="flex items-center justify-between mb-5">
                                     <span class="font-medium">
-                                        Adults
+                                        {{ __('messages.adults') }}
                                     </span>
                                     <div class="flex items-center gap-3">
                                         <button id="adultMinus" class="w-8 h-8 border rounded-full">
@@ -122,7 +122,7 @@
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <span class="font-medium">
-                                        Kids
+                                        {{ __('messages.kids') }}
                                     </span>
                                     <div class="flex items-center gap-3">
                                         <button id="kidMinus" class="w-8 h-8 border rounded-full">
@@ -146,7 +146,7 @@
     </section>
 
     <span class="text-black font-semibold sm:text-lg md:text-xl lg:text-2xl text-center mt-10 block">
-        Select your category to personalize your itinerary
+        {{ __('messages.select') }}
     </span>
 
     <section>
@@ -155,7 +155,7 @@
                 <input class="inputW" type="radio" name="slide" id="c1" checked>
                 <label for="c1" class="card">
                     <div class="vertical-title">
-                        <span class="vertical-text">Culture</span>
+                        <span class="vertical-text">{{ __('messages.culture') }}</span>
                         <input class="sync-checkbox checkbox checkbox-lg vertical-checkbox"
                             data-group="culture"
                             type="checkbox">
@@ -163,10 +163,10 @@
                     <div class="row">
                         <div class="description">
                             <div class="flex justify-between items-center">
-                                <h4 class="text-black font-extrabold">Culture</h4>
+                                <h4 class="text-black font-extrabold">{{ __('messages.culture') }}</h4>
                             </div>
                             <div class="flex justify-between items-center">
-                                <p class="mt-3">Experience the rich culture and traditions of every destination. Visit historical landmarks, traditional villages, and learn about local heritage and customs.</p>
+                                <p class="mt-3">{{ __('messages.dculture') }}</p>
                                 <input class="sync-checkbox checkbox checkbox-xl ms-10 open-checkbox" data-group="culture" type="checkbox">
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                 <input class="inputW" type="radio" name="slide" id="c2">
                 <label for="c2" class="card">
                     <div class="vertical-title">
-                        <span class="vertical-text">Nature</span>
+                        <span class="vertical-text">{{ __('messages.nature') }}</span>
                         <input class="sync-checkbox checkbox checkbox-lg vertical-checkbox"
                             data-group="nature"
                             type="checkbox">
@@ -184,10 +184,10 @@
                     <div class="row">
                         <div class="description">
                             <div class="flex justify-between items-center">
-                                <h4 class="text-black font-extrabold">Nature</h4>
+                                <h4 class="text-black font-extrabold">{{ __('messages.nature') }}</h4>
                             </div>
                             <div class="flex justify-between items-center">
-                                 <p class="mt-3">Discover stunning beaches, lush forests, majestic mountains, and breathtaking natural landscapes.</p>
+                                 <p class="mt-3">{{ __('messages.dnature') }}</p>
                                 <input class="sync-checkbox checkbox checkbox-xl ms-10 open-checkbox" data-group="nature" type="checkbox">
                             </div>
                         </div>
@@ -197,7 +197,7 @@
                 <input class="inputW" type="radio" name="slide" id="c3" >
                 <label for="c3" class="card">
                     <div class="vertical-title">
-                        <span class="vertical-text">Culinary</span>
+                        <span class="vertical-text">{{ __('messages.culinary') }}</span>
                         <input class="sync-checkbox checkbox checkbox-lg vertical-checkbox"
                             data-group="culinary"
                             type="checkbox">
@@ -205,10 +205,10 @@
                     <div class="row">
                         <div class="description">
                             <div class="flex justify-between items-center">
-                                <h4 class="text-black font-extrabold">Culinary</h4>
+                                <h4 class="text-black font-extrabold">{{ __('messages.culinary') }}</h4>
                             </div>
                             <div class="flex justify-between items-center">
-                                 <p class="mt-3">Discover the unique flavors of Indonesian cuisine.Enjoy authentic local dishes, street food, and traditional culinary experiences from different regions.</p>
+                                 <p class="mt-3">{{ __('messages.dculinary') }}</p>
                                 <input class="sync-checkbox checkbox checkbox-xl ms-10 open-checkbox" data-group="culinary" type="checkbox">
                             </div>
                         </div>
@@ -218,7 +218,7 @@
                 <input class="inputW" type="radio" name="slide" id="c4">
                 <label for="c4" class="card">
                     <div class="vertical-title">
-                        <span class="vertical-text">Adventure</span>
+                        <span class="vertical-text">{{ __('messages.adventure') }}</span>
                         <input class="sync-checkbox checkbox checkbox-lg vertical-checkbox"
                             data-group="adventure"
                             type="checkbox">
@@ -226,10 +226,10 @@
                     <div class="row">
                         <div class="description">
                             <div class="flex justify-between items-center">
-                                <h4 class="text-black font-extrabold">Adventure</h4>
+                                <h4 class="text-black font-extrabold">{{ __('messages.adventure') }}</h4>
                             </div>
                             <div class="flex justify-between items-center">
-                                <p class="mt-3">Feel the thrill of exciting outdoor adventures. From hiking mountains and diving in crystal waters to surfing and exploring hidden natural spots.</p>
+                                <p class="mt-3">{{ __('messages.dadventure') }}</p>
                                 <input class="sync-checkbox checkbox checkbox-xl ms-10 open-checkbox" data-group="adventure" type="checkbox">
                             </div>
                         </div>
@@ -242,7 +242,7 @@
 
     <div class="flex items-center justify-center">
         <a href="{{ route('itinerary-detail') }}" class="btn md:block px-30 py-4 rounded-xl bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] text-[#F5F0EC] font-extrabold mb-10">
-            Submit
+            {{ __('messages.submit') }}
         </a>
     </div>
 

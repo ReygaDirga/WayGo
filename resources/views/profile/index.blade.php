@@ -28,8 +28,8 @@
             {{-- Page header --}}
             <div class="flex items-center justify-between mb-6">
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-1">My Profile</h2>
-                    <p class="text-sm text-gray-500">Manage your personal information and travel preferences</p>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-1">{{ __('messages.myprofile') }}</h2>
+                    <p class="text-sm text-gray-500">{{ __('messages.desc') }}</p>
                 </div>
                 <!-- <a href="{{ route('create-blog') }}" class="group flex items-center shrink-0">
                     {{-- Circle Pencil --}}
@@ -88,23 +88,23 @@
 
                     {{-- Right: Personal info --}}
                     <div class="md:col-span-2 flex flex-col justify-center">
-                        <p class="text-l font-bold text-gray-900 uppercase tracking-widest mb-3">Personal Information</p>
+                        <p class="text-l font-bold text-gray-900 uppercase tracking-widest mb-3">{{ __('messages.personal') }}</p>
                         <div class="space-y-0 divide-y divide-gray-100">
                             <div class="flex items-center justify-between py-3">
                                 <span class="flex items-center gap-2 text-sm text-gray-500">
-                                    <i class="bi bi-envelope text-base"></i> Email address
+                                    <i class="bi bi-envelope text-base"></i> {{ __('messages.email') }}
                                 </span>
                                 <span class="text-sm font-medium text-gray-800">{{ auth()->user()->email }}</span>
                             </div>
                             <div class="flex items-center justify-between py-3">
                                 <span class="flex items-center gap-2 text-sm text-gray-500">
-                                    <i class="bi bi-telephone"></i> Phone number
+                                    <i class="bi bi-telephone"></i> {{ __('messages.phone') }}
                                 </span>
                                 <span class="text-sm font-medium text-gray-800">{{ auth()->user()->phone }}</span>
                             </div>
                             <div class="flex items-center justify-between py-3">
                                 <span class="flex items-center gap-2 text-sm text-gray-500">
-                                    <i class="bi bi-calendar"></i>Date of birth
+                                    <i class="bi bi-calendar"></i>{{ __('messages.dob') }}
                                 </span>
                                 <span class="text-sm font-medium text-gray-800">{{ auth()->user()->dob }}</span>
                             </div>
@@ -118,10 +118,10 @@
 
                 {{-- Travel preferences --}}
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-                    <h6 class="text-lg font-bold text-gray-900 mb-0.5">Travel preferences</h6>
-                    <p class="text-xs text-gray-400 mb-5">Your travel style and interests</p>
+                    <h6 class="text-lg font-bold text-gray-900 mb-0.5">{{ __('messages.travprev') }}</h6>
+                    <p class="text-xs text-gray-400 mb-5">{{ __('messages.desctrav') }}</p>
 
-                    <p class="text-xs font-semibold text-gray-900 mb-2">Travel Categories</p>
+                    <p class="text-xs font-semibold text-gray-900 mb-2">{{ __('messages.tracat') }}</p>
                     <div class="flex flex-wrap gap-2 mb-4">
                         @forelse($user->categories as $c)
                             @php
@@ -139,7 +139,7 @@
 
                     </div>
 
-                    <p class="text-xs font-semibold text-gray-900 mb-2">Budget range</p>
+                    <p class="text-xs font-semibold text-gray-900 mb-2">{{ __('messages.buran') }}</p>
                     <div class="rounded-xl text-center">
                             {{-- @php
                                 $style = [
@@ -173,8 +173,8 @@
 
                 {{-- Account settings --}}
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-                    <h6 class="text-lg font-bold text-gray-900 mb-0.5">Account settings</h6>
-                    <p class="text-xs text-gray-400 mb-5">Manage your account security</p>
+                    <h6 class="text-lg font-bold text-gray-900 mb-0.5">{{ __('messages.aset') }}</h6>
+                    <p class="text-xs text-gray-400 mb-5">{{ __('messages.descaset') }}</p>
 
                     <div class="space-y-2">
                         <a href="{{ route('changepassword') }}" class="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 transition group">
@@ -182,8 +182,8 @@
                                 <i class="bi bi-lock leading-none text-gray-700"></i>
                             </div>
                             <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">Change password</p>
-                                <p class="text-[11px] text-gray-400">Update your password regulary</p>
+                                <p class="text-sm font-medium text-gray-800">{{ __('messages.capas') }}</p>
+                                <p class="text-[11px] text-gray-400">{{ __('messages.descpass') }}</p>
                             </div>
                             <i class="bi bi-chevron-right text-xs text-gray-400"></i>
                         </a>
@@ -193,8 +193,8 @@
                                 <i class="bi bi-person-gear"></i>
                             </div>
                             <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">Edit profile</p>
-                                <p class="text-[11px] text-gray-400">Manage your profile details </p>
+                                <p class="text-sm font-medium text-gray-800">{{ __('messages.editprofile') }}</p>
+                                <p class="text-[11px] text-gray-400">{{ __('messages.descedit') }}</p>
                             </div>
                             <i class="bi bi-chevron-right text-xs text-gray-400"></i>
                         </a>
@@ -206,8 +206,8 @@
                                     <i class="bi bi-box-arrow-right"></i>
                                 </div>
                                 <div class="flex-1 text-left">
-                                    <p class="text-sm font-medium text-red-600">Log out</p>
-                                    <p class="text-[11px] text-gray-400">Log out of your account securely.</p>
+                                    <p class="text-sm font-medium text-red-600">{{ __('messages.logout') }}</p>
+                                    <p class="text-[11px] text-gray-400">{{ __('messages.desclogout') }}</p>
                                 </div>
                                 <i class="bi bi-chevron-right text-xs text-gray-400"></i>
                             </button>
@@ -217,45 +217,47 @@
 
                 {{-- Theme settings --}}
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-                    <h6 class="text-lg font-bold text-gray-900 mb-0.5">Theme Settings</h6>
-                    <p class="text-xs text-gray-400 mb-5">Manage your Theme preferences</p>
+                    <h6 class="text-lg font-bold text-gray-900 mb-0.5">{{ __('messages.theme') }}</h6>
+                    <p class="text-xs text-gray-400 mb-5">{{ __('messages.desctheme') }}</p>
 
                     <div class="space-y-2">
-                        <a href="{{ route('changepassword') }}" class="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 transition group">
-                            <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 group-hover:bg-gray-200 transition">
-                                <i class="bi bi-lock leading-none text-gray-700"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">Change password</p>
-                                <p class="text-[11px] text-gray-400">Update your password regulary</p>
-                            </div>
-                            <i class="bi bi-chevron-right text-xs text-gray-400"></i>
-                        </a>
-
-                        <a href="{{ route('editprofile') }}" class="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 transition group">
-                            <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 group-hover:bg-gray-200 transition">
-                                <i class="bi bi-person-gear"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-800">Edit profile</p>
-                                <p class="text-[11px] text-gray-400">Manage your profile details </p>
-                            </div>
-                            <i class="bi bi-chevron-right text-xs text-gray-400"></i>
-                        </a>
-
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form
+                            action="{{ route('change.language') }}"
+                            method="POST"
+                            class="flex items-center gap-3 p-3 rounded-xl border border-gray-100">
                             @csrf
-                            <button type="submit" class="w-full flex items-center gap-3 p-3 rounded-xl border border-red-100 hover:bg-red-50 transition group">
-                                <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-600 group-hover:bg-red-100 transition">
-                                    <i class="bi bi-box-arrow-right"></i>
-                                </div>
-                                <div class="flex-1 text-left">
-                                    <p class="text-sm font-medium text-red-600">Log out</p>
-                                    <p class="text-[11px] text-gray-400">Log out of your account securely.</p>
-                                </div>
-                                <i class="bi bi-chevron-right text-xs text-gray-400"></i>
-                            </button>
+                            <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
+                                <i class="bi bi-translate"></i>
+                            </div>
+                            <div class="flex-1">
+                                <select
+                                    name="language"
+                                    onchange="this.form.submit()"
+                                    class="border rounded-lg px-3 py-2 w-full"
+                                >
+                                    <option value="en"
+                                        {{ auth()->user()->language=='en' ? 'selected' : '' }}>
+                                        English
+                                    </option>
+                                    <option value="id"
+                                        {{ auth()->user()->language=='id' ? 'selected' : '' }}>
+                                        Indonesia
+                                    </option>
+                                    <option value="ko"
+                                        {{ auth()->user()->language=='ko' ? 'selected' : '' }}>
+                                        한국어
+                                    </option>
+                                    <option value="ja"
+                                        {{ auth()->user()->language=='ja' ? 'selected' : '' }}>
+                                        日本語
+                                    </option>
+                                </select>
+                            </div>
                         </form>
+
+                        
+
+                        
                     </div>
                 </div>
             </div>

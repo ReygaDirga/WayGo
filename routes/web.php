@@ -10,6 +10,20 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\ProfileController;
 
+Route::get('/test-id', function () {
+    App::setLocale('id');
+    return view('welcome');
+});
+
+Route::post('/change-language', [ProfileController::class,'changeLanguage'])
+    ->name('change.language');
+
+
+
+
+
+
+
 //Next Button in preferences page
 Route::get('/done', fn() => view('authentication.done'))
     ->name('done')

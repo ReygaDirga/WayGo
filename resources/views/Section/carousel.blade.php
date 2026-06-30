@@ -11,7 +11,7 @@
             <div class="description text-black"></div>
             <a href="{{ route('itinerary') }}">
                 <button class="md:block px-5 py-2 rounded-xl bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] text-[#F5F0EC] font-extrabold">
-                    Explore More >
+                    {{ __('messages.emore') }} >
                 </button>
             </a>
         </div>
@@ -27,3 +27,6 @@
         <button class="next">></button>
     </div>
 </div>
+<script>
+window.lang = @json(trans('messages'));
+</script>

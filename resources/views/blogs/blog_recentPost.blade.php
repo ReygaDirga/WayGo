@@ -1,7 +1,7 @@
 <div class="max-w-6xl mx-auto px-4 mt-0 pb-0">
     
     <div class="flex items-center gap-6 mb-8">
-        <h2 class="text-3xl font-bold text-white whitespace-nowrap">Recent Posts</h2>
+        <h2 class="text-3xl font-bold text-white whitespace-nowrap">{{ __('messages.recent') }}</h2>
         <div class="h-[3px] bg-white flex-grow rounded-full"></div>
     </div>
 

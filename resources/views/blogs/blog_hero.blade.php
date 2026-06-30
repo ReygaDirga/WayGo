@@ -6,7 +6,7 @@
                     bg-[#1A365D]
                     rounded-full flex items-center shadow-sm">
                     <span class="text-white text-sm font-semibold">
-                        Create Blog
+                        {{ __('messages.crate') }}
                     </span>
                 </div>
             </a>
@@ -40,7 +40,7 @@
                     </div>
 
                     <a href="{{ route('blog-detail',$hp->id) }}" class="inline-block bg-[#1A365D] hover:bg-blue-800 transition px-5 py-2 md:px-6 md:py-2.5 rounded-full text-xs md:text-sm font-semibold">
-                        Read Full Story
+                        {{ __('messages.read') }}
                     </a>
                 </div>
             </div>
