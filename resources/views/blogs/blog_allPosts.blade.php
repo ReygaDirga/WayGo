@@ -1,19 +1,19 @@
 <div class="max-w-6xl mx-auto px-4 mt-5 mb-24" id="all-posts-section">
     
     <div class="flex items-center gap-6 mb-8">
-        <h2 class="text-3xl font-bold text-[#1A365D] whitespace-nowrap">All Blog Posts</h2>
+        <h2 class="text-3xl font-bold text-[#1A365D] whitespace-nowrap">{{ __('messages.alblog') }}</h2>
         <div class="h-[3px] bg-[#1A365D] flex-grow rounded-full"></div>
     </div>
 
     <div class="flex flex-wrap gap-3 mb-10" id="filter-buttons">
-        <button class="filter-btn bg-[#1A365D] text-white shadow-md px-5 py-2 rounded-xl font-bold transition" data-target="semua">All</button>
-        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Sumatra">Sumatra</button>
-        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Java">Java</button>
-        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Bali & Nustra">Bali & Nusra</button>
-        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Kalimantan">Kalimantan</button>
-        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Sulawesi">Sulawesi</button>
-        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Maluku">Maluku</button>
-        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Papua">Papua</button>
+        <button class="filter-btn bg-[#1A365D] text-white shadow-md px-5 py-2 rounded-xl font-bold transition" data-target="semua">{{ __('messages.al') }}</button>
+        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Sumatra">{{ __('messages.sm') }}</button>
+        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Java">{{ __('messages.jw') }}</button>
+        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Bali & Nustra">{{ __('messages.bn') }}</button>
+        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Kalimantan">{{ __('messages.kl') }}</button>
+        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Sulawesi">{{ __('messages.sl') }}</button>
+        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Maluku">{{ __('messages.ml') }}</button>
+        <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Papua">{{ __('messages.pp') }}</button>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="posts-grid">
