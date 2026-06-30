@@ -15,13 +15,13 @@
         'resources/js/blog_create.js'
         ])
 </head>
-<body class="bg-gradient-to-b from-[#0B5F8D] to-[#55B0CC] min-h-screen flex flex-col">
+<body class="bg-white min-h-screen flex flex-col">
     
     @include('Component.navbar')
     
     <main class="flex-grow max-w-[1080px] mx-auto px-4 w-full pt-22 pb-20">
         
-        <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 w-full">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 mt-8 md:p-12 w-full">
             
             <div class="flex items-start gap-4 mb-10 border-b border-gray-200 pb-6">
                 <a href="{{ route('blog') }}" class="border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-black rounded-xl p-2.5 transition mt-1">

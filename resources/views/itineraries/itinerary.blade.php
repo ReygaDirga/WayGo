@@ -240,13 +240,13 @@
 
     </section>
 
-    <div class="flex items-center justify-center mt-7">
+    <div class="flex items-center justify-center mt-6">
         <a href="{{ route('itinerary-detail') }}" class="btn md:block px-30 py-4 rounded-xl bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] text-[#F5F0EC] font-extrabold mb-10">
             Submit
         </a>
     </div>
 
-{{-- betulin inii sih tadi --}}
+
     @include('Component.footer')
 </body>
 </html>
