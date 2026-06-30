@@ -73,7 +73,7 @@ class BlogController extends Controller
         ]);
 
         // Kalo udah sukses, balikin ke halaman profile
-        return redirect()->route('profile')->with('success', 'Blog post successfully published!');
+        return redirect()->route('blog')->with('success', 'Blog post successfully published!');
     }
 
 }

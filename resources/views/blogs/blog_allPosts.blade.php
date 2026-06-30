@@ -7,7 +7,6 @@
 
     <div class="flex flex-wrap gap-3 mb-10" id="filter-buttons">
         <button class="filter-btn bg-[#1A365D] text-white shadow-md px-5 py-2 rounded-xl font-bold transition" data-target="semua">All</button>
-        
         <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Sumatra">Sumatra</button>
         <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Java">Java</button>
         <button class="filter-btn bg-gray-100 text-[#1A365D] hover:bg-[#1A365D] hover:text-white px-5 py-2 rounded-xl font-bold transition" data-target="Bali & Nustra">Bali & Nusra</button>
@@ -32,5 +31,8 @@
                 </div>
             </a>
         @endforeach
+    </div>
+
+    <div id="pagination-controls" class="flex justify-center items-center gap-4 mt-12 text-[#1A365D] font-semibold text-lg">
     </div>
 </div>
