@@ -8,7 +8,7 @@
 <section class="hero-section">
     <img src="{{ asset('assets/About/bromo.jpg') }}" class="hero-bg" id="heroBg" alt="Bromo">
     <div class="hero-overlay">
-        <span class="hero-eyebrow">Discover the world</span>
+        <span class="hero-eyebrow">{{ __('messages.discover') }}</span>
         <h1 class="hero-title">
             <span class="hero-title-word">THE</span>
             <span class="hero-title-word">JOURNEY</span>

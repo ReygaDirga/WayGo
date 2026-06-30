@@ -22,7 +22,8 @@ class User extends Authenticatable
         'description',
         'email_verified_at',
         'budget_id',
-        'location'
+        'location',
+        'language',
     ];
 
     protected $hidden = [

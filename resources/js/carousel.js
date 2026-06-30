@@ -1,32 +1,32 @@
 const sliderData = [
     {
         title: "Monas",
-        description: "Monas stands as a proud symbol of Indonesia’s independence, featuring iconic architecture, panoramic city views, and a rich historical museum that reflects the nation’s journey and spirit.",
+        description: window.lang.demonas,
         image: "./assets/monas.png"
     },
     {
         title: "Taman Ayun Temple",
-        description: "Taman Ayun Temple offers serene gardens, traditional Balinese architecture, and peaceful surroundings, reflecting the harmony between nature, culture, and spirituality.",
+        description: window.lang.taman,
         image: "./assets/Meru.png"
     },
     {
         title: "Prambanan Temple",
-        description: "Candi Prambanan showcases majestic Hindu architecture, intricate stone carvings, and timeless legends, offering a breathtaking glimpse into Indonesia’s rich cultural and historical heritage.",
+        description: window.lang.prambanan,
         image: "./assets/Prambanan.png"
     },
     {
         title: "Mount Bromo",
-        description: "Mount Bromo captivates visitors with its dramatic volcanic landscapes, mystical sunrise views, and vast sea of sand, creating an unforgettable adventure in the heart of nature.",
+        description: window.lang.bromo,
         image: "./assets/bromo.png"
     },
     {
         title: "Raja Ampat Islands",
-        description: "Raja Ampat enchants travelers with its crystal-clear waters, vibrant marine biodiversity, and untouched island beauty, making it a paradise for divers and nature lovers.",
+        description: window.lang.raja,
         image: "./assets/rajaampat.png"
     },
     {
         title: "Lake Toba",
-        description: "Lake Toba amazes visitors with its vast volcanic lake, scenic highland views, and unique Batak culture, creating a tranquil escape rich in history and natural beauty.",
+        description: window.lang.toba,
         image: "./assets/toba.png"
     }
 ];

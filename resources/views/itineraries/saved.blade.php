@@ -12,28 +12,28 @@
 
         <div class="max-w-7xl mx-auto relative z-10">
             <h1 class="text-4xl md:text-5xl font-bold mt-20">
-                Memories you will <span class="text-[#F3A344]">always remember</span>
+                {{ __('messages.memories') }} <span class="text-[#F3A344]">{{ __('messages.always') }}</span>
             </h1>
-            <p class="text-gray-400 mt-4 text-lg">Every trip end with story, let's flashback your last trip</p>
+            <p class="text-gray-400 mt-4 text-lg">{{ __('messages.enjoy') }}</p>
 
             <hr class="border-white/20 my-10">
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-3xl font-bold text-[#F3A344]">12</h3>
-                    <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">Completed Trip</p>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">{{ __('messages.complete') }}</p>
                 </div>
                 <div>
                     <h3 class="text-3xl font-bold text-[#F3A344]">8</h3>
-                    <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">Visited Cities</p>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">{{ __('messages.visited') }}</p>
                 </div>
                 <div>
                     <h3 class="text-3xl font-bold text-[#F3A344]">34</h3>
-                    <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">Ongoing Days</p>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">{{ __('messages.ongoing') }}</p>
                 </div>
                 <div>
                     <h3 class="text-3xl font-bold text-[#F3A344]">5</h3>
-                    <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">Travel Companion</p>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">{{ __('messages.TravelCompanion') }}</p>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
 
     <main class="max-w-7xl mx-auto px-8 md:px-20 pt-12 pb-20 relative z-20">
         
-        <h2 class="text-4xl font-bold mb-10">Saved <span class="text-[#F3A344]">Trips</span></h2>
+        <h2 class="text-4xl font-bold mb-10">{{ __('messages.savedd') }} <span class="text-[#F3A344]">{{ __('messages.Trips') }}</span></h2>
 
         <div class="bg-white rounded-[2rem] shadow-sm overflow-hidden mb-8 border border-gray-100">
             <div class="relative h-80">
@@ -61,7 +61,7 @@
                 <div>
                     <div class="flex space-x-6 text-sm font-semibold mb-6">
                         <span class="flex items-center gap-2"><i class="far fa-calendar"></i> 07-11 July 2026</span>
-                        <span class="flex items-center gap-2"><i class="far fa-clock"></i> 4 Days 3 Nights</span>
+                        <span class="flex items-center gap-2"><i class="far fa-clock"></i> 4 {{ __('messages.days') }} 3 {{ __('messages.nights') }}</span>
                     </div>
                     <div class="bg-gray-100 rounded-2xl h-32 flex items-center justify-center border border-gray-200">
                         <span class="text-gray-400 italic text-sm">Visual Itinerary Map Placeholder</span>
@@ -72,13 +72,13 @@
                             <div class="w-8 h-8 rounded-full bg-blue-500 border-2 border-white"></div>
                             <div class="w-8 h-8 rounded-full bg-pink-500 border-2 border-white"></div>
                         </div>
-                        <span class="text-sm text-gray-500">3 Traveler</span>
-                        <button class="ml-auto border border-[#F3A344] text-[#F3A344] text-xs px-3 py-1 rounded-full">+ Add Photos</button>
+                        <span class="text-sm text-gray-500">3 {{ __('messages.traveler') }}</span>
+                        <button class="ml-auto border border-[#F3A344] text-[#F3A344] text-xs px-3 py-1 rounded-full">{{ __('messages.addphotos') }}</button>
                     </div>
                 </div>
                 
                 <div class="border-l border-gray-100 pl-8">
-                    <h4 class="text-[#F3A344] font-bold text-lg mb-3">Travel Highlight</h4>
+                    <h4 class="text-[#F3A344] font-bold text-lg mb-3">{{ __('messages.highlight') }}</h4>
                     <ul class="space-y-2 text-gray-700">
                         <li class="flex items-start gap-2">• Breakfast at Gudeg Yu Djum</li>
                         <li class="flex items-start gap-2">• Trip at Hutan Pinus Mangunan</li>
@@ -93,7 +93,7 @@
             <div class="bg-white rounded-[2rem] shadow-sm overflow-hidden border border-gray-100">
                 <div class="relative h-56">
                     <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&q=80&w=800" alt="Bali" class="w-full h-full object-cover">
-                    <div class="absolute top-4 right-4 bg-orange-400 text-white text-[10px] px-3 py-1 rounded-lg font-bold">PLANNED</div>
+                    <div class="absolute top-4 right-4 bg-orange-400 text-white text-[10px] px-3 py-1 rounded-lg font-bold">{{ __('messages.planner') }}</div>
                     <div class="absolute bottom-0 left-0 p-6 text-white w-full">
                         <h3 class="text-2xl font-bold">Bali</h3>
                         <p class="text-sm opacity-90">Ubud - Seminyak - Penida</p>
@@ -115,7 +115,7 @@
                             <div class="w-7 h-7 rounded-full bg-purple-600 border-2 border-white"></div>
                             <div class="w-7 h-7 rounded-full bg-gray-400 border-2 border-white"></div>
                         </div>
-                        <span class="text-xs text-gray-500">3 Traveler</span>
+                        <span class="text-xs text-gray-500">3 {{ __('messages.traveler') }}</span>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
             <div class="bg-white rounded-[2rem] shadow-sm overflow-hidden border border-gray-100">
                 <div class="relative h-56">
                     <img src="https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&q=80&w=800" alt="Raja Ampat" class="w-full h-full object-cover">
-                    <div class="absolute top-4 right-4 bg-orange-400 text-white text-[10px] px-3 py-1 rounded-lg font-bold">PLANNED</div>
+                    <div class="absolute top-4 right-4 bg-orange-400 text-white text-[10px] px-3 py-1 rounded-lg font-bold">{{ __('messages.planner') }}</div>
                     <div class="absolute bottom-0 left-0 p-6 text-white w-full">
                         <h3 class="text-2xl font-bold">Raja Ampat</h3>
                         <p class="text-sm opacity-90">Papua Barat - Misool - Wayag</p>
@@ -145,7 +145,7 @@
                             <div class="w-7 h-7 rounded-full bg-purple-500 border-2 border-white"></div>
                             <div class="w-7 h-7 rounded-full bg-gray-300 border-2 border-white"></div>
                         </div>
-                        <span class="text-xs text-gray-500">3 Traveler</span>
+                        <span class="text-xs text-gray-500">3 {{ __('messages.traveler') }}</span>
                     </div>
                 </div>
             </div>

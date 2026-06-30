@@ -30,8 +30,8 @@
 <div class="max-w-6xl mx-auto px-4 mt-0 pb-0">
     
     <div class="flex items-center gap-6 mb-8">
-        <h2 class="text-3xl font-bold text-[#1A365D] whitespace-nowrap">Recent Posts</h2>
-        <div class="h-[3px] bg-[#1A365D] flex-grow rounded-full"></div>
+        <h2 class="text-3xl font-bold text-white whitespace-nowrap">{{ __('messages.recent') }}</h2>
+        <div class="h-[3px] bg-white flex-grow rounded-full"></div>
     </div>
 
     <div id="drag-slider" class="cursor-grab flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory select-none custom-scrollbar">

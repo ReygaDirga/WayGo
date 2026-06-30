@@ -145,4 +145,14 @@ class ProfileController extends Controller
         return redirect()->route('profile')->with('success', 'Your password has been changed successfully');
     }
 
+    public function changeLanguage(Request $request)
+    {
+        auth()->user()->update([
+            'language'=>$request->language
+        ]);
+        app()->setLocale($request->language);
+
+        return back();
+    }
+
 }
