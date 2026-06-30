@@ -12,7 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (footerRect.top < windowHeight) {
             const overlap = windowHeight - footerRect.top;
-            wrapper.style.transform = `translateY(-${overlap}px)`;
+            let pushUp = overlap - 15; 
+            if (pushUp < 0) pushUp = 0; 
+            
+            wrapper.style.transform = `translateY(-${pushUp}px)`;
         } else {
             wrapper.style.transform = 'translateY(0)';
         }
