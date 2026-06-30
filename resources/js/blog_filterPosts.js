@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const cards = Array.from(document.querySelectorAll('.post-card')); 
     const paginationContainer = document.getElementById('pagination-controls');
 
+    // AMBIL DATA TRANSLATION CUMA BUAT PREV & NEXT DARI HTML
+    const textPrev = paginationContainer.getAttribute('data-text-prev') || 'Prev';
+    const textNext = paginationContainer.getAttribute('data-text-next') || 'Next';
+
     const cardsPerPage = 6; 
     let currentPage = 1;
     let filteredCards = []; 
@@ -36,21 +40,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // FUNGSI BARU: Bikin angka dan tombol Berikutnya
-    // GANTI FUNGSI renderPagination LO DENGAN YANG INI:
     function renderPagination() {
         paginationContainer.innerHTML = ''; 
         const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
 
         if (totalPages <= 1) return; 
 
-        // 1. Ruangan untuk Prev (Lebar tetap w-24 biar gak ngedorong)
+        // 1. Tombol Prev
         const prevContainer = document.createElement('div');
         prevContainer.className = 'w-24 flex justify-end pr-4'; 
 
         if (currentPage > 1) {
             const prevBtn = document.createElement('button');
-            prevBtn.textContent = 'Prev';
+            prevBtn.textContent = textPrev; // <-- Ngambil terjemahan dari Laravel
             prevBtn.className = 'hover:text-[#F59E0B] transition-colors text-sm md:text-base font-bold';
             prevBtn.addEventListener('click', () => {
                 currentPage--;
@@ -61,13 +63,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         paginationContainer.appendChild(prevContainer);
 
-        // 2. Ruangan untuk deretan Angka
+        // 2. Deretan Angka (Tetap standar 1, 2, 3)
         const numbersContainer = document.createElement('div');
         numbersContainer.className = 'flex justify-center items-center gap-4';
 
         for (let i = 1; i <= totalPages; i++) {
             const numBtn = document.createElement('button');
-            numBtn.textContent = i;
+            numBtn.textContent = i; // <-- Balik lagi ke angka biasa
             
             if (i === currentPage) {
                 numBtn.className = 'text-[#F59E0B] underline underline-offset-4 font-bold scale-110 transition-transform';
@@ -85,13 +87,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         paginationContainer.appendChild(numbersContainer);
 
-        // 3. Ruangan untuk Next (Lebar tetap w-24 biar gak ngedorong)
+        // 3. Tombol Next
         const nextContainer = document.createElement('div');
         nextContainer.className = 'w-24 flex justify-start pl-4';
 
         if (currentPage < totalPages) {
             const nextBtn = document.createElement('button');
-            nextBtn.textContent = 'Next';
+            nextBtn.textContent = textNext; // <-- Ngambil terjemahan dari Laravel
             nextBtn.className = 'hover:text-[#F59E0B] transition-colors text-sm md:text-base font-bold';
             nextBtn.addEventListener('click', () => {
                 currentPage++;
@@ -103,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
         paginationContainer.appendChild(nextContainer);
     }
 
-    // Jalankan filter pertama kali buat "Semua"
     filterCards('semua');
 
     buttons.forEach(button => {

@@ -33,6 +33,9 @@
         @endforeach
     </div>
 
-    <div id="pagination-controls" class="flex justify-center items-center gap-4 mt-12 text-[#1A365D] font-semibold text-lg">
+    <div id="pagination-controls" 
+        data-text-prev="{{ __('messages.pr') }}" 
+        data-text-next="{{ __('messages.nx') }}"
+        class="flex justify-center items-center gap-4 mt-12 text-[#1A365D] font-semibold text-lg">
     </div>
 </div>
