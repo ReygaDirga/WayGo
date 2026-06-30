@@ -246,7 +246,7 @@
         </a>
     </div>
 
-
+{{-- betulin inii sih tadi --}}
     @include('Component.footer')
 </body>
 </html>
