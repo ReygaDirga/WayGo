@@ -1,18 +1,3 @@
-@auth
-    <a href="{{ route('create-blog') }}" class="absolute top-24 left-[calc(50%-550px)] md:top-24 z-20">
-        <div class="max-w-[1100px] mx-auto relative mt-12">
-            <a href="{{ route('create-blog') }}">
-                <div class="w-[140px] h-12 pl-8 pr-4
-                    bg-[#1A365D]
-                    rounded-full flex items-center shadow-sm">
-                    <span class="text-white text-sm font-semibold">
-                        {{ __('messages.crate') }}
-                    </span>
-                </div>
-            </a>
-        </div>
-    </a>
-@endauth
 <div class="relative w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-[1100px] mx-auto h-[500px] md:h-[550px] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl mt-12">
     <div id="carousel-slides" class="w-full h-full relative">
         @foreach($heroPosts as $index => $hp)
