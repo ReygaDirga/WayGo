@@ -118,7 +118,7 @@ return [
     'planner' => 'DIRENCANAKAN',
 
     //blogs page
-    'crate' => 'Buat Blog',
+    'crate' => 'Tambah Blog',
     'read' => 'Baca Cerita Lengkapnya',
     'recent' => 'Postingan Terbaru',
     'alblog' => 'Semua Postingan Blog',
@@ -128,6 +128,13 @@ return [
     'bestime' => 'Waktu Terbaik untuk Berkunjung',
     'cost' => 'Perkiraan Biaya',
     'tips' => 'Tips',
+    'jw' => 'Jawa',
+    'kl' => 'Kalimantan',
+    'sm' => 'Sumatra',
+    'sl' => 'Sulawesi',
+    'bn' => 'Bali & Nustra',
+    'ml' => 'Maluku',
+    'pp' => 'Papua',
 
     //aboutus page
     'discover' => 'Jelajahi dunia',

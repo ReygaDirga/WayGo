@@ -128,6 +128,13 @@ return [
     'bestime' => 'Best Time to Visit',
     'cost' => 'Estimated Cost',
     'tips' => 'Tips',
+    'jw' => 'Java',
+    'kl' => 'Kalimantan',
+    'sm' => 'Sumatra',
+    'sl' => 'Sulawesi',
+    'bn' => 'Bali & Nusa Tenggara',
+    'ml' => 'Maluku',
+    'pp' => 'Papua',
 
     //aboutus page
     'discover' => 'Discover the world',
