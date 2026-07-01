@@ -10,12 +10,12 @@
     <div class="hero-overlay">
         <span class="hero-eyebrow">{{ __('messages.discover') }}</span>
         <h1 class="hero-title">
-            <span class="hero-title-word">THE</span>
-            <span class="hero-title-word">JOURNEY</span>
+            <span class="hero-title-word">{{ __('messages.the') }}</span>
+            <span class="hero-title-word">{{ __('messages.jr') }}</span>
         </h1>
         <div class="hero-line"></div>
-        <p class="hero-sub">You'll always remember</p>
-        <a href="#services" class="hero-cta">Explore More <span>↓</span></a>
+        <p class="hero-sub">{{ __('messages.descjr') }}</p>
+        <a href="#services" class="hero-cta">{{ __('messages.em') }} <span>↓</span></a>
     </div>
     <div class="hero-scroll-indicator">
         <div class="scroll-dot"></div>
@@ -26,16 +26,16 @@
 <section class="services-section" id="services">
     <div class="services-inner">
         <div class="section-header">
-            <span class="section-tag">What we offer</span>
-            <h2 class="section-title">Our <em>Service</em></h2>
+            <span class="section-tag">{{ __('messages.wwo') }}</span>
+            <h2 class="section-title">{{ __('messages.our') }} <em>{{ __('messages.service') }}</em></h2>
             <div class="section-divider"></div>
         </div>
         <div class="services-grid">
             @foreach([
-                ['img' => 'service1.png', 'title' => 'Trip Planning',          'icon' => '🗺️', 'desc' => 'Plan your perfect journey step by step'],
-                ['img' => 'service2.png', 'title' => 'Travel Blog',             'icon' => '✍️', 'desc' => 'Stories and tips from fellow travelers'],
-                ['img' => 'service3.png', 'title' => 'Budget & Collaboration',  'icon' => '💰', 'desc' => 'Split costs and collaborate with friends'],
-                ['img' => 'service4.png', 'title' => 'Saved Trip',              'icon' => '🔖', 'desc' => 'Bookmark your dream destinations'],
+                ['img' => 'service1.png', 'title' => __('messages.tp'),          'icon' => '🗺️', 'desc' => __('messages.desctp')],
+                ['img' => 'service2.png', 'title' => __('messages.tb'),             'icon' => '✍️', 'desc' => __('messages.desctb')],
+                ['img' => 'service3.png', 'title' => __('messages.bc'),  'icon' => '💰', 'desc' => __('messages.descbc')],
+                ['img' => 'service4.png', 'title' => __('messages.st'),              'icon' => '🔖', 'desc' => __('messages.descst')],
             ] as $i => $service)
             <div class="service-card" style="--i: {{ $i }}">
                 <div class="service-img-wrapper">
@@ -58,8 +58,8 @@
 <section class="carousel-section">
     <div class="carousel-inner">
         <div class="section-header light">
-            <span class="section-tag">Gallery</span>
-            <h2 class="section-title">Make your <em>Trip</em> more<br>Memorable</h2>
+            <span class="section-tag">{{ __('messages.galeri') }}</span>
+            <h2 class="section-title">{{ __('messages.my') }} <em>{{ __('messages.trip') }}</em> {{ __('messages.more') }}<br>{{ __('messages.mmb') }}</h2>
             <div class="section-divider"></div>
         </div>
     </div>
@@ -86,15 +86,15 @@
 <section class="testimonials-section">
     <div class="testimonials-inner">
         <div class="section-header">
-            <span class="section-tag">Reviews</span>
-            <h2 class="section-title">What they <em>say</em> about us</h2>
+            <span class="section-tag">{{ __('messages.rev') }}</span>
+            <h2 class="section-title">{{ __('messages.wt') }} <em>{{ __('messages.say') }}</em> {{ __('messages.about') }}</h2>
             <div class="section-divider"></div>
         </div>
         <div class="testimonials-grid">
             @foreach([
-                ["text" => "Keren banget websitenya",              "name" => "Kimi",            "location" => "Semarang, Indonesia",     "avatar" => "https://api.dicebear.com/9.x/notionists/svg?seed=Kimi&backgroundColor=b6e3f4",           "stars" => 5],
-                ["text" => "Website nya sangat ngebantu",        "name" => "Gabriel Martun",  "location" => "Palangkaraya, Indonesia", "avatar" => "https://api.dicebear.com/9.x/notionists/svg?seed=Gabriel&backgroundColor=ffd5dc",         "stars" => 5],
-                ["text" => "Ini oke sih",                        "name" => "Sam Growtop",     "location" => "Pontianak, Indonesia",    "avatar" => "https://api.dicebear.com/9.x/notionists/svg?seed=Sam&backgroundColor=d1f4cc",             "stars" => 4],
+                ["text" => __('messages.kimidesc'),              "name" => "Kimi",            "location" => "Semarang, Indonesia",     "avatar" => "https://api.dicebear.com/9.x/notionists/svg?seed=Kimi&backgroundColor=b6e3f4",           "stars" => 5],
+                ["text" => __('messages.mardesc'),        "name" => "Gabriel Martun",  "location" => "Palangkaraya, Indonesia", "avatar" => "https://api.dicebear.com/9.x/notionists/svg?seed=Gabriel&backgroundColor=ffd5dc",         "stars" => 5],
+                ["text" => __('messages.samdesc'),                        "name" => "Sam Growtop",     "location" => "Pontianak, Indonesia",    "avatar" => "https://api.dicebear.com/9.x/notionists/svg?seed=Sam&backgroundColor=d1f4cc",             "stars" => 4],
             ] as $i => $item)
             <div class="testimonial-card" style="--i: {{ $i }}">
                 <div class="tcard-top">
