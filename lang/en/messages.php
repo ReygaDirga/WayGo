@@ -46,7 +46,7 @@ return [
     'demonas' => 'Monas stands as a proud symbol of Indonesia’s independence, featuring iconic architecture, panoramic city views, and a rich historical museum that reflects the nation’s journey and spirit.',
     'taman' => 'Taman Ayun Temple offers serene gardens, traditional Balinese architecture, and peaceful surroundings, reflecting the harmony between nature, culture, and spirituality.',
     'prambanan' => 'Candi Prambanan showcases majestic Hindu architecture, intricate stone carvings, and timeless legends, offering a breathtaking glimpse into Indonesia’s rich cultural and historical heritage.',
-    'bromo' => 'Candi Prambanan showcases majestic Hindu architecture, intricate stone carvings, and timeless legends, offering a breathtaking glimpse into Indonesia’s rich cultural and historical heritage.',
+    'bromo' => 'Mount Bromo captivates visitors with its dramatic volcanic landscape, mystical sunrise views, and vast sea of ​​sand, creating an unforgettable adventure amidst nature.',
     'raja' => 'Raja Ampat enchants travelers with its crystal-clear waters, vibrant marine biodiversity, and untouched island beauty, making it a paradise for divers and nature lovers.',
     'toba' => 'Lake Toba amazes visitors with its vast volcanic lake, scenic highland views, and unique Batak culture, creating a tranquil escape rich in history and natural beauty.',
 
