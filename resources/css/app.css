@@ -11,12 +11,14 @@
 }
 
 @font-face {
-font-family:'Alexandria';
-src:url('/fonts/Alexandria[wght].ttf') format('truetype');
+    font-family: 'Alexandria';
+    src: url('../fonts/Alexandria.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
 }
 
-body{
-    font-family:'Alexandria',sans-serif;
+body {
+    font-family: 'Alexandria', sans-serif;
 }
 
 .step{
