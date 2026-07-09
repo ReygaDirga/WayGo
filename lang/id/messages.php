@@ -180,7 +180,7 @@ return [
     'tb' => 'Blog Perjalanan',
     'desctb' => 'Cerita dan tips dari sesama wisatawan',
     'bc' => 'Anggaran & Kolaborasi',
-    'descbc' => 'Bagi biaya dan berkolaborasi dengan teman',
+    'descbc' => 'Preferensi anggaran dan berkolaborasi dengan teman',
     'st' => 'Perjalanan Tersimpan',
     'descst' => 'Simpan destinasi impian Anda',
     'galeri' => 'Galeri',

@@ -180,7 +180,7 @@ return [
     'tb' => '旅游博客',
     'desctb' => '同路人的故事和建议',
     'bc' => '预算与分享',
-    'descbc' => 'Split costs and collaborate with friends',
+    'descbc' => '预算偏好并与朋友协作',
     'st' => '保存行程',
     'descst' => '收藏你梦寐以求的目的地',
     'galeri' => '相册',
