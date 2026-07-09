@@ -180,7 +180,7 @@ return [
     'tb' => 'Travel Blog',
     'desctb' => 'Stories and tips from fellow travelers',
     'bc' => 'Budget & Collaboration',
-    'descbc' => 'Split costs and collaborate with friends',
+    'descbc' => 'Budget preferences and collaborate with friends',
     'st' => 'Saved Trip',
     'descst' => 'Bookmark your dream destinations',
     'galeri' => 'Gallery',
