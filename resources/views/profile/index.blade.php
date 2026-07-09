@@ -243,6 +243,10 @@
                                         {{ auth()->user()->language=='id' ? 'selected' : '' }}>
                                         Indonesia
                                     </option>
+                                    <option value="cin"
+                                        {{ auth()->user()->language=='cin' ? 'selected' : '' }}>
+                                        Chinese
+                                    </option>
                                     <option value="ko"
                                         {{ auth()->user()->language=='ko' ? 'selected' : '' }}>
                                         한국어

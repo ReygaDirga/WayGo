@@ -1,0 +1,129 @@
+.testcontainer {
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    padding: 60px 24px;
+}
+
+.grid-cardd {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(220px, 1fr)
+    );
+    gap: 20px;
+    align-items: stretch;
+}
+
+.grid-cardd .kard {
+    background: white;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition:
+        transform 0.3s,
+        box-shadow 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+
+.grid-cardd .kard.selected {
+    outline: 4px solid #034A7D;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(3, 74, 125, 0.35);
+}
+
+.grid-cardd .kard.selected::after {
+    content: "✓";
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #034A7D;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    z-index: 10;
+}
+
+.grid-cardd .kard.disabled {
+    filter: grayscale(1);
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.grid-cardd .kard.disabled:hover {
+    transform: none;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.grid-cardd .kard:hover {
+    transform: translateY(-5px);
+    box-shadow: 2px 2px 26px rgba(0, 0, 0, 0.3);
+}
+
+.grid-cardd .kard img {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.text-penjelasan {
+    padding: 16px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.text-penjelasan h3 {
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: #034A7D;
+    font-weight: 600;
+    text-align: center;
+}
+
+.text-penjelasan p {
+    margin-bottom: 16px;
+    text-align: justify;
+}
+
+@media (max-width: 768px) {
+    .testcontainer {
+        padding: 50px 20px;
+    }
+
+    .grid-cardd {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 500px) {
+    .testcontainer {
+        padding: 40px 16px;
+    }
+
+    .grid-cardd {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-cardd .kard {
+        max-width: 380px;
+
+        margin-inline: auto;
+    }
+}

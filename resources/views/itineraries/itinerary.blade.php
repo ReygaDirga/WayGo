@@ -13,7 +13,9 @@
         'resources/js/location.js',
         'resources/js/date.js',
         'resources/css/category.css',
-        'resources/js/category.js'
+        'resources/js/category.js',
+        'resources/css/card.css',
+        'resources/js/travel.js',
         ])
 </head>
 <body>
@@ -37,7 +39,7 @@
                                     {{ __('messages.location') }}
                                 </h3>
 
-                                <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1">
+                                <div class="h-10 flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1">
                                     <span>
                                         <img src="{{ asset('assets/location.svg') }}" class="w-5 h-5 shrink-0">
                                     </span>
@@ -63,7 +65,7 @@
                                     {{ __('messages.date') }}
                                 </h3>
 
-                                <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1">
+                                <div class="h-10 flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1">
                                     <span>
                                         <img src="{{ asset('assets/calendar.svg') }}" class="w-5 h-5 shrink-0">
                                     </span>
@@ -84,7 +86,7 @@
                                     </h3>
                                     <button
                                         id="travelerBtn"
-                                        class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1"
+                                        class="w-full h-10 flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1"
                                         type="button"
                                         
                                         >
@@ -150,95 +152,49 @@
     </span>
 
     <section>
-        <div class="wrapper">
-            <div class="container">
-                <input class="inputW" type="radio" name="slide" id="c1" checked>
-                <label for="c1" class="card">
-                    <div class="vertical-title">
-                        <span class="vertical-text">{{ __('messages.culture') }}</span>
-                        <input class="sync-checkbox checkbox checkbox-lg vertical-checkbox"
-                            data-group="culture"
-                            type="checkbox">
-                    </div>
-                    <div class="row">
-                        <div class="description">
-                            <div class="flex justify-between items-center">
-                                <h4 class="text-black font-extrabold">{{ __('messages.culture') }}</h4>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <p class="mt-3">{{ __('messages.dculture') }}</p>
-                                <input class="sync-checkbox checkbox checkbox-xl ms-10 open-checkbox" data-group="culture" type="checkbox">
-                            </div>
+        <div class="testcontainer">
+            <main class="grid-cardd">
+                <article class="kard" data-category="culture">
+                        <img src="{{ asset('assets/jakarta.jpg') }}" alt="">
+                        <div class="text-penjelasan">
+                            <h3>Culture</h3>
+                            <hr>
+                            <p>Experience the rich culture and traditions of every destination. Visit historical landmarks, traditional villages, and learn about local heritage and customs.</p>
                         </div>
-                    </div>
-                </label>
-                
-                <input class="inputW" type="radio" name="slide" id="c2">
-                <label for="c2" class="card">
-                    <div class="vertical-title">
-                        <span class="vertical-text">{{ __('messages.nature') }}</span>
-                        <input class="sync-checkbox checkbox checkbox-lg vertical-checkbox"
-                            data-group="nature"
-                            type="checkbox">
-                    </div>
-                    <div class="row">
-                        <div class="description">
-                            <div class="flex justify-between items-center">
-                                <h4 class="text-black font-extrabold">{{ __('messages.nature') }}</h4>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                 <p class="mt-3">{{ __('messages.dnature') }}</p>
-                                <input class="sync-checkbox checkbox checkbox-xl ms-10 open-checkbox" data-group="nature" type="checkbox">
-                            </div>
+                </article>
+                <article class="kard" data-category="nature">
+                        <img src="{{ asset('assets/hutan.jpeg') }}" alt="">
+                        <div class="text-penjelasan">
+                            <h3>Nature</h3>
+                             <hr>
+                            <p>Discover stunning beaches, lush forests, majestic mountains, and breathtaking natural landscapes.</p>
                         </div>
-                    </div>
-                </label>
-
-                <input class="inputW" type="radio" name="slide" id="c3" >
-                <label for="c3" class="card">
-                    <div class="vertical-title">
-                        <span class="vertical-text">{{ __('messages.culinary') }}</span>
-                        <input class="sync-checkbox checkbox checkbox-lg vertical-checkbox"
-                            data-group="culinary"
-                            type="checkbox">
-                    </div>
-                    <div class="row">
-                        <div class="description">
-                            <div class="flex justify-between items-center">
-                                <h4 class="text-black font-extrabold">{{ __('messages.culinary') }}</h4>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                 <p class="mt-3">{{ __('messages.dculinary') }}</p>
-                                <input class="sync-checkbox checkbox checkbox-xl ms-10 open-checkbox" data-group="culinary" type="checkbox">
-                            </div>
+                </article>
+                <article class="kard" data-category="culinary">
+                        <img src="{{ asset('assets/kuliner.png') }}" alt="">
+                        <div class="text-penjelasan">
+                            <h3>Culinary</h3>
+                             <hr>
+                            <p>Discover the unique flavors of Indonesian cuisine.Enjoy authentic local dishes, street food, and traditional culinary experiences from different regions.</p>
                         </div>
-                    </div>
-                </label>
-
-                <input class="inputW" type="radio" name="slide" id="c4">
-                <label for="c4" class="card">
-                    <div class="vertical-title">
-                        <span class="vertical-text">{{ __('messages.adventure') }}</span>
-                        <input class="sync-checkbox checkbox checkbox-lg vertical-checkbox"
-                            data-group="adventure"
-                            type="checkbox">
-                    </div>
-                    <div class="row">
-                        <div class="description">
-                            <div class="flex justify-between items-center">
-                                <h4 class="text-black font-extrabold">{{ __('messages.adventure') }}</h4>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <p class="mt-3">{{ __('messages.dadventure') }}</p>
-                                <input class="sync-checkbox checkbox checkbox-xl ms-10 open-checkbox" data-group="adventure" type="checkbox">
-                            </div>
+                </article>
+                <article class="kard" data-category="adventure">
+                        <img src="{{ asset('assets/rinjani.jpg') }}" alt="">
+                        <div class="text-penjelasan">
+                            <h3>Adventure</h3>
+                             <hr>
+                            <p>Feel the thrill of exciting outdoor adventures. From hiking mountains and diving in crystal waters to surfing and exploring hidden natural spots.</p>
                         </div>
-                    </div>
-                </label>
-            </div>
+                </article>
+            </main>
         </div>
-
     </section>
+
+    <input
+        type="hidden"
+        name="categories"
+        id="selectedCategories"
+    >
 
     <div class="flex items-center justify-center mt-6">
         <a href="{{ route('itinerary-detail') }}" class="btn md:block px-30 py-4 rounded-xl bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] text-[#F5F0EC] font-extrabold mb-10">
@@ -249,4 +205,5 @@
 
     @include('Component.footer')
 </body>
+
 </html>
