@@ -39,7 +39,7 @@
                                     {{ __('messages.location') }}
                                 </h3>
 
-                                <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1">
+                                <div class="h-10 flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1">
                                     <span>
                                         <img src="{{ asset('assets/location.svg') }}" class="w-5 h-5 shrink-0">
                                     </span>
@@ -65,7 +65,7 @@
                                     {{ __('messages.date') }}
                                 </h3>
 
-                                <div class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1">
+                                <div class="h-10 flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1">
                                     <span>
                                         <img src="{{ asset('assets/calendar.svg') }}" class="w-5 h-5 shrink-0">
                                     </span>
@@ -86,7 +86,7 @@
                                     </h3>
                                     <button
                                         id="travelerBtn"
-                                        class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1"
+                                        class="w-full h-10 flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1"
                                         type="button"
                                         
                                         >
