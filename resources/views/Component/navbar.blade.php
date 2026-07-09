@@ -40,7 +40,7 @@
 
     @auth
         <a href="{{ route('profile') }}"
-           class="flex items-center gap-3">
+           class="hidden md:flex items-center gap-3">
             <img
                 src="{{ auth()->user()->avatar }}"
                 alt="profile"
@@ -59,11 +59,44 @@
         </a>
     @endauth
 
-    <button @click="open=!open" class="md:hidden">
-      <svg x-show="!open" class="w-8 h-8 text-white opacity-90  " fill="none" stroke="currentColor" :class="darkNavbar ? 'text-black' : 'text-white'"viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-          <svg x-show="open" class="w-8 h-8 text-white opacity-90" fill="none" stroke="currentColor" :class="darkNavbar ? 'text-black' : 'text-white'"viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    <button
+        @click="open = !open"
+        class="md:hidden"
+        aria-label="Toggle navigation menu"
+    >
+        <svg
+            x-show="!open"
+            x-cloak
+            class="w-8 h-8 opacity-90"
+            :class="darkNavbar ? 'text-gray-800' : 'text-white'"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+            />
+        </svg>
+
+        <svg
+            x-show="open"
+            x-cloak
+            class="w-8 h-8 opacity-90"
+            :class="darkNavbar ? 'text-gray-800' : 'text-white'"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+            />
+        </svg>
     </button>
   </div>
   </div>
@@ -71,6 +104,23 @@
 
   <div x-show="open" x-transition class="md:hidden bg-white shadow-lg">
     <div class="px-6 py-5 space-y-4">
+      @auth
+          <a href="{{ route('profile') }}"
+            class="flex items-center gap-3 w-full
+                    text-black rounded-xl py-3 mt-4">
+
+              <img
+                  src="{{ auth()->user()->avatar }}"
+                  alt="profile"
+                  class="w-10 h-10 rounded-full object-cover"
+                  referrerpolicy="no-referrer">
+
+              <span class="font-medium truncate">
+                  {{ auth()->user()->name }}
+              </span>
+          </a>
+      @else
+      @endauth
       <a href="{{ route('itinerary') }}" class="block text-gray-800">
         Itinerary Planner
       </a>
@@ -83,9 +133,19 @@
       <a href="{{ route('about') }}" class="block text-gray-800">
         About Us
       </a>
-      <button class="w-full bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] text-white rounded-xl py-3 mt-4">
-        Log In
-      </button>
+      @auth
+          <a href="{{ route('profile') }}"
+            class="block text-gray-800">
+              Account Setting
+          </a>
+      @else
+          <a href="{{ route('login') }}"
+            class="block w-full text-center
+                    bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A]
+                    text-white rounded-xl py-3 mt-4">
+              Log In
+          </a>
+      @endauth
     </div>
   </div>
 

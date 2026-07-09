@@ -156,4 +156,4 @@
                 document.getElementById("kidNumber").innerText;
 
         });
-    </script>
+</script>

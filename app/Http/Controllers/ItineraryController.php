@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class ItineraryController extends Controller
 {
     public function index()
     {
-        return view('itineraries.itinerary');
+        $category = Category::all();
+        return view('itineraries.itinerary', compact('category'));
     }
 
     public function itineraryDetail()
