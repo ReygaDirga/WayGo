@@ -72,8 +72,7 @@
                             <div class="w-8 h-8 rounded-full bg-blue-500 border-2 border-white"></div>
                             <div class="w-8 h-8 rounded-full bg-pink-500 border-2 border-white"></div>
                         </div>
-                        <span class="text-sm text-gray-500">3 {{ __('messages.traveler') }}</span>
-                        <button class="ml-auto border border-[#F3A344] text-[#F3A344] text-xs px-3 py-1 rounded-full">{{ __('messages.addphotos') }}</button>
+                        <span class="text-sm text-gray-500">3 {{ __('messages.traveler') }}</span>  
                     </div>
                 </div>
                 
