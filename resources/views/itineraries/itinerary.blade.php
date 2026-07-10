@@ -154,38 +154,16 @@
     <section>
         <div class="testcontainer">
             <main class="grid-cardd">
-                <article class="kard" data-category="culture">
-                        <img src="{{ asset('assets/jakarta.jpg') }}" alt="">
-                        <div class="text-penjelasan">
-                            <h3>Culture</h3>
-                            <hr>
-                            <p>Experience the rich culture and traditions of every destination. Visit historical landmarks, traditional villages, and learn about local heritage and customs.</p>
-                        </div>
-                </article>
-                <article class="kard" data-category="nature">
-                        <img src="{{ asset('assets/hutan.jpeg') }}" alt="">
-                        <div class="text-penjelasan">
-                            <h3>Nature</h3>
-                             <hr>
-                            <p>Discover stunning beaches, lush forests, majestic mountains, and breathtaking natural landscapes.</p>
-                        </div>
-                </article>
-                <article class="kard" data-category="culinary">
-                        <img src="{{ asset('assets/kuliner.png') }}" alt="">
-                        <div class="text-penjelasan">
-                            <h3>Culinary</h3>
-                             <hr>
-                            <p>Discover the unique flavors of Indonesian cuisine.Enjoy authentic local dishes, street food, and traditional culinary experiences from different regions.</p>
-                        </div>
-                </article>
-                <article class="kard" data-category="adventure">
-                        <img src="{{ asset('assets/rinjani.jpg') }}" alt="">
-                        <div class="text-penjelasan">
-                            <h3>Adventure</h3>
-                             <hr>
-                            <p>Feel the thrill of exciting outdoor adventures. From hiking mountains and diving in crystal waters to surfing and exploring hidden natural spots.</p>
-                        </div>
-                </article>
+                @foreach ($category as $cat)
+                    <article class="kard" data-category="{{ $cat->id }}">
+                            <img src="{{ $cat->image }}" alt="{{ $cat->name }}">
+                            <div class="text-penjelasan">
+                                <h3>{{ $cat->name }}</h3>
+                                <hr>
+                                <p>{{ $cat->description }}</p>
+                            </div>
+                    </article>
+                @endforeach
             </main>
         </div>
     </section>
