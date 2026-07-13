@@ -23,7 +23,8 @@ class GoogleController extends Controller
         ->setHttpClient(new \GuzzleHttp\Client(['verify' => false]))
         ->user();
         
-        $user = User::updateOrCreate(
+        // UBAH updateOrCreate MENJADI firstOrCreate
+        $user = User::firstOrCreate(
             ['email' => $googleUser->getEmail()],
             [
                 'name'              => $googleUser->getName(),
@@ -34,7 +35,14 @@ class GoogleController extends Controller
             ]
         );
 
+        // Tambahan pengaman: Jika user lama (misal daftar manual) login via Google, 
+        // kita tautkan google_id-nya tanpa menimpa namanya.
+        if (!$user->wasRecentlyCreated && empty($user->google_id)) {
+            $user->update(['google_id' => $googleUser->getId()]);
+        }
+
         Auth::login($user);
+        
         if ($user->wasRecentlyCreated) {
             return redirect()->route('profile.create');
         } else {
