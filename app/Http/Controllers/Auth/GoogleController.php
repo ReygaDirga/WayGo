@@ -22,6 +22,7 @@ class GoogleController extends Controller
         ->stateless()
         ->setHttpClient(new \GuzzleHttp\Client(['verify' => false]))
         ->user();
+        
         $user = User::updateOrCreate(
             ['email' => $googleUser->getEmail()],
             [
@@ -34,7 +35,10 @@ class GoogleController extends Controller
         );
 
         Auth::login($user);
-
-        return redirect()->route('profile.create');
+        if ($user->wasRecentlyCreated) {
+            return redirect()->route('profile.create');
+        } else {
+            return redirect()->route('home'); 
+        }
     }
 }
