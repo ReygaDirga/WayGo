@@ -74,39 +74,15 @@
 
                 <div class="flex items-center gap-4 mb-4">
                     <div class="h-[1px] flex-1 bg-gray-300"></div>
-                    <span class="font-semibold">Day 2</span>
+                    <span class="font-semibold">HASIL GENERATE</span>
                     <div class="h-[1px] flex-1 bg-gray-300"></div>
                 </div>
 
-                @for($i=0;$i<3;$i++)
-                    <div class="bg-white rounded-xl border p-5 shadow-sm hover:shadow-md transition">
-                        <div class="flex justify-between">
-                            <div>
-                                <h4 class="font-bold text-lg">
-                                    Hutan Pinus Mangunan
-                                </h4>
-                                <p class="text-gray-500 text-sm mt-1">
-                                    Jl. Hutan Pinus Nganjir, Mangunan, Kec.Dling, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55783
-                                </p>
-                                <p class="text-sm mt-3">
-                                    Cost Rp 150.000
-                                </p>
-                            </div>
-                            <span class="text-orange-500">
-                                ★ 4.6
-                            </span>
-                        </div>
-
-                        <div class="flex justify-between mt-5">
-                            <div class="text-sm text-gray-500">
-                                ⏱ 2 min • 750 m
-                            </div>
-                            <button class="text-sm font-semibold">
-                                See Detail
-                            </button>
-                        </div>
-                    </div>
-                @endfor
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="h-[1px] flex-1 bg-gray-300"></div>
+                    <span class="font-semibold">{{ $hasil }}</span>
+                    <div class="h-[1px] flex-1 bg-gray-300"></div>
+                </div>
 
             </div>
 
