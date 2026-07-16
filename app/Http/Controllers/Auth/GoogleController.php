@@ -32,6 +32,7 @@ class GoogleController extends Controller
                 'avatar'            => $googleUser->getAvatar(),
                 'password'          => Hash::make('w@Y9o' .Str::studly($googleUser->getName())),
                 'email_verified_at' => now(),
+                'language'          => 'en',
             ]
         );
 
