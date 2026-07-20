@@ -72,6 +72,12 @@ class ItineraryController extends Controller
                     - Hindari berpindah lokasi bolak-balik.
                     - Prioritaskan destinasi yang berdekatan agar waktu perjalanan lebih singkat.
 
+                    estimated_cost:
+                    - Gunakan harga rata-rata yang wajar.
+                    - Jangan isi 0 kecuali benar-benar gratis.
+                    - Jika merupakan hotel, gunakan estimasi harga per malam.
+                    - Jika merupakan pantai umum atau taman kota yang gratis, isi 0.
+
                     Gunakan data Google Maps untuk memberikan:
                     - destination_name
                     - address

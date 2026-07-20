@@ -80,3 +80,5 @@ Route::prefix('/blog')->group(function () {
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/saved/{uuid}', [SavedController::class, 'detail'])->middleware('auth');
+Route::get('/saved/{uuid}/pdf', [SavedController::class, 'exportPdf'])->name('pdf_export');
