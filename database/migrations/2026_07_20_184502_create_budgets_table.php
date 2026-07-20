@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id(); // Primary Key
-
+        Schema::create('budgets', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-
-            $table->date('dob')->nullable();
-            $table->text('description')->nullable();
-            $table->integer('budget')->nullable();
+            $table->decimal('min_price', 12, 2);
+            $table->decimal('max_price', 12, 2)->nullable();
 
             $table->timestamps();
         });
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('budgets');
     }
 };

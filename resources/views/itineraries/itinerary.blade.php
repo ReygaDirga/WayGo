@@ -20,8 +20,11 @@
 </head>
 <body>
     @include('Component.navbar')
-    <section class="relative pt-20 sm:pt-20 md:pt-50 lg:pt-55">
-        <div class="flex justify-center px-4 sm:px-6 lg:px-8">
+
+    <form action="{{ route('itinerary-detail') }}" method="post">
+        @csrf
+        <section class="relative pt-20 sm:pt-20 md:pt-50 lg:pt-55">
+            <div class="flex justify-center px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-5xl mt-10 md:-mt-20">
                 <h1 class="font-bold leading-tight text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
                     <span class="text-[#034A7D]">{{ __('messages.startplan') }}</span><span class="text-[#F79204]"> {{ __('messages.journey') }}</span>
@@ -111,13 +114,13 @@
                                         {{ __('messages.adults') }}
                                     </span>
                                     <div class="flex items-center gap-3">
-                                        <button id="adultMinus" class="w-8 h-8 border rounded-full">
+                                        <button type="button" id="adultMinus" class="w-8 h-8 border rounded-full">
                                             -
                                         </button>
                                         <span id="adultNumber">
                                             0
                                         </span>
-                                        <button id="adultPlus" class="w-8 h-8 border rounded-full">
+                                        <button type="button" id="adultPlus" class="w-8 h-8 border rounded-full">
                                             +
                                         </button>
                                     </div>
@@ -127,13 +130,13 @@
                                         {{ __('messages.kids') }}
                                     </span>
                                     <div class="flex items-center gap-3">
-                                        <button id="kidMinus" class="w-8 h-8 border rounded-full">
+                                        <button type="button" id="kidMinus" class="w-8 h-8 border rounded-full">
                                             -
                                         </button>
                                         <span id="kidNumber">
                                             0
                                         </span>
-                                        <button id="kidPlus" class="w-8 h-8 border rounded-full">
+                                        <button type="button" id="kidPlus" class="w-8 h-8 border rounded-full">
                                             +
                                         </button>
                                     </div>
@@ -144,43 +147,50 @@
                     </div>
                 </div>
             </div>
+            </div>
+        </section>
+
+        <span class="text-black font-semibold sm:text-lg md:text-xl lg:text-2xl text-center mt-10 block">
+            {{ __('messages.select') }}
+        </span>
+
+        <section>
+            <div class="testcontainer">
+                <main class="grid-cardd">
+                    @foreach ($category as $cat)
+                        <article class="kard" data-category="{{ $cat->id }}">
+                                <img src="{{ $cat->image }}" alt="{{ $cat->name }}">
+                                <div class="text-penjelasan">
+                                    <h3>{{ $cat->name }}</h3>
+                                    <hr>
+                                    <p>{{ $cat->description }}</p>
+                                </div>
+                        </article>
+                    @endforeach
+                </main>
+            </div>
+        </section>
+
+        <input type="hidden" name="categories" id="selectedCategories">
+        <input type="hidden" name="adults" id="adultInput" value="0">
+        <input type="hidden" name="kids" id="kidInput" value="0">
+
+        <div class="flex items-center justify-center mt-6">
+            @auth
+                <button
+                    type="submit"
+                    class="btn md:block px-30 py-4 rounded-xl bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] text-[#F5F0EC] font-extrabold mb-10">
+                    {{ __('messages.submit') }}
+                </button>
+            @else
+                <a href="{{ route('login') }}"
+                    class="btn md:block px-30 py-4 rounded-xl bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] text-[#F5F0EC] font-extrabold mb-10">
+                    Log In
+                </a>
+            @endauth
+            
         </div>
-    </section>
-
-    <span class="text-black font-semibold sm:text-lg md:text-xl lg:text-2xl text-center mt-10 block">
-        {{ __('messages.select') }}
-    </span>
-
-    <section>
-        <div class="testcontainer">
-            <main class="grid-cardd">
-                @foreach ($category as $cat)
-                    <article class="kard" data-category="{{ $cat->id }}">
-                            <img src="{{ $cat->image }}" alt="{{ $cat->name }}">
-                            <div class="text-penjelasan">
-                                <h3>{{ $cat->name }}</h3>
-                                <hr>
-                                <p>{{ $cat->description }}</p>
-                            </div>
-                    </article>
-                @endforeach
-            </main>
-        </div>
-    </section>
-
-    <input
-        type="hidden"
-        name="categories"
-        id="selectedCategories"
-    >
-
-    <div class="flex items-center justify-center mt-6">
-        <a href="{{ route('itinerary-detail') }}" class="btn md:block px-30 py-4 rounded-xl bg-gradient-to-b from-[#FA9009] via-[#F8A321] to-[#F6B83A] text-[#F5F0EC] font-extrabold mb-10">
-            {{ __('messages.submit') }}
-        </a>
-    </div>
-
-
+    </form>
     @include('Component.footer')
 </body>
 

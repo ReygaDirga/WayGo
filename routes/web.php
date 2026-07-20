@@ -18,12 +18,6 @@ Route::get('/test-id', function () {
 Route::post('/change-language', [ProfileController::class,'changeLanguage'])
     ->name('change.language');
 
-
-
-
-
-
-
 //Next Button in preferences page
 Route::get('/done', fn() => view('authentication.done'))
     ->name('done')
@@ -64,7 +58,7 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 // itinerary
 Route::prefix('/itinerary')->group(function () {
     Route::get('/', [ItineraryController::class, 'index'])->name('itinerary');
-    Route::get('/itinerary-detail', [ItineraryController::class, 'itineraryDetail'])->name('itinerary-detail');
+    Route::post('/itinerary-detail', [ItineraryController::class, 'itineraryDetail'])->name('itinerary-detail');
 });
 
 // Profile

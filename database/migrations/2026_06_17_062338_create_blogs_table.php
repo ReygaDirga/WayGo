@@ -17,6 +17,10 @@ return new class extends Migration
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->cascadeOnDelete();
+            
+            $table->foreignId('id_pulau')
+            ->constrained('pulau_blog')
+            ->cascadeOnDelete();
 
             $table->string('title');
             $table->string('location');

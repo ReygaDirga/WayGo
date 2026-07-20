@@ -1,8 +1,7 @@
-let adults = 0;
-let kids = 0;
+let adults = parseInt(document.getElementById('adultCount').innerText) || 0;
+let kids = parseInt(document.getElementById('kidCount').innerText) || 0;
 
-const popup =
-    document.getElementById('travelerPopup');
+const popup = document.getElementById('travelerPopup');
 
 document
     .getElementById('travelerBtn')
@@ -54,25 +53,15 @@ document
 
 function updateGuests() {
 
-    document
-        .getElementById('adultNumber')
-        .innerText = adults;
+    document.getElementById('adultNumber').innerText = adults;
+    document.getElementById('kidNumber').innerText = kids;
 
-    document
-        .getElementById('kidNumber')
-        .innerText = kids;
+    document.getElementById('adultCount').innerText = adults;
+    document.getElementById('kidCount').innerText = kids;
 
-    document
-        .getElementById('adultCount')
-        .innerText = adults;
-
-    document
-        .getElementById('kidCount')
-        .innerText = kids;
-
+    document.getElementById('adultInput').value = adults;
+    document.getElementById('kidInput').value = kids;
 }
-
-
 
 document.addEventListener('click', function (e) {
 
@@ -89,3 +78,5 @@ document.addEventListener('click', function (e) {
     }
 
 });
+
+updateGuests();
