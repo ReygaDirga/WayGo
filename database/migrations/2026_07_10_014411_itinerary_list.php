@@ -19,20 +19,19 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->string('location');
-            $table->date('tanggal');
-
-            $table->integer('adult');
-            $table->integer('kids');
-
-            $table->foreignId('category_id')
-                ->constrained('categories')
-                ->cascadeOnDelete();
-
-            $table->string('destinasi_name');
-            $table->string('address');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->unsignedInteger('day');
+            $table->date('date');
+            $table->string('time');
+            $table->unsignedInteger('adults');
+            $table->unsignedInteger('children');
+            $table->string('destination_name');
+            $table->text('address');
             $table->decimal('estimated_cost', 12, 2);
             $table->decimal('rating', 2, 1);
-
+            $table->text('description')->nullable();
+            $table->string('distance_to_next')->nullable();
             $table->timestamps();
         });
     }

@@ -23,9 +23,13 @@
         {{ __('messages.Itinerary') }}
     </a>
 
-    <a href="{{ route('trips') }}" :class="darkNavbar ? 'text-gray-800' : 'text-white'" class="font-bold">
-        {{ __('messages.Saved') }}
-    </a>
+    @auth
+      <a href="{{ route('trips') }}" :class="darkNavbar ? 'text-gray-800' : 'text-white'" class="font-bold">
+          {{ __('messages.Saved') }}
+      </a>
+    @else
+    
+    @endauth
 
     <a href="{{ route('blog') }}" :class="darkNavbar ? 'text-gray-800' : 'text-white'" class="font-bold">
       {{ __('messages.blog') }}
