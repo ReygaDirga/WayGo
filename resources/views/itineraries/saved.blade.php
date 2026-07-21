@@ -42,11 +42,13 @@
         @if($latestTripData)
 
             @php
-                $trip = $latestTripData->first();
-                $totalDays = \Carbon\Carbon::parse($trip->start_date)
-                    ->diffInDays(\Carbon\Carbon::parse($trip->end_date)) + 1;
-                $start = \Carbon\Carbon::parse($trip->start_date);
-                $end = \Carbon\Carbon::parse($trip->end_date);
+                $trip = $latestTripData['summary'];
+
+                $totalDays = Carbon\Carbon::parse($trip->start_date)
+                    ->diffInDays(Carbon\Carbon::parse($trip->end_date)) + 1;
+
+                $start = Carbon\Carbon::parse($trip->start_date);
+                $end = Carbon\Carbon::parse($trip->end_date);
             @endphp
 
             <div class="bg-white rounded-[2rem] shadow-sm overflow-hidden mb-8 border border-gray-100 trip-card cursor-pointer" data-uuid="{{ $trip->trip_uuid }}">
@@ -69,23 +71,43 @@
                             <span class="flex items-center gap-2"><i class="far fa-calendar"></i> {{ $start->format('d') }}-{{ $end->format('d M Y') }}   </span>
                             <span class="flex items-center gap-2"><i class="far fa-clock"></i> {{ $totalDays }} {{ __('messages.days') }}</span>
                         </div>
-                        <div class="bg-gray-100 rounded-2xl h-32 flex items-center justify-center border border-gray-200">
-                            <span class="text-gray-400 italic text-sm">Visual Itinerary Map Placeholder</span>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-100 rounded-2xl border border-gray-200 p-5 flex flex-col justify-center">
+                                <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold">
+                                    Categories
+                                </p>
+
+                                <p class="mt-3 text-lg font-bold text-gray-900">
+                                    {{ $trip->categories }}
+                                </p>
+                            </div>
+
+                            <div class="bg-[#0b5f8d] rounded-2xl border border-orange-200 p-5 flex flex-col justify-center">
+                                <p class="text-xs uppercase tracking-wide text-white font-semibold">
+                                    Total Estimated Budget
+                                </p>
+
+                                <p class="mt-3 text-2xl font-bold text-white">
+                                   Rp {{ number_format($latestTripData['total_budget'], 0, ',', '.') }}
+                                </p>
+                            </div>
                         </div>
                         <div class="mt-4 flex items-center gap-3">
-                            <div class="flex -space-x-2">
-                                <div class="w-8 h-8 rounded-full bg-teal-500 border-2 border-white"></div>
-                                <div class="w-8 h-8 rounded-full bg-blue-500 border-2 border-white"></div>
-                                <div class="w-8 h-8 rounded-full bg-pink-500 border-2 border-white"></div>
-                            </div>
-                            <span class="text-sm text-gray-500">3 {{ __('messages.traveler') }}</span>  
+                            <span class="text-sm text-gray-500">
+                                {{ $trip->adults }}
+                                        Adult
+                                        @if($trip->children > 0)
+                                            + {{ $trip->children }} Kids
+                                        @endif
+                                 {{ __('messages.traveler') }}
+                            </span>  
                         </div>
                     </div>
                     
                     <div class="border-l border-gray-100 pl-8">
                         <h4 class="text-[#F3A344] font-bold text-lg mb-3">{{ __('messages.highlight') }}</h4>
                         <ul class="space-y-2 text-gray-700">
-                            @foreach($latestTripData->take(3) as $activity)
+                            @foreach($latestTripData['highlights'] as $activity)
                                 <li>
                                     • {{ $activity->destination_name }}
                                 </li>
@@ -108,7 +130,6 @@
                 <div class="bg-white rounded-[2rem] shadow-sm overflow-hidden border border-gray-100 trip-card cursor-pointer" data-uuid="{{ $trip->trip_uuid }}">
                     <div class="relative h-56">
                         <img src="{{ asset('assets/sumsel.jpg') }}" alt="Bali" class="w-full h-full object-cover">
-                        <div class="absolute top-4 right-4 bg-orange-400 text-white text-[10px] px-3 py-1 rounded-lg font-bold">{{ __('messages.planner') }}</div>
                         <div class="absolute bottom-0 left-0 p-6 text-white w-full">
                             <h3 class="text-2xl font-bold">{{ explode(',', $trip->location)[0] }}</h3>
                         </div>
@@ -120,16 +141,36 @@
                     </div>
                     <div class="p-6">
                         <p class="text-sm font-semibold mb-4 text-gray-600 italic">{{ $start->format('d') }}-{{ $end->format('d M Y') }}</p>
-                        <div class="bg-gray-100 rounded-xl h-24 mb-4 border border-gray-200 flex items-center justify-center">
-                            <span class="text-gray-400 text-xs italic">Map View</span>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-100 rounded-2xl border border-gray-200 p-5 flex flex-col justify-center">
+                                <p class="text-xs uppercase tracking-wide text-gray-500 font-semibold">
+                                    Categories
+                                </p>
+
+                                <p class="mt-3 text-lg font-bold text-gray-900">
+                                    {{ $trip->categories }}
+                                </p>
+                            </div>
+
+                            <div class="bg-[#0b5f8d] rounded-2xl p-5 flex flex-col justify-center">
+                                <p class="text-xs uppercase tracking-wide font-semibold text-white">
+                                    Total Estimated Budget
+                                </p>
+
+                                <p class="mt-3 text-2xl font-bold text-white">
+                                   Rp {{ number_format($trip->total_budget,0,',','.') }}
+                                </p>
+                            </div>
                         </div>
                         <div class="flex items-center gap-2">
-                            <div class="flex -space-x-2">
-                                <div class="w-7 h-7 rounded-full bg-blue-600 border-2 border-white"></div>
-                                <div class="w-7 h-7 rounded-full bg-purple-600 border-2 border-white"></div>
-                                <div class="w-7 h-7 rounded-full bg-gray-400 border-2 border-white"></div>
-                            </div>
-                            <span class="text-xs text-gray-500">3 {{ __('messages.traveler') }}</span>
+                            <span class="text-xs text-gray-500">
+                                {{ $trip->adults }}
+                                        Adult
+                                        @if($trip->children > 0)
+                                            + {{ $trip->children }} Kids
+                                        @endif
+                                {{ __('messages.traveler') }}
+                            </span>
                         </div>
                     </div>
                 </div>

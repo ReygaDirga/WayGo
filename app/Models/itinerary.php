@@ -18,6 +18,7 @@ class itinerary extends Model
         'time',
         'adults',
         'children',
+        'categories',
         'destination_name',
         'address',
         'estimated_cost',

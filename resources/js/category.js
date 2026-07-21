@@ -1,96 +1,74 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const checkboxes =
-        document.querySelectorAll(".sync-checkbox");
-
-    checkboxes.forEach((box) => {
-
-        box.addEventListener("change", () => {
-
-            const group =
-                box.dataset.group;
-
-            document
-                .querySelectorAll(
-                    `[data-group="${group}"]`
-                )
-
-                .forEach((target) => {
-
-                    target.checked =
-                        box.checked;
-
-                });
-
-        });
-
-    });
-
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.grid-cardd .kard');
+    const form = document.getElementById("itineraryForm");
+    const cards = document.querySelectorAll(".grid-cardd .kard");
 
     const MAX_SELECTION = 3;
 
     function getSelectedCards() {
-        return document.querySelectorAll('.grid-cardd .kard.selected');
+        return document.querySelectorAll(".grid-cardd .kard.selected");
     }
 
     function updateCards() {
+
         const selectedCards = getSelectedCards();
 
-        const limitReached =
-            selectedCards.length >= MAX_SELECTION;
+        const limitReached = selectedCards.length >= MAX_SELECTION;
 
-        cards.forEach((card) => {
-            const isSelected =
-                card.classList.contains('selected');
+        cards.forEach(card => {
+
+            const isSelected = card.classList.contains("selected");
 
             if (limitReached && !isSelected) {
-                card.classList.add('disabled');
+                card.classList.add("disabled");
             } else {
-                card.classList.remove('disabled');
+                card.classList.remove("disabled");
             }
+
         });
 
-        const selectedCategories = Array.from(selectedCards)
-            .map((card) => card.dataset.category);
-
-        const hiddenInput =
-            document.getElementById('selectedCategories');
-
-        if (hiddenInput) {
-            hiddenInput.value = selectedCategories.join(',');
-        }
+        document.getElementById("categories").value =
+            Array.from(selectedCards)
+                .map(card => card.dataset.category)
+                .join(",");
     }
 
-    cards.forEach((card) => {
-        card.addEventListener('click', () => {
-            const isSelected = card.classList.contains('selected');
-            const selectedCount = getSelectedCards().length;
+    cards.forEach(card => {
 
-            if (card.classList.contains('disabled')) {
-                return;
-            }
+        card.addEventListener("click", () => {
 
-            if (isSelected) {
-                card.classList.remove('selected');
+            if (card.classList.contains("disabled")) return;
 
-                updateCards();
-
-                return;
-            }
-
-            if (selectedCount >= MAX_SELECTION) {
-                return;
-            }
-
-            card.classList.add('selected');
+            card.classList.toggle("selected");
 
             updateCards();
+
         });
+
     });
 
+    if (form) {
+
+        form.addEventListener("submit", function (e) {
+            if (getSelectedCards().length === 0) {
+                e.preventDefault();
+                alert("Please select at least one category.");
+                return;
+            }
+
+            document
+                .getElementById("loadingOverlay")
+                .classList.remove("hidden");
+
+            requestAnimationFrame(() => {
+                form.submit();
+            });
+
+            e.preventDefault();
+        });
+
+    }
+
     updateCards();
+
 });
