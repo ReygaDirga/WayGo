@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\itinerary;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB; 
 
 class SavedController extends Controller
 {
@@ -33,14 +34,29 @@ class SavedController extends Controller
 
         $latestTripData = null;
 
+        // if ($latestTrip) {
+        //     $latestTripData = Itinerary::where('trip_uuid', $latestTrip->trip_uuid)
+        //         ->orderBy('day')
+        //         ->orderBy('time')
+        //         ->get();
+        // }
+
+        // $latestTripData = null;
+
         if ($latestTrip) {
-            $latestTripData = Itinerary::where('trip_uuid', $latestTrip->trip_uuid)
+            $activities = Itinerary::where('trip_uuid', $latestTrip->trip_uuid)
                 ->orderBy('day')
                 ->orderBy('time')
                 ->get();
+
+            $latestTripData = [
+                'summary' => $activities->first(),
+                'activities' => $activities,
+                'total_budget' => $activities->sum('estimated_cost'),
+                'highlights' => $activities->take(3),
+            ];
         }
 
-        // Semua trip selain yang terbaru
         $otherTrips = Itinerary::where('user_id', $userId)
             ->when($latestTrip, function ($query) use ($latestTrip) {
                 $query->where('trip_uuid', '!=', $latestTrip->trip_uuid);
@@ -49,13 +65,20 @@ class SavedController extends Controller
                 'trip_uuid',
                 'location',
                 'start_date',
-                'end_date'
+                'end_date',
+                'adults',
+                'children',
+                'categories',
+                DB::raw('SUM(estimated_cost) as total_budget')
             )
             ->groupBy(
                 'trip_uuid',
                 'location',
                 'start_date',
-                'end_date'
+                'end_date',
+                'adults',
+                'children',
+                'categories'
             )
             ->orderByDesc('start_date')
             ->get();

@@ -184,6 +184,7 @@ class ItineraryController extends Controller
                         'time' => $activity['time'],
                         'adults' => $json['trip_details']['adults'],
                         'children' => $json['trip_details']['children'],
+                        'categories' => $categories,
                         'destination_name' => $activity['destination_name'],
                         'address' => $activity['address'],
                         'estimated_cost' => $activity['estimated_cost'],
@@ -196,7 +197,7 @@ class ItineraryController extends Controller
             return view('itineraries.ilist', compact('json'));
 
         } catch (\Exception $e) {
-            dd($json);
+            dd($e);
         }
     }
 }
