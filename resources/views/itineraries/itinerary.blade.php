@@ -21,7 +21,7 @@
 <body>
     @include('Component.navbar')
 
-    <form action="{{ route('itinerary-detail') }}" method="post">
+    <form action="{{ route('itinerary-detail') }}" method="post" id="itineraryForm">
         @csrf
         <section class="relative pt-20 sm:pt-20 md:pt-50 lg:pt-55">
             <div class="flex justify-center px-4 sm:px-6 lg:px-8">
@@ -153,25 +153,24 @@
         <span class="text-black font-semibold sm:text-lg md:text-xl lg:text-2xl text-center mt-10 block">
             {{ __('messages.select') }}
         </span>
-
         <section>
             <div class="testcontainer">
                 <main class="grid-cardd">
                     @foreach ($category as $cat)
-                        <article class="kard" data-category="{{ $cat->id }}">
-                                <img src="{{ $cat->image }}" alt="{{ $cat->name }}">
-                                <div class="text-penjelasan">
-                                    <h3>{{ $cat->name }}</h3>
-                                    <hr>
-                                    <p>{{ $cat->description }}</p>
-                                </div>
-                        </article>
+                    <article class="kard" data-category="{{ $cat->id }}">
+                        <img src="{{ $cat->image }}" alt="{{ $cat->name }}">
+                        <div class="text-penjelasan">
+                            <h3>{{ $cat->name }}</h3>
+                            <hr>
+                            <p>{{ $cat->description }}</p>
+                        </div>
+                    </article>
                     @endforeach
                 </main>
             </div>
         </section>
-
-        <input type="hidden" name="categories" id="selectedCategories">
+        
+        <input type="hidden" id="categories" name="categories">
         <input type="hidden" name="adults" id="adultInput" value="0">
         <input type="hidden" name="kids" id="kidInput" value="0">
 
@@ -192,6 +191,19 @@
         </div>
     </form>
     @include('Component.footer')
+
+<div id="loadingOverlay"
+     class="fixed inset-0 bg-black/70 backdrop-blur-md hidden flex justify-center items-center z-[9999]">
+    <div class="text-center">
+        <div class="mx-auto w-20 h-20 border-4 border-white/20 border-t-[#FA9009] rounded-full animate-spin"></div>
+        <h2 class="text-white text-3xl font-bold mt-8">
+            Creating Your Itinerary...
+        </h2>
+        <p id="loadingText" class="text-gray-300 mt-3">
+            Finding the best destinations...
+        </p>
+    </div>
+</div>
 </body>
 
 </html>
