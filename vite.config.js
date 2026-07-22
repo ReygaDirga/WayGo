@@ -30,7 +30,8 @@ export default defineConfig({
                     'resources/js/blog_create_button.js',
                     'resources/css/authentication/preferences.css',
                     'resources/css/authentication/login.css',
-                    'resources/css/authentication/done.css'
+                    'resources/css/authentication/done.css',
+                    'resources/js/login.js'
                 ],
             refresh: true,
         }),
