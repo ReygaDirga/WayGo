@@ -50,7 +50,7 @@ Route::get('/', function () {
 })->name('home');
 
 // Navbar Routes
-Route::get('/saved', [SavedController::class, 'index'])->name('trips');
+Route::get('/saved', [SavedController::class, 'index'])->name('trips')->middleware('auth');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
@@ -62,7 +62,7 @@ Route::prefix('/itinerary')->group(function () {
 });
 
 // Profile
-Route::prefix('/profile')->group(function () {
+Route::middleware('auth')->prefix('/profile')->group(function () {
 
     Route::get('', [ProfileController::class, 'index'])->name('profile');
     Route::get('/edit', [ProfileController::class, 'editProfilePage'])->name('editprofile');
@@ -75,10 +75,18 @@ Route::prefix('/profile')->group(function () {
 Route::prefix('/blog')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('blog');
     Route::get('/blog-detail/{id}', [BlogController::class, 'BlogDetail'])->name('blog-detail');
-    Route::get('/create-blog', [BlogController::class, 'createBlog'])->name('create-blog');
-    Route::post('/create-blog', [BlogController::class, 'storeBlog'])->name('store-blog');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/create-blog', [BlogController::class, 'createBlog'])->name('create-blog');
+        Route::post('/create-blog', [BlogController::class, 'storeBlog'])->name('store-blog');
+    });
+    
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/saved/{uuid}', [SavedController::class, 'detail']);
+    Route::get('/saved/{uuid}/pdf', [SavedController::class, 'exportPdf'])->name('pdf_export');
+    Route::delete('/saved/{uuid}', [SavedController::class, 'destroy'])->name('saved.destroy');
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/saved/{uuid}', [SavedController::class, 'detail'])->middleware('auth');
-Route::get('/saved/{uuid}/pdf', [SavedController::class, 'exportPdf'])->name('pdf_export');

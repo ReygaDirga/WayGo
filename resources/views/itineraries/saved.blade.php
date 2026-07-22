@@ -54,15 +54,79 @@
             <div class="bg-white rounded-[2rem] shadow-sm overflow-hidden mb-8 border border-gray-100 trip-card cursor-pointer" data-uuid="{{ $trip->trip_uuid }}">
 
                 <div class="relative h-80">
-                    <img src="{{ asset('assets/sumsel.jpg') }}" alt="Yogyakarta" class="w-full h-full object-cover">
+                    @php
+                        $categories = array_map('trim', explode(',', $trip->categories));
+
+                        if(count($categories) == 1){
+                            $headerImage = match($categories[0]){
+                                'Nature'   => asset('assets/category/catNature.jpg'),
+                                'Culture'  => asset('assets/category/catCulture.jpg'),
+                                'Culinary' => asset('assets/category/catCuliner.jpg'),
+                                'Adventure'=> asset('assets/category/catAdventure.jpg'),
+                            };
+                        }else{
+                            $images = [];
+
+                            foreach($categories as $cat){
+                                switch($cat){
+                                    case 'Nature':
+                                        $images[] = asset('assets/category/catNature.jpg');
+                                        break;
+
+                                    case 'Culture':
+                                        $images[] = asset('assets/category/catCulture.jpg');
+                                        break;
+
+                                    case 'Culinary':
+                                        $images[] = asset('assets/category/catCuliner.jpg');
+                                        break;
+
+                                    case 'Adventure':
+                                        $images[] = asset('assets/category/catAdventure.jpg');
+                                        break;
+                                }
+                            }
+
+                            $headerImage = $images[array_rand($images)];
+                        }
+                    @endphp
+                    <img src="{{ $headerImage }}" class="w-full h-full object-cover">
+                    
                     <div class="absolute bottom-0    left-0 p-8 text-white bg-gradient-to-t from-black/70 to-transparent w-full">
                         <h3 class="text-3xl font-bold">{{ explode(',', $trip->location)[0] }}</h3>
                     </div>
-                    <a href="{{ route('pdf_export', $trip->trip_uuid) }}"
-                        target="_blank"
-                        class="btn absolute bottom-8 right-8 bg-white/20 backdrop-blur-md p-3 rounded-xl hover:bg-white/40 transition">
-                            <img src="{{ asset('assets/pdf.png') }}" class="w-8 h-auto">
-                    </a>
+                    <div class="">
+
+                    </div>
+                    <div class="absolute bottom-8 right-8 flex flex-col gap-3 z-20">
+                        <form
+                            action="{{ route('saved.destroy', $trip->trip_uuid) }}"
+                            method="POST"
+                            class="deleteForm"
+                            onclick="event.stopPropagation();">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button
+                                type="submit"
+                                class="bg-white/20 hover:bg-white/40 backdrop-blur-md p-3 rounded-xl transition">
+
+                                <img src="{{ asset('assets/delete.png') }}" class="w-8">
+
+                            </button>
+                        </form>
+                        <a href="{{ route('pdf_export', $trip->trip_uuid) }}"
+                            target="_blank"
+                            onclick="event.stopPropagation();"
+                            class="bg-white/20 hover:bg-white/40 backdrop-blur-md p-3 rounded-xl transition">
+
+                            <img src="{{ asset('assets/pdf.png') }}"
+                                class="w-8 h-auto">
+
+                        </a>
+
+                    </div>
                 </div>
                 
                 <div class="p-8 grid md:grid-cols-2 gap-8 items-center">
@@ -129,15 +193,75 @@
                 @endphp
                 <div class="bg-white rounded-[2rem] shadow-sm overflow-hidden border border-gray-100 trip-card cursor-pointer" data-uuid="{{ $trip->trip_uuid }}">
                     <div class="relative h-56">
-                        <img src="{{ asset('assets/sumsel.jpg') }}" alt="Bali" class="w-full h-full object-cover">
+                        @php
+                        $categories = array_map('trim', explode(',', $trip->categories));
+
+                        if(count($categories) == 1){
+                            $headerImage = match($categories[0]){
+                                'Nature'   => asset('assets/category/catNature.jpg'),
+                                'Culture'  => asset('assets/category/catCulture.jpg'),
+                                'Culinary' => asset('assets/category/catCuliner.jpg'),
+                                'Adventure'=> asset('assets/category/catAdventure.jpg'),
+                            };
+                        }else{
+                            $images = [];
+
+                            foreach($categories as $cat){
+                                switch($cat){
+                                    case 'Nature':
+                                        $images[] = asset('assets/category/catNature.jpg');
+                                        break;
+
+                                    case 'Culture':
+                                        $images[] = asset('assets/category/catCulture.jpg');
+                                        break;
+
+                                    case 'Culinary':
+                                        $images[] = asset('assets/category/catCuliner.jpg');
+                                        break;
+
+                                    case 'Adventure':
+                                        $images[] = asset('assets/category/catAdventure.jpg');
+                                        break;
+                                }
+                            }
+
+                            $headerImage = $images[array_rand($images)];
+                        }
+                    @endphp
+                    <img src="{{ $headerImage }}" class="w-full h-full object-cover">
                         <div class="absolute bottom-0 left-0 p-6 text-white w-full">
                             <h3 class="text-2xl font-bold">{{ explode(',', $trip->location)[0] }}</h3>
                         </div>
+                        <div class="absolute bottom-8 right-8 flex flex-col gap-3 z-20">
+                        <form
+                            action="{{ route('saved.destroy', $trip->trip_uuid) }}"
+                            method="POST"
+                            class="deleteForm"
+                            onclick="event.stopPropagation();">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button
+                                type="submit"
+                                class="bg-white/20 hover:bg-white/40 backdrop-blur-md p-3 rounded-xl transition">
+
+                                <img src="{{ asset('assets/delete.png') }}" class="w-8">
+
+                            </button>
+                        </form>
                         <a href="{{ route('pdf_export', $trip->trip_uuid) }}"
                             target="_blank"
-                            class="btn absolute bottom-8 right-8 bg-white/20 backdrop-blur-md p-3 rounded-xl hover:bg-white/40 transition">
-                                <img src="{{ asset('assets/pdf.png') }}" class="w-8 h-auto">
+                            onclick="event.stopPropagation();"
+                            class="bg-white/20 hover:bg-white/40 backdrop-blur-md p-3 rounded-xl transition">
+
+                            <img src="{{ asset('assets/pdf.png') }}"
+                                class="w-8 h-auto">
+
                         </a>
+
+                    </div>
                     </div>
                     <div class="p-6">
                         <p class="text-sm font-semibold mb-4 text-gray-600 italic">{{ $start->format('d') }}-{{ $end->format('d M Y') }}</p>
@@ -198,7 +322,45 @@
     </div>
 </div>
 
+@if(session('success'))
 <script>
+Swal.fire({
+    toast: true,
+    position: 'top-end',
+    icon: 'success',
+    title: 'Itinerary deleted successfully',
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true
+});
+</script>
+@endif
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+    document.querySelectorAll(".deleteForm").forEach(form => {
+
+    form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: "Delete itinerary?",
+                text: "This itinerary will be permanently deleted.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#dc2626",
+                cancelButtonColor: "#6b7280",
+                confirmButtonText: "Yes, delete it",
+                cancelButtonText: "Cancel",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+
     const modal = document.getElementById("tripModal");
     const content = document.getElementById("tripContent");
 
@@ -236,6 +398,10 @@
                     </h2>
                 `;
             }
+            const mapsUrl =
+            `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                item.destination_name + " " + item.address
+            )}`;
             html += `
                 <div class="border rounded-xl p-5 mb-3">
                     <div class="flex justify-between">
@@ -243,20 +409,34 @@
                             <h3 class="font-bold text-lg">
                                 ${item.destination_name}
                             </h3>
+
                             <p class="text-gray-500">
                                 ${item.address}
                             </p>
+
                             <p class="mt-2">
                                 Rp ${Number(item.estimated_cost).toLocaleString('id-ID')}
                             </p>
                         </div>
-                        <span class="text-orange-500">
-                            ⭐${item.rating}
+
+                        <span class="text-orange-500 font-semibold">
+                            ⭐ ${item.rating}
                         </span>
                     </div>
+
                     <p class="mt-3 text-gray-600">
                         ${item.description}
                     </p>
+
+                    <div class="mt-4 flex justify-end">
+                        <a
+                            href="${mapsUrl}"
+                            target="_blank"
+                            class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold text-sm"
+                        >
+                            Navigate with Google Maps
+                        </a>
+                    </div>
                 </div>
             `;
 

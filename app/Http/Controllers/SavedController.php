@@ -130,4 +130,15 @@ class SavedController extends Controller
             explode(',', $trip->first()->location)[0] . '-Itinerary.pdf'
         );
     }
+
+    public function destroy($uuid)
+    {
+        Itinerary::where('trip_uuid', $uuid)
+            ->where('user_id', Auth::id())
+            ->delete();
+
+        return redirect()
+            ->route('trips')
+            ->with('success', 'Itinerary deleted successfully.');
+    }
 }

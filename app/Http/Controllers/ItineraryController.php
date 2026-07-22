@@ -46,6 +46,7 @@ class ItineraryController extends Controller
         $startDate = Carbon::createFromFormat('d M Y', trim($start));
         $endDate   = Carbon::createFromFormat('d M Y', trim($end));
         $totalDays = $startDate->diffInDays($endDate) + 1;
+        $totalNights = max(1, $startDate->diffInDays($endDate));
 
         $adults = $request->adults;
         $kids = $request->kids;
@@ -64,6 +65,14 @@ class ItineraryController extends Controller
                     - Traveler: $adults Dewasa, $kids Anak
                     - Kategori yang dipilih user: $categories
                     - Budget pengguna: $budget_range
+                    
+                    ATURAN BUDGET (WAJIB DIPATUHI):
+                    - Total seluruh estimated_cost HARUS berada di dalam budget pengguna.
+                    - Jangan menghasilkan itinerary yang melebihi budget maksimum.
+                    - Jika hotel terlalu mahal, pilih hotel yang lebih murah.
+                    - Jika jumlah destinasi terlalu banyak sehingga melebihi budget, kurangi jumlah destinasi atau pilih alternatif yang lebih murah.
+                    - Prioritaskan itinerary yang realistis sesuai budget dibanding destinasi premium.
+                    - Pastikan total estimasi biaya akhir tetap berada pada rentang budget pengguna.
 
                     Jika itinerary memiliki hotel atau penginapan:
                     - Hari pertama selalu dimulai dari hotel/penginapan sebagai destinasi pertama.
@@ -75,8 +84,13 @@ class ItineraryController extends Controller
                     estimated_cost:
                     - Gunakan harga rata-rata yang wajar.
                     - Jangan isi 0 kecuali benar-benar gratis.
-                    - Jika merupakan hotel, gunakan estimasi harga per malam.
-                    - Jika merupakan pantai umum atau taman kota yang gratis, isi 0.
+                    - Jika merupakan hotel atau penginapan, estimated_cost adalah harga per malam.
+                    - Jika merupakan destinasi wisata atau restoran, estimated_cost adalah biaya per kunjungan.
+
+                    Tambahkan field baru bernama cost_type.
+                    Nilainya hanya boleh salah satu:
+                    - "per_night" -> untuk hotel/penginapan
+                    - "per_visit" -> untuk tempat wisata, restoran, museum, dll
 
                     Gunakan data Google Maps untuk memberikan:
                     - destination_name
@@ -114,9 +128,10 @@ class ItineraryController extends Controller
                                 "activities": [
                                     {
                                         "time": "08:00 AM",
-                                        "destination_name": "Goa Pindul",
+                                        "destination_name": "Hotel Aston",
                                         "address": "...",
                                         "estimated_cost": 50000,
+                                        "cost_type": "per_night",
                                         "google_maps_rating": 4.5,
                                         "description": "...",
                                         "distance_to_next": "17 km"
@@ -126,6 +141,7 @@ class ItineraryController extends Controller
                                         "destination_name": "HeHa Sky View",
                                         "address": "...",
                                         "estimated_cost": 30000,
+                                        "cost_type": "per_visit",
                                         "google_maps_rating": 4.6,
                                         "description": "...",
                                         "distance_to_next": "8 km"
@@ -135,6 +151,7 @@ class ItineraryController extends Controller
                                         "destination_name": "Malioboro",
                                         "address": "...",
                                         "estimated_cost": 0,
+                                        "cost_type": "per_visit",
                                         "google_maps_rating": 4.7,
                                         "description": "...",
                                         "distance_to_next": null
@@ -171,8 +188,16 @@ class ItineraryController extends Controller
         session(['itinerary' => $json]);
 
         try {
-            foreach ($json['itinerary'] as $day) {
-                foreach ($day['activities'] as $activity) {
+            foreach ($json['itinerary'] as $dayIndex => $day) {
+                foreach ($day['activities'] as $activityIndex => $activity) {
+                     $estimatedCost = $activity['estimated_cost'];
+                    if (
+                        isset($activity['cost_type']) &&
+                        $activity['cost_type'] === 'per_night'
+                    ) {
+                        $estimatedCost *= $totalNights;
+                    }
+                    $json['itinerary'][$dayIndex]['activities'][$activityIndex]['estimated_cost'] = $estimatedCost;
                     itinerary::create([
                         'trip_uuid' => $tripUuid,
                         'user_id' => Auth::id(),
@@ -187,7 +212,7 @@ class ItineraryController extends Controller
                         'categories' => $categories,
                         'destination_name' => $activity['destination_name'],
                         'address' => $activity['address'],
-                        'estimated_cost' => $activity['estimated_cost'],
+                        'estimated_cost' => $estimatedCost,
                         'rating' => $activity['google_maps_rating'],
                         'description' => $activity['description'],
                         'distance_to_next' => $activity['distance_to_next'],

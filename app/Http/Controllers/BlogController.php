@@ -35,7 +35,7 @@ class BlogController extends Controller
             'title'=> 'required|string|max:255',
             'location' => 'required|string|max:255',
             'content' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
             'time_start' => 'nullable|string',
             'time_end' => 'nullable|string',
             'estimated_cost' => 'nullable|string',
@@ -60,20 +60,25 @@ class BlogController extends Controller
         }
 
         // 5. Simpan ke Database MySQL (Tabel blogs)
-        Blog::create([
-            'user_id' => auth()->id(), // Otomatis masukin ID user yang lagi login
-            'title' => $request->input('title'),
-            'location' => $request->location,
-            'image' => $imagePath,
-            'content' => $request->input('content'),
-            'best_time_visit' => $bestTime,
-            'estimated_cost' => $cost,
-            'tips' => $request->tips,
-            'id_pulau' =>$request->id_pulau,
-        ]);
+        try {
+           Blog::create([
+                'user_id' => auth()->id(), // Otomatis masukin ID user yang lagi login
+                'title' => $request->input('title'),
+                'location' => $request->location,
+                'image' => $imagePath,
+                'content' => $request->input('content'),
+                'best_time_visit' => $bestTime,
+                'estimated_cost' => $cost,
+                'tips' => $request->tips,
+                'id_pulau' =>$request->id_pulau,
+            ]);
+            return redirect()->route('blog')->with('success', 'Blog post successfully published!');
+        } catch (\Exception $e) {
+            dd($e);
+        }
 
         // Kalo udah sukses, balikin ke halaman profile
-        return redirect()->route('blog')->with('success', 'Blog post successfully published!');
+        
     }
 
 }
