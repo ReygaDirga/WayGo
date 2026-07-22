@@ -52,7 +52,13 @@ document.addEventListener("DOMContentLoaded", () => {
         form.addEventListener("submit", function (e) {
             if (getSelectedCards().length === 0) {
                 e.preventDefault();
-                alert("Please select at least one category.");
+                Swal.fire({
+                    icon: "warning",
+                    title: "Category Required",
+                    text: "Please select at least one category before generating your itinerary.",
+                    confirmButtonColor: "#F59E0B",
+                    confirmButtonText: "Got it"
+                });
                 return;
             }
 
