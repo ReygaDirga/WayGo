@@ -147,7 +147,7 @@
 
                     @foreach($categories as $c) 
                         @php 
-                            $isActive = in_array($c->id, auth()->user()->categories()->pluck('id')->toArray()); 
+                            $isActive = in_array($c->id, auth()->user()->categories()->pluck('categories.id')->toArray()); 
                             $categoryStyles = match($c->name) {
                                 'Nature'    => ['bg' => 'bg-green-50',  'text' => 'text-green-800'],
                                 'Culinary'  => ['bg' => 'bg-amber-50',  'text' => 'text-amber-800'],
