@@ -22,38 +22,33 @@ class ItineraryController extends Controller
 
     public function itineraryDetail(Request $request)
     {
-        if (session()->has('itinerary')) {
-            $json = session('itinerary');
+        if ($request->isMethod('get') && session()->has('itinerary')) {$json = session('itinerary');
             return view('itineraries.ilist', compact('json'));
         }
 
-        $tripUuid = Str::uuid()->toString();
-        $user = Auth::user();
-        $budget = $user->budget;
-        if ($budget->max_price == 0) {
-            $budget_range = "{$budget->name} (di atas Rp " .
-                number_format($budget->min_price,0,',','.') . ")";
-        } else {
-            $budget_range = "{$budget->name} (Rp " .
-                number_format($budget->min_price,0,',','.') .
-                " - Rp " .
-                number_format($budget->max_price,0,',','.') . ")";
-        }   
-        $location = $request->location;
+        session()->forget('itinerary');
 
-        $date = $request->date;
-        [$start, $end] = explode(' to ', $date);
-        $startDate = Carbon::createFromFormat('d M Y', trim($start));
-        $endDate   = Carbon::createFromFormat('d M Y', trim($end));
-        $totalDays = $startDate->diffInDays($endDate) + 1;
+        $tripUuid = Str::uuid()->toString();
+
+        $rawBudget =$request->input('budget');
+        $userBudget = preg_replace('/[^0-9]/', '',$rawBudget);
+
+        if ($userBudget) {$budget_range = "Rp " . number_format((float)$userBudget, 0, ',', '.');         } else {$budget_range = "Tidak ditentukan";
+        }
+
+        $location =$request->location;
+
+        $date =$request->date;
+        [$start,$end] = explode(' to ', $date);$startDate = Carbon::createFromFormat('d M Y', trim($start));$endDate   = Carbon::createFromFormat('d M Y', trim($end));$totalDays = $startDate->diffInDays($endDate) + 1;
         $totalNights = max(1, $startDate->diffInDays($endDate));
 
-        $adults = $request->adults;
-        $kids = $request->kids;
+        $adults =$request->adults;
+        $kids =$request->kids;
 
-        $categoryID = explode(',', $request->categories);
-        $categoryname = Category::whereIn('id', $categoryID)->pluck('name')->toArray();
-        $categories = implode(', ', $categoryname);
+        $categoryID = explode(',',$request->categories);
+        $categoryname = Category::whereIn('id',$categoryID)->pluck('name')->toArray();
+        $categories = implode(', ',$categoryname);
+
         $prompt = <<<PROMPT
                     Berikan rekomendasi itinerary perjalanan.
 
@@ -61,31 +56,76 @@ class ItineraryController extends Controller
                     - Lokasi: $location
                     - StartDate: $startDate
                     - EndDate: $endDate
-                    - totalDays: $totalDays
-                    - Traveler: $adults Dewasa, $kids Anak
+                    - totalDays: $totalDays Hari ($totalNights Malam)
+                    - Traveler: $adults Dewasa,$kids Anak
                     - Kategori yang dipilih user: $categories
-                    - Budget pengguna: $budget_range
                     
-                    ATURAN BUDGET (WAJIB DIPATUHI):
-                    - Total seluruh estimated_cost HARUS berada di dalam budget pengguna.
-                    - Jangan menghasilkan itinerary yang melebihi budget maksimum.
-                    - Jika hotel terlalu mahal, pilih hotel yang lebih murah.
-                    - Jika jumlah destinasi terlalu banyak sehingga melebihi budget, kurangi jumlah destinasi atau pilih alternatif yang lebih murah.
-                    - Prioritaskan itinerary yang realistis sesuai budget dibanding destinasi premium.
-                    - Pastikan total estimasi biaya akhir tetap berada pada rentang budget pengguna.
+                    TARGET BUDGET PENGGUNA
+                    - Budget maksimum pengguna: $budget_range
+
+                    ATURAN BUDGET (WAJIB DIPATUHI)
+
+                    1. Total estimated_cost keseluruhan HARUS berada pada rentang 95% - 100% dari budget pengguna.
+                    2. JANGAN menghasilkan itinerary dengan total biaya di bawah 95% budget.
+                    3. JANGAN menghasilkan itinerary yang melebihi budget pengguna.
+                    4. Target ideal adalah sekitar 98% dari budget pengguna.
+
+                    PERHITUNGAN TOTAL BIAYA
+
+                    Total Budget =
+                    (Harga Hotel per malam × $totalNights malam)
+                    +
+                    (Seluruh estimated_cost destinasi)
+                    +
+                    (Seluruh estimated_cost restoran)
+                    +
+                    (Seluruh estimated_cost aktivitas)
+
+                    CONTOH
+
+                    Jika budget = Rp1.000.000
+
+                    Maka total itinerary HARUS berada di antara:
+
+                    Rp950.000 sampai Rp1.000.000
+
+                    Contoh yang BENAR
+
+                    Hotel
+                    Rp175.000 × 2 malam = Rp350.000
+
+                    Wisata
+                    Rp210.000
+
+                    Kuliner
+                    Rp220.000
+
+                    Transport/aktivitas
+                    Rp200.000
+
+                    TOTAL = Rp980.000 ✅
+
+                    Contoh yang SALAH
+
+                    TOTAL = Rp350.000 ❌
+                    TOTAL = Rp620.000 ❌
+                    TOTAL = Rp1.150.000 ❌
+
+                    ATURAN PEMILIHAN DESTINASI
+
+                    - Jika total biaya masih terlalu rendah, pilih hotel yang lebih baik atau tambahkan destinasi dan restoran yang sesuai kategori pengguna.
+                    - Jika total biaya melebihi budget, pilih hotel lebih murah atau kurangi destinasi berbayar.
+                    - Selalu usahakan total biaya berada sedekat mungkin dengan budget tanpa pernah melewatinya.
+                    - Jangan mengurangi kualitas itinerary hanya agar biaya menjadi sangat murah.
 
                     Jika itinerary memiliki hotel atau penginapan:
-                    - Hari pertama selalu dimulai dari hotel/penginapan sebagai destinasi pertama.
-                    - Hari terakhir hotel tidak perlu ditampilkan lagi setelah check-out.
+                    - Tampilkan hotel/penginapan HANYA SATU KALI pada Hari 1 (Day 1) sebagai destinasi pertama dengan cost_type "per_night". Pada hari berikutnya tidak perlu menampilkan item hotel lagi agar biaya tidak terhitung ganda.
                     - Susun destinasi berdasarkan rute paling efisien dari hotel.
-                    - Hindari berpindah lokasi bolak-balik.
-                    - Prioritaskan destinasi yang berdekatan agar waktu perjalanan lebih singkat.
 
                     estimated_cost:
                     - Gunakan harga rata-rata yang wajar.
-                    - Jangan isi 0 kecuali benar-benar gratis.
-                    - Jika merupakan hotel atau penginapan, estimated_cost adalah harga per malam.
-                    - Jika merupakan destinasi wisata atau restoran, estimated_cost adalah biaya per kunjungan.
+                    - Jika hotel/penginapan, isikan harga PER MALAM (bukan total keseluruhan malam).
+                    - Jika destinasi wisata/restoran, isikan biaya per kunjungan.
 
                     Tambahkan field baru bernama cost_type.
                     Nilainya hanya boleh salah satu:
@@ -98,7 +138,7 @@ class ItineraryController extends Controller
                     - estimated_cost
                     - google_maps_rating
                     - description
-                    - distance_to_next (perkiraan jarak antar destinasi berikutnya dalam kilometer berdasarkan lokasi di Google Maps. Untuk destinasi terakhir isi null)
+                    - distance_to_next
 
                     PENTING:
                     - Return ONLY valid JSON.
@@ -162,38 +202,47 @@ class ItineraryController extends Controller
                     }
                     PROMPT;
 
-        $response = Http::timeout(60)
-        ->retry(2, 1000)        
-        ->withHeaders([
-            'Content-Type' => 'application/json',
-            'X-goog-api-key' => env('GEMINI_API'),
-        ])->post(
-            'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent',
-            [
+        $endpoint = 'gemini-3.1-flash-lite:generateContent';
+        $p1 = 'https://generative';
+        $p2 = 'language.googleapis.com';
+        $url = $p1 . $p2 . '/v1beta/models/' . $endpoint;
+
+        $response = Http::withoutVerifying()
+            ->timeout(60)
+            ->withHeaders([
+                'Content-Type' => 'application/json',
+                'X-goog-api-key' => env('GEMINI_API'),
+            ])
+            ->post($url, [
                 'contents' => [
                     [
                         'parts' => [
                             [
-                                'text' => "$prompt"
+                                'text' => $prompt
                             ]
                         ]
                     ]
                 ]
-            ]
-        );
+            ]);
+
+        if (!$response->successful()) {
+            dd('API Error Detail:', $response->json()['error'] ?? $response->body());
+        }
+
         $hasil = $response['candidates'][0]['content']['parts'][0]['text'];
         $hasil = str_replace(['```json', '```'], '', $hasil);
         $json = json_decode($hasil, true);
-        //dd($date);
+
         session(['itinerary' => $json]);
 
         try {
             foreach ($json['itinerary'] as $dayIndex => $day) {
                 foreach ($day['activities'] as $activityIndex => $activity) {
-                     $estimatedCost = $activity['estimated_cost'];
+                    $estimatedCost = $activity['estimated_cost'];
                     if (
                         isset($activity['cost_type']) &&
-                        $activity['cost_type'] === 'per_night'
+                        $activity['cost_type'] === 'per_night' &&
+                        $day['day'] == 1
                     ) {
                         $estimatedCost *= $totalNights;
                     }
