@@ -63,12 +63,13 @@ class ItineraryController extends Controller
                     TARGET BUDGET PENGGUNA
                     - Budget maksimum pengguna: $budget_range
 
-                    ATURAN BUDGET (WAJIB DIPATUHI)
+                    ATURAN BUDGET (WAJIB DIPATUHI, HARD CONSTRAINT)
 
-                    1. Total estimated_cost keseluruhan HARUS berada pada rentang 95% - 100% dari budget pengguna.
-                    2. JANGAN menghasilkan itinerary dengan total biaya di bawah 95% budget.
-                    3. JANGAN menghasilkan itinerary yang melebihi budget pengguna.
-                    4. Target ideal adalah sekitar 98% dari budget pengguna.
+                    1. Total estimated_cost keseluruhan HARUS berada pada rentang MINIMAL 90% dan MAKSIMAL 100% dari budget pengguna ($budget_range).
+                    2. DILARANG KERAS total biaya kurang dari 90% budget.
+                    3. DILARANG MUTLAK total biaya melebihi 100% budget, walaupun hanya lebih Rp1. Ini adalah batas atas yang TIDAK BOLEH dilanggar dalam kondisi apapun.
+                    4. Target ideal adalah 95% - 98% dari budget pengguna (aman, tidak mepet ke batas atas).
+                    5. Jika ragu antara memilih opsi yang lebih mahal atau lebih murah, SELALU pilih opsi yang lebih murah agar tidak berisiko melebihi budget.
 
                     PERHITUNGAN TOTAL BIAYA
 
@@ -87,7 +88,7 @@ class ItineraryController extends Controller
 
                     Maka total itinerary HARUS berada di antara:
 
-                    Rp950.000 sampai Rp1.000.000
+                    Rp900.000 sampai Rp1.000.000
 
                     Contoh yang BENAR
 
@@ -101,22 +102,32 @@ class ItineraryController extends Controller
                     Rp220.000
 
                     Transport/aktivitas
-                    Rp200.000
+                    Rp170.000
 
-                    TOTAL = Rp980.000 ✅
+                    TOTAL = Rp950.000 ✅ (95% dari budget)
 
                     Contoh yang SALAH
 
-                    TOTAL = Rp350.000 ❌
-                    TOTAL = Rp620.000 ❌
-                    TOTAL = Rp1.150.000 ❌
+                    TOTAL = Rp350.000 ❌ (terlalu rendah, di bawah 90%)
+                    TOTAL = Rp620.000 ❌ (terlalu rendah, di bawah 90%)
+                    TOTAL = Rp1.000.001 ❌ (melebihi budget walau cuma Rp1)
+                    TOTAL = Rp1.150.000 ❌ (melebihi budget)
 
                     ATURAN PEMILIHAN DESTINASI
 
-                    - Jika total biaya masih terlalu rendah, pilih hotel yang lebih baik atau tambahkan destinasi dan restoran yang sesuai kategori pengguna.
-                    - Jika total biaya melebihi budget, pilih hotel lebih murah atau kurangi destinasi berbayar.
+                    - Jika total biaya masih terlalu rendah (di bawah 90%), pilih hotel yang lebih baik atau tambahkan destinasi dan restoran yang sesuai kategori pengguna.
+                    - Jika total biaya berpotensi melebihi budget, WAJIB pilih hotel lebih murah, kurangi destinasi berbayar, atau turunkan estimated_cost pada beberapa aktivitas sampai total kembali di bawah 100% budget.
                     - Selalu usahakan total biaya berada sedekat mungkin dengan budget tanpa pernah melewatinya.
                     - Jangan mengurangi kualitas itinerary hanya agar biaya menjadi sangat murah.
+
+                    LANGKAH WAJIB SEBELUM MENGEMBALIKAN JAWABAN (SELF-CHECK)
+
+                    1. Setelah menyusun seluruh itinerary, JUMLAHKAN semua estimated_cost (termasuk hotel × jumlah malam) secara manual.
+                    2. Bandingkan hasil penjumlahan tersebut dengan budget pengguna ($budget_range).
+                    3. Jika total < 90% dari budget, TAMBAHKAN destinasi/restoran atau upgrade hotel, lalu hitung ulang.
+                    4. Jika total > 100% dari budget, KURANGI/TURUNKAN estimated_cost beberapa item, lalu hitung ulang.
+                    5. Ulangi proses ini sampai total benar-benar berada di rentang 90% - 100% dari budget.
+                    6. Baru setelah itu kembalikan JSON final. Jangan pernah mengembalikan itinerary yang belum melewati pengecekan ini.
 
                     Jika itinerary memiliki hotel atau penginapan:
                     - Tampilkan hotel/penginapan HANYA SATU KALI pada Hari 1 (Day 1) sebagai destinasi pertama dengan cost_type "per_night". Pada hari berikutnya tidak perlu menampilkan item hotel lagi agar biaya tidak terhitung ganda.
@@ -236,6 +247,8 @@ class ItineraryController extends Controller
         session(['itinerary' => $json]);
 
         try {
+            $totalEstimatedCost = 0;
+
             foreach ($json['itinerary'] as $dayIndex => $day) {
                 foreach ($day['activities'] as $activityIndex => $activity) {
                     $estimatedCost = $activity['estimated_cost'];
@@ -247,6 +260,38 @@ class ItineraryController extends Controller
                         $estimatedCost *= $totalNights;
                     }
                     $json['itinerary'][$dayIndex]['activities'][$activityIndex]['estimated_cost'] = $estimatedCost;
+                    $totalEstimatedCost += $estimatedCost;
+                }
+            }
+
+            $userBudgetValue = (float) $userBudget;
+
+            if ($userBudgetValue > 0 && $totalEstimatedCost > $userBudgetValue) {
+                $targetCost = $userBudgetValue * 0.97;
+                $scaleFactor = $targetCost / $totalEstimatedCost;
+
+                $newTotal = 0;
+
+                foreach ($json['itinerary'] as $dayIndex => $day) {
+                    foreach ($day['activities'] as $activityIndex => $activity) {
+                        $originalCost = $activity['estimated_cost'];
+
+                        if ($originalCost > 0) {
+                            $scaledCost = (int) (round(($originalCost * $scaleFactor) / 1000) * 1000);
+                        } else {
+                            $scaledCost = 0;
+                        }
+
+                        $json['itinerary'][$dayIndex]['activities'][$activityIndex]['estimated_cost'] = $scaledCost;
+                        $newTotal += $scaledCost;
+                    }
+                }
+
+                $totalEstimatedCost = $newTotal;
+            }
+
+            foreach ($json['itinerary'] as $dayIndex => $day) {
+                foreach ($day['activities'] as $activityIndex => $activity) {
                     itinerary::create([
                         'trip_uuid' => $tripUuid,
                         'user_id' => Auth::id(),
@@ -261,13 +306,25 @@ class ItineraryController extends Controller
                         'categories' => $categories,
                         'destination_name' => $activity['destination_name'],
                         'address' => $activity['address'],
-                        'estimated_cost' => $estimatedCost,
+                        'estimated_cost' => $activity['estimated_cost'],
                         'rating' => $activity['google_maps_rating'],
                         'description' => $activity['description'],
                         'distance_to_next' => $activity['distance_to_next'],
                     ]);
                 }
             }
+
+            $totalTravelers = max(1, (int) $adults + (int) $kids);
+            $budgetPerPerson = $totalEstimatedCost / $totalTravelers;
+
+            $json['trip_details']['total_estimated_cost'] = $totalEstimatedCost;
+            $json['trip_details']['total_travelers'] = $totalTravelers;
+            $json['trip_details']['budget_per_person'] = $budgetPerPerson;
+            $json['trip_details']['total_estimated_cost_formatted'] = 'Rp ' . number_format($totalEstimatedCost, 0, ',', '.');
+            $json['trip_details']['budget_per_person_formatted'] = 'Rp ' . number_format($budgetPerPerson, 0, ',', '.');
+
+            session(['itinerary' => $json]);
+
             return view('itineraries.ilist', compact('json'));
 
         } catch (\Exception $e) {
