@@ -33,10 +33,9 @@
                         {{ __('messages.descplan') }}
                     </span>
                 </h1>
-                <div class="relative mt-8 md:mt-12 w-full max-w-3xl mx-auto">
-                    <div class="relative rounded-2xl 
-                        p-6 md:p-8">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-left">
+                <div class="relative mt-8 md:mt-12 w-full max-w-5xl mx-auto">
+                    <div class="relative rounded-2xl p-6 md:p-8">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8 text-left">
                             <div class="relative w-full">
                                 <h3 class="font-extrabold text-lg md:text-xl mb-2">
                                     {{ __('messages.location') }}
@@ -91,7 +90,6 @@
                                         id="travelerBtn"
                                         class="w-full h-10 flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1"
                                         type="button"
-                                        
                                         >
                                         <span>
                                             <img src="{{ asset('assets/trip.svg') }}">
@@ -142,6 +140,33 @@
                                     </div>
                                 </div>
                             </div>
+                            </div>
+
+                            <div>
+                                <h3 class="font-extrabold text-lg md:text-xl mb-2">
+                                    Budget
+                                </h3>
+
+                                <div class="h-10 flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1">
+                                    <span>
+                                        <svg class="w-5 h-5 text-gray-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </span>
+
+                                    <input
+                                        id="budgetDisplay"
+                                        type="text"
+                                        placeholder="Rp 1.000.000"
+                                        onkeyup="formatRupiah(this)"
+                                        class="outline-none bg-transparent w-full">
+
+                                    <input 
+                                        type="hidden" 
+                                        id="budget" 
+                                        name="budget" 
+                                        value="{{ request('budget') }}">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -205,6 +230,27 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</body>
 
+<script>
+function formatRupiah(element) {
+    let rawValue = element.value.replace(/[^0-9]/g, '');
+    document.getElementById('budget').value = rawValue;
+
+    if (rawValue) {
+        let formatted = new Intl.NumberFormat('id-ID').format(rawValue);
+        element.value = 'Rp ' + formatted;
+    } else {
+        element.value = '';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    let hiddenBudget = document.getElementById('budget');
+    let displayBudget = document.getElementById('budgetDisplay');
+    if (hiddenBudget && hiddenBudget.value) {
+        formatRupiah({ value: hiddenBudget.value });
+    }
+});
+</script>
+</body>
 </html>

@@ -49,6 +49,9 @@
         }
 
         $averageRating = $ratingCount ? round($totalRating / $ratingCount, 1) : 0;
+
+        $totalTravelers = max(1, (int) $json['trip_details']['adults'] + (int) $json['trip_details']['children']);
+        $budgetPerPerson = $totalBudget / $totalTravelers;
     @endphp
 
     <section class="max-w-7xl mx-auto px-6 lg:px-12 mt-10 mb-10">
@@ -202,14 +205,26 @@
 
                             <hr>
 
-                            <div class="bg-[#0b5f8d] text-white rounded-xl p-5">
-                                <p class="text-sm opacity-80">
-                                    Total Estimated Budget
-                                </p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-[#0b5f8d] text-white rounded-xl p-5">
+                                    <p class="text-sm opacity-80">
+                                        Total Estimated Budget
+                                    </p>
 
-                                <h2 class="text-3xl font-bold mt-2">
-                                    Rp {{ number_format($totalBudget,0,',','.') }}
-                                </h2>
+                                    <h2 class="text-2xl font-bold mt-2">
+                                        Rp {{ number_format($totalBudget,0,',','.') }}
+                                    </h2>
+                                </div>
+
+                                <div class="bg-[#F79204] text-white rounded-xl p-5">
+                                    <p class="text-sm opacity-80">
+                                        Budget per Person
+                                    </p>
+
+                                    <h2 class="text-2xl font-bold mt-2">
+                                        Rp {{ number_format($budgetPerPerson,0,',','.') }}
+                                    </h2>
+                                </div>
                             </div>
                         </div>
                     </div>
