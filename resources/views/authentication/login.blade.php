@@ -86,12 +86,12 @@
                     @enderror
                 </div>
 
-                <div class="remember-row">
+                <!-- <div class="remember-row">
                     <label class="remember-label">
                         <input type="checkbox" name="remember" class="remember-check">
                         <span>Remember me</span>
                     </label>
-                </div>
+                </div> -->
 
                 <button type="submit" class="submit-btn">
                     <span>Login</span>

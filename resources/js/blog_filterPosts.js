@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const buttons = document.querySelectorAll('.filter-btn');
     const cards = Array.from(document.querySelectorAll('.post-card')); 
     const paginationContainer = document.getElementById('pagination-controls');
+    const searchInput = document.getElementById('search-input');
 
-    // AMBIL DATA TRANSLATION CUMA BUAT PREV & NEXT DARI HTML
     const textPrev = paginationContainer.getAttribute('data-text-prev') || 'Prev';
     const textNext = paginationContainer.getAttribute('data-text-next') || 'Next';
 
@@ -11,15 +11,27 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentPage = 1;
     let filteredCards = []; 
 
-    function filterCards(targetRegion) {
-        const target = targetRegion.toLowerCase().trim();
+    let activeRegion = 'semua';
+    let searchQuery = '';
+
+    function applyFilters() {
         filteredCards = []; 
 
         cards.forEach(card => {
             const rawRegion = card.getAttribute('data-region') || '';
             const cardRegion = rawRegion.toLowerCase().trim();
 
-            if (target === 'semua' || cardRegion === target || cardRegion.includes(target) || target.includes(cardRegion)) {
+            const rawLocation = card.getAttribute('data-location') || '';
+            const cardLocation = rawLocation.toLowerCase().trim();
+
+            const rawTitle = card.getAttribute('data-title') || '';
+            const cardTitle = rawTitle.toLowerCase().trim();
+
+            const matchRegion = (activeRegion === 'semua' || cardRegion === activeRegion.toLowerCase() || cardRegion.includes(activeRegion.toLowerCase()));
+
+            const matchSearch = cardLocation.includes(searchQuery) || cardTitle.includes(searchQuery);
+
+            if (matchRegion && matchSearch) {
                 filteredCards.push(card);
             }
             card.style.display = 'none'; 
@@ -46,13 +58,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (totalPages <= 1) return; 
 
-        // 1. Tombol Prev
         const prevContainer = document.createElement('div');
         prevContainer.className = 'w-24 flex justify-end pr-4'; 
 
         if (currentPage > 1) {
             const prevBtn = document.createElement('button');
-            prevBtn.textContent = textPrev; // <-- Ngambil terjemahan dari Laravel
+            prevBtn.textContent = textPrev; 
             prevBtn.className = 'hover:text-[#F59E0B] transition-colors text-sm md:text-base font-bold';
             prevBtn.addEventListener('click', () => {
                 currentPage--;
@@ -63,13 +74,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         paginationContainer.appendChild(prevContainer);
 
-        // 2. Deretan Angka (Tetap standar 1, 2, 3)
         const numbersContainer = document.createElement('div');
         numbersContainer.className = 'flex justify-center items-center gap-4';
 
         for (let i = 1; i <= totalPages; i++) {
             const numBtn = document.createElement('button');
-            numBtn.textContent = i; // <-- Balik lagi ke angka biasa
+            numBtn.textContent = i;
             
             if (i === currentPage) {
                 numBtn.className = 'text-[#F59E0B] underline underline-offset-4 font-bold scale-110 transition-transform';
@@ -87,13 +97,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         paginationContainer.appendChild(numbersContainer);
 
-        // 3. Tombol Next
         const nextContainer = document.createElement('div');
         nextContainer.className = 'w-24 flex justify-start pl-4';
 
         if (currentPage < totalPages) {
             const nextBtn = document.createElement('button');
-            nextBtn.textContent = textNext; // <-- Ngambil terjemahan dari Laravel
+            nextBtn.textContent = textNext; 
             nextBtn.className = 'hover:text-[#F59E0B] transition-colors text-sm md:text-base font-bold';
             nextBtn.addEventListener('click', () => {
                 currentPage++;
@@ -105,7 +114,12 @@ document.addEventListener('DOMContentLoaded', function() {
         paginationContainer.appendChild(nextContainer);
     }
 
-    filterCards('semua');
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            searchQuery = e.target.value.toLowerCase().trim();
+            applyFilters();
+        });
+    }
 
     buttons.forEach(button => {
         button.addEventListener('click', function() {
@@ -116,8 +130,10 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.remove('bg-gray-100', 'text-[#1A365D]', 'hover:bg-[#1A365D]', 'hover:text-white');
             this.classList.add('bg-[#1A365D]', 'text-white', 'shadow-md');
 
-            const targetRegion = this.getAttribute('data-target');
-            filterCards(targetRegion);
+            activeRegion = this.getAttribute('data-target');
+            applyFilters();
         });
     });
+
+    applyFilters();
 });

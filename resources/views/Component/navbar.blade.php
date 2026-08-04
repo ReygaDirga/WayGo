@@ -46,7 +46,9 @@
         <a href="{{ route('profile') }}"
            class="hidden md:flex items-center gap-3">
             <img
-                src="{{ auth()->user()->avatar }}"
+                src="{{ Str::startsWith(auth()->user()->avatar, 'http')
+                ? auth()->user()->avatar
+                : asset('storage/' . auth()->user()->avatar) }}"
                 alt="profile"
                 class="w-10 h-10 rounded-full object-cover"
                 referrerpolicy="no-referrer">
