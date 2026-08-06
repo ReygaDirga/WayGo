@@ -141,7 +141,6 @@
             </div>
 
             <div class="cp-actions">
-                <a href="{{ url('/') }}" class="cp-skip">Skip for now</a>
                 <button type="submit" class="cp-next">
                     <span>Next</span>
                     <div class="cp-next-arrow">
