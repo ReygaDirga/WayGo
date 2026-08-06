@@ -133,7 +133,6 @@
                 <div class="cp-field">
                     <label class="cp-label">
                         Description
-                        <span class="cp-optional">Optional</span>
                     </label>
                     <textarea name="description" class="cp-input cp-textarea" placeholder="Tell us about yourself...">{{ auth()->user()->description ?? '' }}</textarea>
                 </div>
