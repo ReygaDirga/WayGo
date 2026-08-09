@@ -376,6 +376,31 @@ body {
 }
 .signup-link:hover { opacity: 0.75; }
 
+.password-info{
+    display:flex;
+    gap:12px;
+    margin:18px 0;
+    padding:14px 16px;
+    background:#FFF8EE;
+    border:1px solid #FFD9A8;
+    border-radius:14px;
+}
+
+.password-info strong{
+    display:block;
+    margin-bottom:4px;
+    color:#222;
+}
+
+.password-info p{
+    margin:0;
+    font-size:14px;
+}
+
+.password-info small{
+    color:#777;
+}
+
 /* ── KEYFRAMES ──────────────────────────────────────────── */
 @keyframes panelReveal {
     to { opacity: 1; }

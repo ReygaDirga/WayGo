@@ -106,7 +106,7 @@
                 </div>
 
                 <div class="mb-10">
-                    <h2 class="text-lg font-bold text-gray-900 mb-1.5">{{ __('messages.hl') }}<span class="text-gray-500 font-semibold"> {{ __('messages.opt') }}</span></h2>
+                    <h2 class="text-lg font-bold text-gray-900 mb-1.5">{{ __('messages.hl') }}</h2>
                     <p class="text-xs font-bold text-gray-600 mb-4">{{ __('messages.deschl') }}</p>
                     
                     <div class="bg-[#FDF5E6] rounded-2xl p-6 md:p-8 border border-orange-200 grid grid-cols-1 md:grid-cols-3 gap-6">
