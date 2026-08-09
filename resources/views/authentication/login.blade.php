@@ -85,6 +85,13 @@
                         <p class="field-error">{{ $message }}</p>
                     @enderror
                 </div>
+                <div class="password-info">
+                    <div class="info-icon">ℹ️</div>
+                    <div>
+                        <p>Your default password is <b>w@Y9o[yourname]</b></p>
+                        <small>Example: w@Y9oRioDwiOktavianto</small>
+                    </div>
+                </div>
 
                 <!-- <div class="remember-row">
                     <label class="remember-label">

@@ -106,7 +106,7 @@
 
             {{-- 3. Location --}}
             <div class="pref-group">
-                <label class="pref-label">Where are you from? (Optional)</label>
+                <label class="pref-label">Where are you from?</label>
                 <div class="cp-input-wrap">
                      <svg class="cp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>

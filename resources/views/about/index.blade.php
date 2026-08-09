@@ -68,9 +68,6 @@
             @foreach(['pantai.png','kidzania.png','dufan.png','tsm.png','pantai.png','kidzania.png','dufan.png','tsm.png'] as $img)
             <div class="carousel-slide">
                 <img src="{{ asset('assets/About/' . $img) }}" alt="Gallery">
-                <div class="carousel-slide-overlay">
-                    <span class="slide-zoom">⤢</span>
-                </div>
             </div>
             @endforeach
         </div>

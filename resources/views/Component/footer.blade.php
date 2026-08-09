@@ -17,10 +17,10 @@
     </nav>
     <nav class="w-full">
       <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 sm:gap-8 md:gap-12 text-center">
-        <a class="link link-hover">{{ __('messages.Itinerary') }}</a>
-        <a class="link link-hover">{{ __('messages.Saved') }}</a>
-        <a class="link link-hover">{{ __('messages.blog') }}</a>
-        <a class="link link-hover">{{ __('messages.about_us') }}</a>
+        <a href="{{ route('itinerary') }}" class="link link-hover">{{ __('messages.Itinerary') }}</a>
+        <a href="{{ route('trips') }}" class="link link-hover">{{ __('messages.Saved') }}</a>
+        <a href="{{ route('blog') }}" class="link link-hover">{{ __('messages.blog') }}</a>
+        <a href="{{ route('about') }}" class="link link-hover">{{ __('messages.about_us') }}</a>
       </div>
     </nav>
 
